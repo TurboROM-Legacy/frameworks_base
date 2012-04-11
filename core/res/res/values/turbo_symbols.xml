@@ -52,4 +52,8 @@
 
     <!-- Proximity check timeout on screen on -->
     <java-symbol type="integer" name="config_proximityCheckTimeout" />
+
+    <!-- Device key handler entries -->
+    <java-symbol type="string" name="config_deviceKeyHandlerLib" />
+    <java-symbol type="string" name="config_deviceKeyHandlerClass" />
 </resources>
