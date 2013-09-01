@@ -24,5 +24,8 @@
 
     <!-- Wi-Fi idle time default -->
     <java-symbol type="integer" name="def_wifi_idle_ms" />
-
+   
+    <!-- Package Manager -->
+    <java-symbol type="array" name="config_disabledComponents" />
+  
 </resources>
