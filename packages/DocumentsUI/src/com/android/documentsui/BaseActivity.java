@@ -347,6 +347,7 @@ abstract class BaseActivity extends Activity {
         public static final int ACTION_BROWSE = 6;
         public static final int ACTION_BROWSE_ALL = 7;
         public static final int ACTION_OPEN_COPY_DESTINATION = 8;
+        public static final int ACTION_STANDALONE = 9;
 
         public static final int MODE_UNKNOWN = 0;
         public static final int MODE_LIST = 1;
@@ -755,9 +756,11 @@ abstract class BaseActivity extends Activity {
          *     search currently.
          */
         boolean cancelSearch() {
-            if (mActionBar.hasExpandedActionView()) {
-                mActionBar.collapseActionView();
-                return true;
+            if(mActionBar != null) {
+                if (mActionBar.hasExpandedActionView()) {
+                    mActionBar.collapseActionView();
+                    return true;
+                }
             }
             return false;
         }
