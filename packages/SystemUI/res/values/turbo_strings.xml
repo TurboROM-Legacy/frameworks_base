@@ -15,6 +15,9 @@
      limitations under the License.
 -->
 <resources>
+    <!-- Message for killing apps -->
+    <string name="app_killed_message">App killed</string>
+
     <!-- The text for the button in the notification window-shade that clears
          all of the currently visible notifications. [CHAR LIMIT=10]-->
     <string name="clear_recents">Close all recent</string>
