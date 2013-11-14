@@ -2927,6 +2927,12 @@ public final class Settings {
         public static final Validator ACCELEROMETER_ROTATION_VALIDATOR = sBooleanValidator;
 
         /**
+         * Use EdgeGesture Service for system gestures in PhoneWindowManager
+         * @hide
+         */
+        public static final String USE_EDGE_SERVICE_FOR_GESTURES = "edge_service_for_gestures";
+
+        /**
          * Default screen rotation when no other policy applies.
          * When {@link #ACCELEROMETER_ROTATION} is zero and no on-screen Activity expresses a
          * preference, this rotation value will be used. Must be one of the
