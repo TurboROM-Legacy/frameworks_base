@@ -494,9 +494,8 @@ public class SignalStrength implements Parcelable {
         return mLteCqi;
     }
 
-    /** @hide */
     public boolean needsOldRilFeature(String feature) {
-        String[] features = SystemProperties.get("ro.telephony.ril.config", "").split(",");
+        String[] features = SystemProperties.get("ro.telephony.ril.v3", "").split(",");
         for (String found: features) {
             if (found.equals(feature))
                 return true;
@@ -521,12 +520,7 @@ public class SignalStrength implements Parcelable {
             if (level == SIGNAL_STRENGTH_NONE_OR_UNKNOWN || oldRil) {
                 level = getTdScdmaLevel();
                 if (level == SIGNAL_STRENGTH_NONE_OR_UNKNOWN) {
-                    if (Resources.getSystem().getBoolean(
-                            com.android.internal.R.bool.config_regional_umts_singnal_threshold)) {
-                        level = getCustomizedGsmDbmLevel();
-                    } else {
-                        level = getGsmLevel();
-                    }
+                    level = getGsmLevel();
                 }
             }
         } else {
@@ -557,11 +551,7 @@ public class SignalStrength implements Parcelable {
         if (isGsm) {
             boolean oldRil = needsOldRilFeature("signalstrength");
             if (getLteLevel() == SIGNAL_STRENGTH_NONE_OR_UNKNOWN || oldRil) {
-                if (getTdScdmaLevel() == SIGNAL_STRENGTH_NONE_OR_UNKNOWN) {
-                    asuLevel = getGsmAsuLevel();
-                } else {
-                    asuLevel = getTdScdmaAsuLevel();
-                }
+                asuLevel = getGsmAsuLevel();
             } else {
                 asuLevel = getLteAsuLevel();
             }
@@ -593,13 +583,8 @@ public class SignalStrength implements Parcelable {
 
         if(isGsm()) {
             boolean oldRil = needsOldRilFeature("signalstrength");
-            dBm = getLteDbm();
             if (dBm == INVALID || oldRil) {
-                if (getTdScdmaLevel() == SIGNAL_STRENGTH_NONE_OR_UNKNOWN) {
-                    dBm = getGsmDbm();
-                } else {
-                    dBm = getTdScdmaDbm();
-                }
+                dBm = getGsmDbm();
             }
         } else {
             int cdmaDbm = getCdmaDbm();
