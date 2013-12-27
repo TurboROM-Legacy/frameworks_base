@@ -4795,6 +4795,9 @@ public final class Settings {
         public static final String STATUS_BAR_DAYLIGHT_HEADER_PACK = "status_bar_daylight_header_pack";
 
         /* Network speed indicator
+         * 0 = disabled
+	 * 1 = show bits per second
+	 * 2 = show Bytes per second
          * @hide
          */
         public static final String STATUS_BAR_TRAFFIC = "status_bar_traffic";
