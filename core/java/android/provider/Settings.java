@@ -1559,6 +1559,7 @@ public final class Settings {
             MOVED_TO_GLOBAL.add(Settings.Global.SMS_SHORT_CODES_UPDATE_METADATA_URL);
             MOVED_TO_GLOBAL.add(Settings.Global.CERT_PIN_UPDATE_CONTENT_URL);
             MOVED_TO_GLOBAL.add(Settings.Global.CERT_PIN_UPDATE_METADATA_URL);
+            MOVED_TO_GLOBAL.add(Settings.Global.KEY_SMS_BREATH);
         }
 
         private static final Validator sBooleanValidator =
@@ -3943,6 +3944,24 @@ public final class Settings {
          * @hide
          */
         public static final String STATUS_BAR_CARRIER_COLOR = "status_bar_carrier_color";
+
+        /**
+         * @deprecated Use {@link android.provider.Settings.Global#KEY_SMS_BREATH} instead
+         */
+        @Deprecated
+        public static final String KEY_SMS_BREATH = Global.KEY_SMS_BREATH;
+
+        /**
+         * Give Missed call notifications a breathing effect
+         * @hide
+         */
+        public static final String KEY_MISSED_CALL_BREATH = "missed_call_breath";
+
+        /**
+         * Give Voicemail notifications a breathing effect
+         * @hide
+         */
+        public static final String KEY_VOICEMAIL_BREATH = "voicemail_breath";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
@@ -8556,6 +8575,12 @@ public final class Settings {
          * @hide
          */
         public static final String LTE_SERVICE_FORCED = "lte_service_forced";
+
+        /**
+         * Give SMS notifications a breathing effect
+         * @hide
+         */
+        public static final String KEY_SMS_BREATH = "sms_breath";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
