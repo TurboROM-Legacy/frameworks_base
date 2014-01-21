@@ -32,8 +32,9 @@ public final class PhoneStatusBarTransitions extends BarTransitions {
     private final PhoneStatusBarView mView;
     private final float mIconAlphaWhenOpaque;
 
-    private View mLeftSide, mStatusIcons, mSignalCluster, mBattery, mClock, mCenterClock, mTurboLogo, mWeatherTextView,
+    private View mLeftSide, mStatusIcons, mSignalCluster, mBattery, mClock, mCenterClock, mNetworkTraffic, mTurboLogo, mWeatherTextView,
 	mLeftWeatherTextView, mMinitBattery;
+
 
     private Animator mCurrentAnimation;
 
@@ -55,6 +56,7 @@ public final class PhoneStatusBarTransitions extends BarTransitions {
         mWeatherTextView = mView.findViewById(R.id.weather_temp);
         mLeftWeatherTextView = mView.findViewById(R.id.left_weather_temp);
         mMinitBattery = mView.findViewById(R.id.minitBattery);
+        mNetworkTraffic = mView.findViewById(R.id.networkTraffic);
         applyModeBackground(-1, getMode(), false /*animate*/);
         applyMode(getMode(), false /*animate*/);
     }
@@ -100,6 +102,7 @@ public final class PhoneStatusBarTransitions extends BarTransitions {
                     animateTransitionTo(mSignalCluster, newAlpha),
                     animateTransitionTo(mWeatherTextView, newAlpha),
                     animateTransitionTo(mLeftWeatherTextView, newAlpha),
+                    animateTransitionTo(mNetworkTraffic, newAlpha),
                     animateTransitionTo(mBattery, newAlphaBC),
                     animateTransitionTo(mClock, newAlphaBC),
                     animateTransitionTo(mCenterClock, newAlphaBC),
@@ -117,6 +120,7 @@ public final class PhoneStatusBarTransitions extends BarTransitions {
             mSignalCluster.setAlpha(newAlpha);
             mWeatherTextView.setAlpha(newAlpha);
             mLeftWeatherTextView.setAlpha(newAlpha);
+            mNetworkTraffic.setAlpha(newAlpha);
             mBattery.setAlpha(newAlphaBC);
             mClock.setAlpha(newAlphaBC);
             mCenterClock.setAlpha(newAlphaBC);
