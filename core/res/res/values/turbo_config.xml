@@ -38,5 +38,11 @@
 
     <!-- Is Advanced Reboot enabled? -->
     <bool name="config_advanced_reboot">true</bool>
+    
+    <!-- The duration (in milliseconds) of the Slim recents app screen animation. -->
+    <integer name="config_recentDefaultDur">300</integer>
+
+    <!-- The duration (in milliseconds) of the Slim recents app screen exit animation. -->
+    <integer name="config_recentExitDur">450</integer>
 
 </resources>

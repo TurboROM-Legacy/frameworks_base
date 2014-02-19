@@ -21,4 +21,18 @@
 
     <!-- Color for the RAM bar text in the recent view -->
     <color name="ram_bar_text">#FFFFFFFF</color>
+
+    <!-- Slim recents -->
+    <color name="recents_empty_dark_color">#ff4d4d4d</color>
+    <color name="recents_empty_light_color">#ffb3b3b3</color>
+    <color name="recent_background">#80000000</color>
+
+    <!-- Card Color -->
+    <color name="card_background">#ffffffff</color>
+    <color name="card_background_header">#00ffffff</color>
+    <color name="card_backgroundExpand">#00ffffff</color>
+    <color name="card_text_color_header">#ff000000</color>
+
+    <!-- Used by selector -->
+    <color name="card_pressed">#7e3c3c3c</color>
 </resources>
