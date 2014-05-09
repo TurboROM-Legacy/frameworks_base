@@ -4271,6 +4271,12 @@ public final class Settings {
         public static final String STATUSBAR_CLOCK_FONT_SIZE = "statusbar_clock_font_size";
 
         /**
+         * Display seconds in the Clock
+         * @hide
+         */
+        public static final String CLOCK_USE_SECOND = "clock_use_second";
+
+        /**
          * Config for advanced pa pie 2.0
          *
          * @hide
