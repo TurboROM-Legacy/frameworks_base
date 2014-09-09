@@ -56,5 +56,8 @@
 
     <!-- The font size for the temperature text -->
     <dimen name="status_bar_temp_text_size">14sp</dimen>
+    
+    <!-- The task item height in task list. -->
+    <dimen name="task_manager_item_height">40dip</dimen>
 
 </resources>
