@@ -215,4 +215,7 @@
     <java-symbol type="id" name="dexopt_message_detail" />
     <java-symbol type="id" name="dexopt_progress" />
 
+    <!-- PlatLogo -->
+    <java-symbol type="drawable" name="platlogo_turbo" />
+
 </resources>

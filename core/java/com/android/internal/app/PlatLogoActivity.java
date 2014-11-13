@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2010 The Android Open Source Project
+ * Copyright (C) 2014-2015 The CyanogenMod Project
+ * Copyright (C) 2016 Turbo ROM
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,10 +59,13 @@ public class PlatLogoActivity extends Activity {
     int mKeyCount;
     PathInterpolator mInterpolator = new PathInterpolator(0f, 0f, 0.5f, 1f);
 
+    private boolean mIsTurbo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mIsTurbo = getIntent().hasExtra("is_turbo");
         mLayout = new FrameLayout(this);
         setContentView(mLayout);
     }
@@ -153,6 +158,7 @@ public class PlatLogoActivity extends Activity {
                                             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                                                     | Intent.FLAG_ACTIVITY_CLEAR_TASK
                                                     | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
+                                            .putExtra("is_turbo", mIsTurbo)
                                             .addCategory("com.android.internal.category.PLATLOGO"));
                                 } catch (ActivityNotFoundException ex) {
                                     Log.e("PlatLogoActivity", "No more eggs.");
@@ -202,7 +208,9 @@ public class PlatLogoActivity extends Activity {
     }
 
     public void showMarshmallow(View im) {
-        final Drawable fg = getDrawable(com.android.internal.R.drawable.platlogo);
+        final Drawable fg = getDrawable(mIsTurbo
+                ? com.android.internal.R.drawable.platlogo_turbo
+                : com.android.internal.R.drawable.platlogo);
         fg.setBounds(0, 0, im.getWidth(), im.getHeight());
         fg.setAlpha(0);
         im.getOverlay().add(fg);
