@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2015 The Android Open Source Project
+ * Copyright (C) 2014-2015 The CyanogenMod Project
+ * Copyright (C) 2016 Turbo ROM
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +31,14 @@ public class MLandActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mland);
+        final boolean isTurbo = getIntent().getBooleanExtra("is_turbo", false);
+        if (isTurbo) {
+            setContentView(R.layout.turboland);
+            mLand = (TurboLand) findViewById(R.id.world);
+        } else {
+            setContentView(R.layout.mland);
+            mLand = (MLand) findViewById(R.id.world);
+        }
         mLand = (MLand) findViewById(R.id.world);
         mLand.setScoreFieldHolder((ViewGroup) findViewById(R.id.scores));
         final View welcome = findViewById(R.id.welcome);
