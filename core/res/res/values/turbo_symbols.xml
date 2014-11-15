@@ -165,7 +165,14 @@
     <java-symbol type="color" name="darkkat_blue_grey" />
     <java-symbol type="drawable" name="darkkat_bg_blue_grey" />
 
-  <!-- Doze mode -->
-  <java-symbol type="bool" name="config_doze_enabled_by_default" />
+    <!-- Doze mode -->
+    <java-symbol type="bool" name="config_doze_enabled_by_default" />
+
+    <!-- Privacy Guard -->
+    <java-symbol type="drawable" name="stat_notify_privacy_guard" />
+    <java-symbol type="string" name="privacy_guard_notification" />
+    <java-symbol type="string" name="privacy_guard_notification_detail" />
+    <java-symbol type="string" name="privacy_guard_dialog_title" />
+    <java-symbol type="string" name="privacy_guard_dialog_summary" />
 
  </resources>
