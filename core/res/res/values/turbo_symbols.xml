@@ -37,4 +37,12 @@
     <!-- Hardware key file paths -->
     <java-symbol type="string" name="config_deviceHardwareKeysFilePath" />
     <java-symbol type="string" name="config_deviceHardwareKeyLightsFilePath" />
+
+    <!-- Notification and battery light -->
+    <java-symbol type="array" name="config_notificationNoAlertsVibePattern" />
+    <java-symbol type="array" name="notification_light_package_mapping" />
+    <java-symbol type="bool" name="config_intrusiveBatteryLed" />
+    <java-symbol type="bool" name="config_intrusiveNotificationLed" />
+    <java-symbol type="bool" name="config_multiColorBatteryLed" />
+    <java-symbol type="bool" name="config_multiColorNotificationLed" />
 </resources>
