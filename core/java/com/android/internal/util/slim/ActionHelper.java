@@ -78,6 +78,32 @@ public class ActionHelper {
                     config);
     }
 
+    // Get and set the lock screen shortcut configs from provider and return propper arraylist objects
+    // @ActionConfig
+    public static ArrayList<ActionConfig> getLockScreenShortcutConfig(Context context) {
+        String config = Settings.System.getStringForUser(
+                    context.getContentResolver(),
+                    Settings.System.LOCK_SCREEN_SHORTCUTS,
+                    UserHandle.USER_CURRENT);
+        if (config == null) {
+            config = "";
+        }
+
+        return (ConfigSplitHelper.getActionConfigValues(context, config, null, null, true));
+    }
+
+    public static void setLockScreenShortcutConfig(Context context,
+            ArrayList<ActionConfig> actionConfig, boolean reset) {
+        String config;
+        if (reset) {
+            config = "";
+        } else {
+            config = ConfigSplitHelper.setActionConfig(actionConfig, true);
+        }
+        Settings.System.putString(context.getContentResolver(),
+                    Settings.System.LOCK_SCREEN_SHORTCUTS, config);
+    }
+
     // Get and set the Global menu configs from provider and return propper arraylist objects
     // @ActionConfig
     public static ArrayList<ActionConfig> getGlobalMenuConfigWithDescription(

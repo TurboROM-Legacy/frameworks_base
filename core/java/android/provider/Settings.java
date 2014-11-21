@@ -3964,6 +3964,20 @@ public final class Settings {
         public static final String KEY_VOICEMAIL_BREATH = "voicemail_breath";
 
         /**
+         * Defines the shortcuts to be shown on lock screen
+         * Usage is like this: target:icon|target:icon|target:icon
+         * if :icon is not set, default application icon will be used
+         * @hide
+         */
+        public static final String LOCK_SCREEN_SHORTCUTS = "lock_screen_shortcuts";
+
+        /**
+         * Whether shorcuts open with normal or longpress
+         * @hide
+         */
+        public static final String LOCK_SCREEN_SHORTCUTS_LONGPRESS = "lock_screen_shortcuts_longpress";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
