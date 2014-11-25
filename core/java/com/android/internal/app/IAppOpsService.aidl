@@ -51,4 +51,7 @@ interface IAppOpsService {
     // Privacy Guard methods
     boolean getPrivacyGuardSettingForPackage(int uid, String packageName);
     void setPrivacyGuardSettingForPackage(int uid, String packageName, boolean state);
+
+    // AppOps accounting
+    void resetCounters();
 }
