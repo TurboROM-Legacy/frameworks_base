@@ -48,6 +48,7 @@ import com.android.systemui.statusbar.NotificationData;
 import com.android.systemui.statusbar.SignalClusterView;
 import com.android.systemui.statusbar.StatusBarIconView;
 import com.android.systemui.statusbar.policy.Clock;
+import com.android.systemui.statusbar.policy.NetworkTraffic;
 import com.android.systemui.tuner.TunerService;
 import com.android.systemui.tuner.TunerService.Tunable;
 
@@ -86,6 +87,7 @@ public class StatusBarIconController implements Tunable {
     private Clock mClock;
     private Clock mCenterClock;
     private Clock mLeftClock;
+    private NetworkTraffic mNetworkTraffic;
     private LinearLayout mCenterClockLayout;
     private boolean mShowClock;
     private int mClockLocation;
@@ -140,6 +142,7 @@ public class StatusBarIconController implements Tunable {
         mCenterClockLayout = (LinearLayout)statusBar.findViewById(R.id.center_clock_layout);
         mCenterClock = (Clock) statusBar.findViewById(R.id.center_clock);
         mLeftClock = (Clock) statusBar.findViewById(R.id.left_clock);
+        mNetworkTraffic = (NetworkTraffic) statusBar.findViewById(R.id.networkTraffic);
         mLinearOutSlowIn = AnimationUtils.loadInterpolator(mContext,
                 android.R.interpolator.linear_out_slow_in);
         mFastOutSlowIn = AnimationUtils.loadInterpolator(mContext,
@@ -154,6 +157,7 @@ public class StatusBarIconController implements Tunable {
         mClock.setIconController(this);
         mCenterClock.setIconController(this);
         mLeftClock.setIconController(this);
+        mNetworkTraffic.setIconController(this);
 
         TunerService.get(mContext).addTunable(this, ICON_BLACKLIST);
     }
@@ -454,6 +458,7 @@ public class StatusBarIconController implements Tunable {
         applyCarrierLabelTint();
         applyClockColorTint();
         applyNotificationIconsTint();
+        applyNetworkTrafficTint();
     }
 
     public void applyCarrierLabelTint() {
@@ -491,6 +496,24 @@ public class StatusBarIconController implements Tunable {
             mClock.setTextColor(mIconTint);
             mCenterClock.setTextColor(mIconTint);
             mLeftClock.setTextColor(mIconTint);
+        }
+    }
+
+    public void applyNetworkTrafficTint() {
+        ContentResolver resolver = mContext.getContentResolver();
+        boolean overrideTrafficColor = Settings.System.getIntForUser(resolver,
+                Settings.System.NETWORK_TRAFFIC_COLOR_OVERRIDE, 0,
+                UserHandle.USER_CURRENT) == 1;
+        int defaultColor = mContext.getResources().getColor(R.color.status_bar_traffic_color);
+        int trafficColor = Settings.System.getIntForUser(resolver,
+                Settings.System.NETWORK_TRAFFIC_COLOR, defaultColor,
+                UserHandle.USER_CURRENT);
+        if (overrideTrafficColor) {
+            mNetworkTraffic.setColor(trafficColor);
+            mNetworkTraffic.setTextColor(trafficColor);
+        } else {
+            mNetworkTraffic.setColor2(mDarkIntensity);
+            mNetworkTraffic.setTextColor(mIconTint);
         }
     }
 

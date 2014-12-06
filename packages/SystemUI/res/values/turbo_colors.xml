@@ -40,4 +40,7 @@
 
     <!-- Status bar carrier label color -->
     <color name="status_bar_carrier_color">#FFFFFFFF</color>
+
+    <!-- Status bar network traffic color -->
+    <color name="status_bar_traffic_color">#FFFFFFFF</color>
 </resources>
