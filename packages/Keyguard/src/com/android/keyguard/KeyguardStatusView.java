@@ -67,6 +67,10 @@ public class KeyguardStatusView extends GridLayout implements
     private TextClock mDateView;
     private TextClock mClockView;
     private TextView mOwnerInfo;
+    //On the first boot, keygard will start to receiver TIME_TICK intent.
+    //And onScreenTurnedOff will not get called if power off when keyguard is not started.
+    //Set initial value to false to skip the above case.
+    private boolean mEnableRefresh = false;
 
     private SettingsObserver mSettingsObserver;
     private int mKeyguardClockFont;
@@ -90,7 +94,9 @@ public class KeyguardStatusView extends GridLayout implements
 
         @Override
         public void onTimeChanged() {
-            refresh();
+            if (mEnableRefresh) {
+                refresh();
+            }
         }
 
         @Override
@@ -105,11 +111,14 @@ public class KeyguardStatusView extends GridLayout implements
         @Override
         public void onStartedWakingUp() {
             setEnableMarquee(true);
+            mEnableRefresh = true;
+            refresh();
         }
 
         @Override
         public void onFinishedGoingToSleep(int why) {
             setEnableMarquee(false);
+            mEnableRefresh = false;
         }
 
         @Override
