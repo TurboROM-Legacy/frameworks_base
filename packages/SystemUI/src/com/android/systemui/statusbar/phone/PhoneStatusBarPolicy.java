@@ -49,6 +49,7 @@ import com.android.systemui.statusbar.policy.CastController;
 import com.android.systemui.statusbar.policy.CastController.CastDevice;
 import com.android.systemui.statusbar.policy.HotspotController;
 import com.android.systemui.statusbar.policy.UserInfoController;
+import com.android.systemui.statusbar.policy.SuController;
 
 /**
  * This class contains all of the policy about which icons are installed in the status
@@ -68,6 +69,7 @@ public class PhoneStatusBarPolicy implements Callback {
     private static final String SLOT_ALARM_CLOCK = "alarm_clock";
     private static final String SLOT_MANAGED_PROFILE = "managed_profile";
     private static final String SLOT_HEADSET = "headset";
+    private static final String SLOT_SU = "su";
 
     private final Context mContext;
     private final StatusBarManager mService;
@@ -76,6 +78,7 @@ public class PhoneStatusBarPolicy implements Callback {
     private final HotspotController mHotspot;
     private final AlarmManager mAlarmManager;
     private final UserInfoController mUserInfoController;
+    private final SuController mSuController;
 
     // Assume it's all good unless we hear otherwise.  We don't always seem
     // to get broadcasts that it *is* there.
@@ -126,7 +129,7 @@ public class PhoneStatusBarPolicy implements Callback {
     };
 
     public PhoneStatusBarPolicy(Context context, CastController cast, HotspotController hotspot,
-            UserInfoController userInfoController, BluetoothController bluetooth) {
+            UserInfoController userInfoController, BluetoothController bluetooth, SuController su) {
         mContext = context;
         mCast = cast;
         mHotspot = hotspot;
@@ -135,6 +138,7 @@ public class PhoneStatusBarPolicy implements Callback {
         mService = (StatusBarManager) context.getSystemService(Context.STATUS_BAR_SERVICE);
         mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         mUserInfoController = userInfoController;
+        mSuController = su;
 
         // listen for broadcasts
         IntentFilter filter = new IntentFilter();
@@ -193,6 +197,12 @@ public class PhoneStatusBarPolicy implements Callback {
             mService.setIconVisibility(SLOT_HOTSPOT, mHotspot.isHotspotEnabled());
             mHotspot.addCallback(mHotspotCallback);
         }
+
+        // su
+        mService.setIcon(SLOT_SU, R.drawable.stat_sys_su, 0, null);
+        mService.setIconVisibility(SLOT_SU, false);
+        mSuController.addCallback(mSuCallback);
+
         // managed profile
         mService.setIcon(SLOT_MANAGED_PROFILE, R.drawable.stat_sys_managed_profile_status, 0,
                 mContext.getString(R.string.accessibility_managed_profile));
@@ -497,6 +507,10 @@ public class PhoneStatusBarPolicy implements Callback {
         }
     };
 
+    private void updateSu() {
+        mService.setIconVisibility(SLOT_SU, mSuController.hasActiveSessions());
+    }
+
     private final CastController.Callback mCastCallback = new CastController.Callback() {
         @Override
         public void onCastDevicesChanged() {
@@ -518,4 +532,12 @@ public class PhoneStatusBarPolicy implements Callback {
         mCurrentUserSetup = userSetup;
         updateAlarm();
     }
+
+    private final SuController.Callback mSuCallback = new SuController.Callback() {
+        @Override
+        public void onSuSessionsChanged() {
+            updateSu();
+        }
+    };
+
 }
