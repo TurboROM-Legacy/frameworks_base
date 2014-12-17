@@ -25,4 +25,7 @@
     <!-- SystemUI Tuner parts -->
     <string name="systemui_tuner_statusbar_title">Status bar icons</string>
     <string name="systemui_tuner_qs_title">Quick Settings</string>
+
+    <!-- Content description of the Superuser tile -->
+    <string name="accessibility_su_active">Superuser session active</string>
 </resources>
