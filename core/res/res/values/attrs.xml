@@ -6839,6 +6839,11 @@ i
         <attr name="showSilent" format="boolean" />
     </declare-styleable>
 
+    <!-- Base attributes available to SlimSeekBarPreference. -->
+    <declare-styleable name="SlimSeekBarPreference">
+        <!-- No added attributes at this time -->
+    </declare-styleable>
+
     <!-- Base attributes available to VolumePreference. -->
     <declare-styleable name="VolumePreference">
         <!-- Different audio stream types. -->

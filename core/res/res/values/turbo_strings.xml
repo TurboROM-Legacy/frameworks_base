@@ -131,4 +131,7 @@
     <!-- Button to reboot the phone, within the Phone Options dialog -->
     <string name="reboot_system" product="tablet">Reboot tablet</string>
     <string name="reboot_system" product="default">Reboot phone</string>
+
+    <!-- SlimSeekBarPreference -->
+    <string name="default_string">Default</string>
 </resources>
