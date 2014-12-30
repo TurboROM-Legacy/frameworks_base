@@ -64,4 +64,7 @@
     <java-symbol type="string" name="privacy_guard_notification_detail" />
     <java-symbol type="string" name="privacy_guard_dialog_title" />
     <java-symbol type="string" name="privacy_guard_dialog_summary" />
+
+    <!-- Intent chooser -->
+    <java-symbol type="id" name="filtered_item_container" />
 </resources>
