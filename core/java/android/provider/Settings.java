@@ -3585,6 +3585,12 @@ public final class Settings {
         public static final String PROXIMITY_CHECK_ON_WAKE = "proximity_check_on_wake";
 
         /**
+         * Whether to show the su indicator in the status bar
+         * @hide
+         */
+        public static final String SHOW_SU_INDICATOR = "show_su_indicator";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *

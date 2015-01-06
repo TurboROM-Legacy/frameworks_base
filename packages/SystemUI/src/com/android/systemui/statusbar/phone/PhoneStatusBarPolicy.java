@@ -26,7 +26,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.UserInfo;
+import android.database.ContentObserver;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.IRemoteCallback;
 import android.os.RemoteException;
@@ -76,6 +78,7 @@ public class PhoneStatusBarPolicy implements Callback {
     private final AlarmManager mAlarmManager;
     private final UserInfoController mUserInfoController;
     private final SuController mSuController;
+    private boolean mSuIndicatorVisible;
 
     // Assume it's all good unless we hear otherwise.  We don't always seem
     // to get broadcasts that it *is* there.
@@ -190,12 +193,30 @@ public class PhoneStatusBarPolicy implements Callback {
         mService.setIcon(SLOT_SU, R.drawable.stat_sys_su, 0, null);
         mService.setIconVisibility(SLOT_SU, false);
         mSuController.addCallback(mSuCallback);
+        mIconObserver.onChange(true);
+        mContext.getContentResolver().registerContentObserver(
+                Settings.System.getUriFor(Settings.System.SHOW_SU_INDICATOR),
+                false, mIconObserver);
 
         // managed profile
         mService.setIcon(SLOT_MANAGED_PROFILE, R.drawable.stat_sys_managed_profile_status, 0,
                 mContext.getString(R.string.accessibility_managed_profile));
         mService.setIconVisibility(SLOT_MANAGED_PROFILE, false);
     }
+
+    private ContentObserver mIconObserver = new ContentObserver(null) {
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            mSuIndicatorVisible = Settings.System.getInt(mContext.getContentResolver(),
+                    Settings.System.SHOW_SU_INDICATOR, 1) == 1;
+            updateSu();
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            onChange(selfChange, null);
+        }
+    }; 
 
     public void setZenMode(int zen) {
         mZen = zen;
@@ -449,7 +470,7 @@ public class PhoneStatusBarPolicy implements Callback {
     };
 
     private void updateSu() {
-        mService.setIconVisibility(SLOT_SU, mSuController.hasActiveSessions());
+        mService.setIconVisibility(SLOT_SU, mSuController.hasActiveSessions() && mSuIndicatorVisible);
     }
 
     private final CastController.Callback mCastCallback = new CastController.Callback() {
