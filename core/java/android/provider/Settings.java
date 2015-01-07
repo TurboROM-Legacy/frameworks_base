@@ -6150,6 +6150,12 @@ public final class Settings {
         public static final String PRIVACY_GUARD_NOTIFICATION = "privacy_guard_notification";
 
         /**
+         * Whether detail view for the location tile is enabled
+         * @hide
+         */
+        public static final String QS_LOCATION_TILE_ADVANCED = "qs_location_tile_advanced";
+
+        /**
          * Whether to show the brightness slider in Quick Settings panel.
          * @hide
          */
