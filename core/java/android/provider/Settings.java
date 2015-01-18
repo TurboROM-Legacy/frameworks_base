@@ -6900,6 +6900,12 @@ public final class Settings {
         public static final String NAVBAR_BUTTONS_ALPHA = "navbar_buttons_alpha";
 
         /**
+         * Launch actions for left/right lock screen targets
+         * @hide
+         */
+        public static final String LOCK_SCREEN_TARGETS = "lock_screen_target_actions";
+
+        /**
          * These are the settings to be backed up.
          *
          * NOTE: Settings are backed up and restored in the order they appear

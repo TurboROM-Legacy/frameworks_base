@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-     Copyright (C) 2016 Turbo ROM
+    <!--
+     Copyright (C) 2014 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,16 +14,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
-    <!-- Floating action button -->
-    <dimen name="floating_action_button_height">56dp</dimen>
-    <dimen name="floating_action_button_width">56dp</dimen>
-    <dimen name="floating_action_button_translation_z">6dp</dimen>
-    <dimen name="floating_action_button_margin_side">78dp</dimen>
-    <dimen name="floating_action_button_margin_bottom">48dp</dimen>
-    <dimen name="floating_action_button_margin_top">24dp</dimen>
 
-    <!-- Lock screen shortcuts -->
-    <dimen name="phone_height">210dp</dimen>
-    <dimen name="phone_width">420dp</dimen>
-</resources>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#DDDDDD">
+</ripple>

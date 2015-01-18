@@ -434,5 +434,13 @@
                 <action android:name="com.android.systemui.action.CLEAR_TUNER" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".cm.LockScreenShortcutsActivity"
+            android:icon="@drawable/tuner"
+            android:label="@string/lock_screen_targets_message"
+            android:theme="@android:style/Theme.Material.Settings"
+            android:exported="true">
+        </activity>
     </application>
 </manifest>
