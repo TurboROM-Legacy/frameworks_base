@@ -51,6 +51,9 @@
     <string name="accessibility_quick_settings_ambient_display_changed_on">Ambient Display turned on</string>
     <string name="quick_settings_ambient_display_label">Ambient Display</string>
 
+    <!-- Screenshot QS tile -->
+    <string name="quick_settings_screenshot_label">Screenshot</string>
+
     <!-- USB tether QS tile -->
     <string name="accessibility_quick_settings_usb_tether_off">USB tethering off</string>
     <string name="accessibility_quick_settings_usb_tether_on">USB tethering on</string>
