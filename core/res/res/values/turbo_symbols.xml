@@ -22,7 +22,8 @@
    
     <!-- Package Manager -->
     <java-symbol type="array" name="config_disabledComponents" />
-
+    <java-symbol type="array" name="config_forceEnabledComponents" />
+   
     <!-- Hardware key rebinding -->
     <java-symbol type="integer" name="config_deviceHardwareKeys" />
 
