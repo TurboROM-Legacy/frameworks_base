@@ -52,6 +52,7 @@ import com.android.systemui.qs.tiles.RotationLockTile;
 import com.android.systemui.qs.tiles.ScreenshotTile;
 import com.android.systemui.qs.tiles.UsbTetherTile;
 import com.android.systemui.qs.tiles.ScreenOffTile;
+import com.android.systemui.qs.tiles.SoundTile;
 import com.android.systemui.qs.tiles.SyncTile;
 import com.android.systemui.qs.tiles.ScreenTimeoutTile;
 import com.android.systemui.qs.tiles.VolumeTile;
@@ -294,6 +295,7 @@ public class QSTileHost implements QSTile.Host, Tunable {
         else if (tileSpec.equals("ime")) return new ImeTile(this);
         else if (tileSpec.equals("volume")) return new VolumeTile(this);
         else if (tileSpec.equals("heads_up")) return new HeadsUpTile(this);
+        else if (tileSpec.equals("sound")) return new SoundTile(this);
         else if (tileSpec.startsWith(IntentTile.PREFIX)) return IntentTile.create(this,tileSpec);
         else throw new IllegalArgumentException("Bad tile spec: " + tileSpec);
     }
