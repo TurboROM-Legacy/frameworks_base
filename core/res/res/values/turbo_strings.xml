@@ -60,4 +60,7 @@
     <!-- ADB notification message-->
     <string name="adb_active_generic_notification_message">Touch to disable debugging</string>
 
+    <!-- Message for killing apps -->
+    <string name="app_killed_message">App killed</string>
+
 </resources>
