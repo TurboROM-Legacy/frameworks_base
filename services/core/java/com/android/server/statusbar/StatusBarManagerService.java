@@ -504,6 +504,15 @@ public class StatusBarManagerService extends IStatusBarService.Stub {
         }
     }
 
+    @Override
+    public void toggleOrientationListener(boolean enable) {
+        if (mBar != null) {
+            try {
+                mBar.toggleOrientationListener(enable);
+            } catch (RemoteException ex) {}
+        }
+    }
+    
     public void toggleLastApp() {
         if (mBar != null) {
             try {
