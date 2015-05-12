@@ -909,6 +909,9 @@
     <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveBatteryLed">false</bool>
 
+    <!-- Default value for led color when battery is really fully charged -->
+    <integer name="config_notificationsBatteryReallyFullARGB">0xFF0000FF</integer>
+
     <!-- Does the battery LED support multiple colors?
          Used to decide if the user can change the colors -->
     <bool name="config_multiColorBatteryLed">false</bool>
