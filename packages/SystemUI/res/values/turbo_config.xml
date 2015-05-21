@@ -26,8 +26,5 @@
 
     <!-- Default value how many apps show the app screenshot on the Slim recents view entry -->
     <integer name="expanded_items_default">2</integer>
-    
-    <!-- Whether to enable to show task manager or not -->
-    <bool name="config_showTaskManagerSwitcher">true</bool>
  
 </resources>
