@@ -4567,6 +4567,12 @@ public final class Settings {
         public static final String LOCKSCREEN_SECURITY_ALPHA = "lockscreen_security_alpha";
 
         /**
+         * Statusbar TurboROM logo
+         * @hide
+         */
+        public static final String STATUS_BAR_TURBO_LOGO = "status_bar_turbo_logo";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
