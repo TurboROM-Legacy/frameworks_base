@@ -401,6 +401,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     private int mWeatherTempFontStyle = FONT_NORMAL;
     private WeatherControllerImpl mWeatherController;
 
+    // TurboROM Logo
+    private boolean mTurboLogo;
+    private ImageView turboLogo;
+
     private int mNavigationBarWindowState = WINDOW_STATE_SHOWING;
 
     private int mStatusBarHeaderHeight;
@@ -514,6 +518,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
 		    Settings.System.LOCKSCREEN_SECURITY_ALPHA), false, this, 
 					UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_TURBO_LOGO), false, this, 
+					UserHandle.USER_ALL);
             update();
         }
 
@@ -564,6 +571,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             mBrightnessControl = Settings.System.getIntForUser(
 	    	    resolver, Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, 0,
 	    	    UserHandle.USER_CURRENT) == 1;
+
+            mTurboLogo = Settings.System.getIntForUser(resolver,
+                    Settings.System.STATUS_BAR_TURBO_LOGO, 0, mCurrentUserId) == 1;
+            showTurboLogo(mTurboLogo);
 
             float overlayalpha = Settings.System.getFloatForUser(mContext.getContentResolver(),
                 Settings.System.LOCKSCREEN_ALPHA, 0.45f, UserHandle.USER_CURRENT);
@@ -3605,6 +3616,15 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             }
         }
     };
+
+    public void showTurboLogo(boolean show) {
+        if (mStatusBarView == null) return;
+        ContentResolver resolver = mContext.getContentResolver();
+        turboLogo = (ImageView) mStatusBarView.findViewById(R.id.turbo_logo);
+        if (turboLogo != null) {
+            turboLogo.setVisibility(show ? (mTurboLogo ? View.VISIBLE : View.GONE) : View.GONE);
+        }
+    }
 
     private void resetUserExpandedStates() {
         ArrayList<Entry> activeNotifications = mNotificationData.getActiveNotifications();
