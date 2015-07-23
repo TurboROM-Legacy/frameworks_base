@@ -71,6 +71,7 @@ public class PhoneStatusBarPolicy implements Callback {
     private static final String SLOT_ALARM_CLOCK = "alarm_clock";
     private static final String SLOT_MANAGED_PROFILE = "managed_profile";
     private static final String SLOT_SU = "su";
+    private static final String SLOT_HEADSET = "headset";
 
     private final Context mContext;
     private final StatusBarManager mService;
@@ -119,6 +120,9 @@ public class PhoneStatusBarPolicy implements Callback {
             else if (action.equals(BluetoothHeadset.ACTION_VENDOR_SPECIFIC_HEADSET_EVENT)) {
                 updateBluetoothBattery(intent);
             }
+            else if (action.equals(Intent.ACTION_HEADSET_PLUG)) {
+                updateHeadset(intent);
+            }
         }
     };
 
@@ -152,6 +156,7 @@ public class PhoneStatusBarPolicy implements Callback {
         filter.addAction(BluetoothHeadset.ACTION_VENDOR_SPECIFIC_HEADSET_EVENT);
         filter.addCategory(BluetoothHeadset.VENDOR_SPECIFIC_HEADSET_EVENT_COMPANY_ID_CATEGORY
             + "." + Integer.toString(BluetoothAssignedNumbers.APPLE));
+        filter.addAction(Intent.ACTION_HEADSET_PLUG);
         mContext.registerReceiver(mIntentReceiver, filter, null, mHandler);
 
         // listen for user / profile change.
@@ -183,6 +188,10 @@ public class PhoneStatusBarPolicy implements Callback {
         mService.setIcon(SLOT_VOLUME, R.drawable.stat_sys_ringer_vibrate, 0, null);
         mService.setIconVisibility(SLOT_VOLUME, false);
         updateVolumeZen();
+
+        // headset
+        mService.setIcon(SLOT_HEADSET, R.drawable.stat_sys_headset, 0, null);
+        mService.setIconVisibility(SLOT_HEADSET, false);
 
         // cast
         mService.setIcon(SLOT_CAST, R.drawable.stat_sys_cast, 0, null);
@@ -226,6 +235,11 @@ public class PhoneStatusBarPolicy implements Callback {
             onChange(selfChange, null);
         }
     }; 
+
+    private final void updateHeadset(Intent intent) {
+        int state = intent.getIntExtra("state", 0);
+        mService.setIconVisibility(SLOT_HEADSET, state == 1 ? true : false);
+    }
 
     public void setZenMode(int zen) {
         mZen = zen;
