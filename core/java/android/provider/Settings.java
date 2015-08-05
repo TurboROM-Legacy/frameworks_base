@@ -3884,7 +3884,7 @@ public final class Settings {
          * @hide
          */
         public static final String DOUBLE_TAP_VIBRATE = "double_tap_vibrate";
-      
+
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
@@ -6436,6 +6436,12 @@ public final class Settings {
          * @hide
          */
         public static final String DEVICE_HOSTNAME = "device_hostname";
+
+        /**
+         * Whether the device should color invert notifications when doze if enabled.
+         * @hide
+         */
+        public static final String DOZE_NOTIFICATION_INVERT_ENABLED = "doze_notification_invert_enabled";
 
         /**
          * This are the settings to be backed up.
