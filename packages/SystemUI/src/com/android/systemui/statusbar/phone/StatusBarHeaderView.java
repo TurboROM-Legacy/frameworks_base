@@ -406,6 +406,14 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
         requestCaptureValues();
     }
 
+    void setTaskManagerEnabled(boolean enabled) {
+        mShowTaskManager = enabled;
+        updateVisibilities();
+        updateSystemIconsLayoutParams();
+        updateMultiUserSwitch();
+        requestCaptureValues();
+    }
+
     private void updateHeights() {
         int height = mExpanded ? mExpandedHeight : mCollapsedHeight;
         ViewGroup.LayoutParams lp = getLayoutParams();
@@ -422,9 +430,7 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
         mSettingsButton.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE);
         mWeatherContainer.setVisibility(mExpanded && mShowWeather ? View.VISIBLE : View.GONE);
         mQsDetailHeader.setVisibility(mExpanded && mShowingDetail ? View.VISIBLE : View.INVISIBLE);
-        if (mTaskManagerButton != null) {
-            mTaskManagerButton.setVisibility(mExpanded && mShowTaskManager ? View.VISIBLE : View.GONE);
-        }
+        mTaskManagerButton.setVisibility(mExpanded && mShowTaskManager ? View.VISIBLE : View.GONE);
         mQsDetailHeader.setVisibility(mExpanded && mShowingDetail ? View.VISIBLE : View.GONE);
         if (mSignalCluster != null) {
             updateSignalClusterDetachment();
@@ -475,19 +481,19 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
     }
 
     private void updateSystemIconsLayoutParams() {
-        RelativeLayout.LayoutParams lp = (LayoutParams) mSystemIconsSuperContainer.getLayoutParams();
+        RelativeLayout.LayoutParams lp = (LayoutParams) mSystemIconsSuperContainer
+                .getLayoutParams();
         int editButton = mSomcQuickSettings.getVisibility() != View.GONE
                 ? mSomcQuickSettings.getId() 
                 : mSettingsButton.getId();
-        int taskManager = mTaskManagerButton != null
+        int taskManager = mShowTaskManager && mExpanded
                 ? mTaskManagerButton.getId() 
-                : mSettingsButton.getId();
+                : rule;
         int rule = mExpanded
-                ? taskManager
-                ? editButton
+		        ? editButton
                 : mMultiUserSwitch.getId();
-        if (rule != lp.getRules()[RelativeLayout.START_OF]) {
-            lp.addRule(RelativeLayout.START_OF, rule);
+        if (taskManager != lp.getRules()[RelativeLayout.START_OF]) {
+            lp.addRule(RelativeLayout.START_OF, taskManager);
             mSystemIconsSuperContainer.setLayoutParams(lp);
         }
     }
@@ -831,11 +837,9 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
                 ? 0
                 : mMultiUserSwitch.getLeft() - mSettingsButton.getLeft();
         target.taskManagerAlpha = getAlphaForVisibility(mTaskManagerButton);
-        if (mTaskManagerButton != null) {
-            target.taskManagerTranslation = mExpanded
-                    ? 0
-                    : mSettingsButton.getLeft() - mTaskManagerButton.getLeft();
-        }
+	target.taskManagerTranslation = mExpanded
+                ? 0
+                : mSettingsButton.getLeft() - mTaskManagerButton.getLeft();
         target.signalClusterAlpha = mSignalClusterDetached ? 0f : 1f;
         target.settingsRotation = !mExpanded ? 90f : 0f;
         target.somcQuickSettingsAlpha = getAlphaForVisibility(mSomcQuickSettings);
@@ -897,11 +901,9 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
         mSettingsButton.setRotation(values.settingsRotation);
         mSomcQuickSettings.setTranslationY(mSystemIconsSuperContainer.getTranslationY());
         mSomcQuickSettings.setTranslationX(values.somcQuickSettingsTranslation);
-        if (mTaskManagerButton != null) {
-            mTaskManagerButton.setTranslationY(mSystemIconsSuperContainer.getTranslationY());
-            mTaskManagerButton.setTranslationX(values.settingsTranslation);
-            mTaskManagerButton.setRotation(values.settingsRotation);
-        }
+        mTaskManagerButton.setTranslationY(mSystemIconsSuperContainer.getTranslationY());
+        mTaskManagerButton.setTranslationX(values.settingsTranslation);
+        mTaskManagerButton.setRotation(values.settingsRotation);
         applyAlpha(mEmergencyCallsOnly, values.emergencyCallsOnlyAlpha);
         if (!mShowingDetail && !mDetailTransitioning) {
             // Otherwise it needs to stay invisible
@@ -1147,9 +1149,6 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BATTERY_TEXT_COLOR),
                     false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.ENABLE_TASK_MANAGER), 
-                    false, this, UserHandle.USER_ALL);
             update();
         }
 
@@ -1206,8 +1205,6 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
             int currentUserId = ActivityManager.getCurrentUser();
             mShowWeather = Settings.System.getIntForUser(
                     resolver, Settings.System.STATUS_BAR_SHOW_WEATHER, 0, currentUserId) == 1;
-            mShowTaskManager = Settings.System.getIntForUser(resolver,
-                    Settings.System.ENABLE_TASK_MANAGER, 0, currentUserId) == 1;
             updateVisibilities();
             requestCaptureValues();
             updateSBHIconColor();
