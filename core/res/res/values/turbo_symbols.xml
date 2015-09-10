@@ -19,4 +19,7 @@
     <!-- Wi-Fi AP Disabled from Subscription change -->
     <java-symbol type="string" name="subscription_change_disabled_wifi_ap" />
 
+    <!-- Wi-Fi turn off notification -->
+    <java-symbol type="string" name="notify_turn_wifi_off_title" />
+
 </resources>
