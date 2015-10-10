@@ -32,4 +32,7 @@
     <string-array name="config_disabledComponents" translatable="false">
     </string-array>
 
+    <!-- Is Advanced Reboot enabled? -->
+    <bool name="config_advanced_reboot">true</bool>
+
 </resources>
