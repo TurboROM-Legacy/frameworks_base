@@ -591,6 +591,13 @@ final class DefaultPermissionGrantPolicy {
                 }
             }
 
+            // Chromium permissions
+            PackageParser.Package chromiumPackage = getDefaultProviderAuthorityPackageLPr(
+                    "org.chromium.chrome", userId);
+            if (chromiumPackage != null) {
+                grantRuntimePermissionsLPw(chromiumPackage, CONTACTS_PERMISSIONS, userId);
+            }
+
             // Google Account
             PackageParser.Package googleaccountPackage = getDefaultProviderAuthorityPackageLPr(
                     "com.google.android.gsf.login", userId);
@@ -641,22 +648,22 @@ final class DefaultPermissionGrantPolicy {
                     "com.google.android.syncadapters.contacts", userId);
             if (googlecontactssyncPackage != null) {
                 grantRuntimePermissionsLPw(googlecontactssyncPackage, CONTACTS_PERMISSIONS, userId);
-            }			
+            }
 
 			// Google Backup Transport
             PackageParser.Package googlebackuptransportPackage = getDefaultProviderAuthorityPackageLPr(
                     "com.google.android.backuptransport", userId);
             if (googlebackuptransportPackage != null) {
                 grantRuntimePermissionsLPw(googlebackuptransportPackage, CONTACTS_PERMISSIONS, userId);
-            }			
-			
+            }
+
 			// Google Play Framework
             PackageParser.Package gsfcorePackage = getDefaultProviderAuthorityPackageLPr(
                     "com.google.android.gsf", userId);
             if (gsfcorePackage != null) {
                 grantRuntimePermissionsLPw(gsfcorePackage, CONTACTS_PERMISSIONS, userId);
                 grantRuntimePermissionsLPw(gsfcorePackage, PHONE_PERMISSIONS, userId);
-            }		
+            }
 
 			// Google Setup Wizard
             PackageParser.Package setupwizardPackage = getDefaultProviderAuthorityPackageLPr(
@@ -664,7 +671,7 @@ final class DefaultPermissionGrantPolicy {
             if (setupwizardPackage != null) {
                 grantRuntimePermissionsLPw(setupwizardPackage, CONTACTS_PERMISSIONS, userId);
                 grantRuntimePermissionsLPw(setupwizardPackage, PHONE_PERMISSIONS, userId);
-            }	
+            }
 
 			// Google Play Store
             PackageParser.Package vendingPackage = getDefaultProviderAuthorityPackageLPr(
@@ -674,8 +681,9 @@ final class DefaultPermissionGrantPolicy {
                 grantRuntimePermissionsLPw(vendingPackage, PHONE_PERMISSIONS, userId);
                 grantRuntimePermissionsLPw(vendingPackage, LOCATION_PERMISSIONS, userId);
                 grantRuntimePermissionsLPw(vendingPackage, SMS_PERMISSIONS, userId);
-            }	
-				
+            }
+
+
             mService.mSettings.onDefaultRuntimePermissionsGrantedLPr(userId);
         }
     }
@@ -693,7 +701,6 @@ final class DefaultPermissionGrantPolicy {
         }
     }
 
-
     private void grantDefaultPermissionsToDefaultSystemSmsAppLPr(
             PackageParser.Package smsPackage, int userId) {
         if (doesPackageSupportRuntimePermissions(smsPackage)) {
@@ -704,7 +711,6 @@ final class DefaultPermissionGrantPolicy {
             grantRuntimePermissionsLPw(smsPackage, STORAGE_PERMISSIONS, true, userId);
         }
     }
-
 
     public void grantDefaultPermissionsToDefaultSmsAppLPr(String packageName, int userId) {
         Log.i(TAG, "Granting permissions to default sms app for user:" + userId);
