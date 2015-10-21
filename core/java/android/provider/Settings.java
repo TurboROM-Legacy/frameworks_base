@@ -3978,6 +3978,12 @@ public final class Settings {
         public static final String LOCK_SCREEN_SHORTCUTS_LONGPRESS = "lock_screen_shortcuts_longpress";
 
         /**
+         * Boolean value for whether to show weather in the expanded status bar
+         * @hide
+         */
+        public static final String STATUS_BAR_EXPANDED_SHOW_WEATHER = "status_bar_expanded_show_weather";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
