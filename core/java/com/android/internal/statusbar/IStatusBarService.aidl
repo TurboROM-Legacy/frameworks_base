@@ -95,6 +95,6 @@ interface IStatusBarService
     void appTransitionStarting(long statusBarAnimationsStartTime, long statusBarAnimationsDuration);
 
     void startAssist(in Bundle args);
-
     void showCustomIntentAfterKeyguard(inout Intent intent);
+    void setAutoRotate(boolean enabled);
 }
