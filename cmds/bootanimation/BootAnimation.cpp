@@ -90,7 +90,7 @@ static void* playMusic(void* arg);
 
 class MPlayerListener : public MediaPlayerListener
 {
-    void notify(int msg, int ext1, int ext2, const Parcel *obj)
+    void notify(int msg, int /*ext1*/, int /*ext2*/, const Parcel * /*obj*/)
     {
         ALOGV("message received msg=%d, ext1=%d, ext2=%d, obj=%x",
                 msg, ext1, ext2, obj);
@@ -874,5 +874,4 @@ void* playMusic(void* arg)
 }
 // ---------------------------------------------------------------------------
 
-}
-; // namespace android
+}; // namespace android
