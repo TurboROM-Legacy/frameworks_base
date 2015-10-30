@@ -86,6 +86,7 @@ public class StatusBarIconController implements Tunable {
     private LinearLayout mCenterClockLayout;
     private boolean mShowClock;
     private int mClockLocation;
+    private TextView mCarrierLabel;
 
     private int mIconSize;
     private int mIconHPadding;
@@ -135,6 +136,7 @@ public class StatusBarIconController implements Tunable {
         mCenterClockLayout = (LinearLayout)statusBar.findViewById(R.id.center_clock_layout);
         mCenterClock = (Clock) statusBar.findViewById(R.id.center_clock);
         mLeftClock = (Clock) statusBar.findViewById(R.id.left_clock);
+        mCarrierLabel = (TextView) statusBar.findViewById(R.id.status_bar_carrier_text);
         mLinearOutSlowIn = AnimationUtils.loadInterpolator(mContext,
                 android.R.interpolator.linear_out_slow_in);
         mFastOutSlowIn = AnimationUtils.loadInterpolator(mContext,
@@ -444,8 +446,8 @@ public class StatusBarIconController implements Tunable {
         mMoreIcon.setImageTintList(ColorStateList.valueOf(mIconTint));
         mBatteryLevelTextView.setTextColor(mIconTint);
         mBatteryMeterView.setDarkIntensity(mDarkIntensity);
-
         applyClockColorTint();
+        mCarrierLabel.setTextColor(mIconTint);
         applyNotificationIconsTint();
     }
 

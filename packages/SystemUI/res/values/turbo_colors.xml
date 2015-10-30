@@ -70,4 +70,7 @@
 
     <!-- Used by selector -->
     <color name="card_pressed">#7e3c3c3c</color>
+
+    <!-- Status bar carrier label color -->
+    <color name="status_bar_carrier_color">#FFFFFFFF</color>
 </resources>
