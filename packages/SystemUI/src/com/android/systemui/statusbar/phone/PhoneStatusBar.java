@@ -626,6 +626,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_STATUS_ICONS_COLOR),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_NOTIFICATION_ICONS_COLOR),
+                    false, this, UserHandle.USER_ALL);
             update();
         }
 
@@ -658,6 +661,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 || uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_STATUS_ICONS_COLOR))) {
                 updateStatusNetworkIconColors(true);
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_NOTIFICATION_ICONS_COLOR))) {
+                updateNotificationIconColor();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_CARRIER_LABEL_SHOW))
                 || uri.equals(Settings.System.getUriFor(
@@ -2607,6 +2613,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     private void updateStatusNetworkIconColors(boolean animate) {
         if (mIconController != null) {
             mIconController.updateStatusNetworkIconColors(animate);
+        }
+    }
+
+    private void updateNotificationIconColor() {
+        if (mIconController != null) {
+            mIconController.updateNotificationIconColor();
         }
     }
 

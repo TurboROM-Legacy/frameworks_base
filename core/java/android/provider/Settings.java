@@ -4783,6 +4783,18 @@ public final class Settings {
         public static final String STATUS_BAR_STATUS_ICONS_COLOR_DARK_MODE = "status_bar_status_icons_status_color_color_dark_mode";
 
         /**
+         * Color of the notification icons on the status bar
+         * @hide
+         */
+        public static final String STATUS_BAR_NOTIFICATION_ICONS_COLOR = "status_bar_notification_icons_color";
+
+        /**
+         * Color of the notification icons on the status bar, (dark mode)
+         * @hide
+         */
+        public static final String STATUS_BAR_NOTIFICATION_ICONS_COLOR_DARK_MODE = "status_bar_notification_icons_color_dark_mode";
+
+        /**
          * Colors used for the color picker panel puttons
          * 0: DarkKat colors
          * 1: Material colors
