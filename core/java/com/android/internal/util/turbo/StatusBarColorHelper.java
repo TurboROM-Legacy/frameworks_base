@@ -71,4 +71,17 @@ public class StatusBarColorHelper {
                 Settings.System.STATUS_BAR_STATUS_ICONS_COLOR_DARK_MODE,
                 BLACK);
     }
+
+    public static int getNotificationIconColor(Context context) {
+        return Settings.System.getInt(context.getContentResolver(),
+                Settings.System.STATUS_BAR_NOTIFICATION_ICONS_COLOR, 
+		WHITE);
+    }
+
+    public static int getNotificationIconColorDark(Context context) {
+        return Settings.System.getInt(context.getContentResolver(),
+                Settings.System.STATUS_BAR_NOTIFICATION_ICONS_COLOR_DARK_MODE,
+                BLACK);
+    }
+
 }

@@ -113,6 +113,8 @@ public class StatusBarIconController implements Tunable {
     private int mStatusIconColor;
     private int mStatusIconColorOld;
     private int mStatusIconColorTint;
+    private int mNotificationIconColor;
+    private int mNotificationIconColorTint;
 
     private float mDarkIntensity;
 
@@ -194,6 +196,8 @@ public class StatusBarIconController implements Tunable {
         mStatusIconColor = StatusBarColorHelper.getStatusIconColor(mContext);
         mStatusIconColorOld = mStatusIconColor;
         mStatusIconColorTint = mStatusIconColor;
+        mNotificationIconColor = StatusBarColorHelper.getNotificationIconColor(mContext);
+        mNotificationIconColorTint = mNotificationIconColor;
 
         mColorTransitionAnimator = createColorTransitionAnimator(0, 1);
     }
@@ -474,6 +478,8 @@ public class StatusBarIconController implements Tunable {
                 mAirplaneModeColor, StatusBarColorHelper.getAirplaneModeColorDark(mContext));
         mStatusIconColorTint = (int) ArgbEvaluator.getInstance().evaluate(mDarkIntensity,
                 mStatusIconColor, StatusBarColorHelper.getStatusIconColorDark(mContext));
+        mNotificationIconColorTint = (int) ArgbEvaluator.getInstance().evaluate(mDarkIntensity,
+                mNotificationIconColor, StatusBarColorHelper.getNotificationIconColorDark(mContext));
 
         applyIconTint();
     }
@@ -495,7 +501,7 @@ public class StatusBarIconController implements Tunable {
             StatusBarIconView v = (StatusBarIconView) mStatusIcons.getChildAt(i);
             v.setColorFilter(mStatusIconColorTint, Mode.MULTIPLY);
         }
-        mMoreIcon.setColorFilter(mIconTint, Mode.MULTIPLY);
+        mMoreIcon.setColorFilter(mNotificationIconColorTint, Mode.MULTIPLY);
         applyNotificationIconsTint();
     }
 
@@ -505,7 +511,7 @@ public class StatusBarIconController implements Tunable {
             boolean isPreL = Boolean.TRUE.equals(v.getTag(R.id.icon_is_pre_L));
             boolean colorize = !isPreL || isGrayscale(v);
             if (colorize) {
-                v.setImageTintList(ColorStateList.valueOf(mIconTint));
+                v.setImageTintList(ColorStateList.valueOf(mNotificationIconColorTint));
             }
         }
     }
@@ -646,6 +652,20 @@ public class StatusBarIconController implements Tunable {
                 v.setColorFilter(mStatusIconColor, Mode.MULTIPLY);
             }
         }
+    }
+
+    public void updateNotificationIconColor() {
+        mNotificationIconColor = StatusBarColorHelper.getNotificationIconColor(mContext);
+        mNotificationIconColorTint = mNotificationIconColor;
+        for (int i = 0; i < mNotificationIcons.getChildCount(); i++) {
+            StatusBarIconView v = (StatusBarIconView) mNotificationIcons.getChildAt(i);
+            boolean isPreL = Boolean.TRUE.equals(v.getTag(R.id.icon_is_pre_L));
+            boolean colorize = !isPreL || isGrayscale(v);
+            if (colorize) {
+                v.setImageTintList(ColorStateList.valueOf(mNotificationIconColor));
+            }
+        }
+        mMoreIcon.setColorFilter(mNotificationIconColor, Mode.MULTIPLY);
     }
 
 }
