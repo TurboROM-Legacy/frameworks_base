@@ -3668,6 +3668,12 @@ public final class Settings {
         public static final String DISABLE_IMMERSIVE_MESSAGE = "disable_immersive_message";
 
         /**
+         * Swap volume buttons when the screen is rotated
+         * @hide
+         */
+        public static final String SWAP_VOLUME_BUTTONS = "swap_volume_buttons";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
