@@ -3640,6 +3640,16 @@ public final class Settings {
          */
         public static final String SYSTEMUI_RECENTS_MEM_DISPLAY = "systemui_recents_mem_display";
 
+        /** 
+         * Whether to allow Quick Settings to automatically expand.
+         * 0: Off
+         * 1: One finger pull-down on the right side automatically expands
+         * 2: One finger pull-down on the left side automatically expands
+         * 3: Always automatically expand regardless of how many fingers are used or what side is pulled down
+         * @hide
+         */
+        public static final String STATUS_BAR_QUICK_QS_PULLDOWN = "status_bar_quick_qs_pulldown";
+
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
