@@ -127,9 +127,11 @@ import com.android.internal.statusbar.StatusBarIcon;
 import com.android.internal.util.cm.WeatherController;
 import com.android.internal.util.cm.WeatherControllerImpl;
 import com.android.internal.util.cm.WeatherController.WeatherInfo;
+import com.android.internal.util.slim.DeviceUtils;
+import com.android.internal.utils.du.ActionHandler;
 import com.android.internal.utils.du.DUActionUtils;
 import com.android.internal.utils.du.DUPackageMonitor;
-import com.android.internal.util.slim.DeviceUtils;
+import com.android.internal.utils.du.DUSystemReceiver;
 import com.android.keyguard.CarrierText;
 import com.android.keyguard.KeyguardHostView.OnDismissAction;
 import com.android.keyguard.KeyguardUpdateMonitor;
@@ -518,6 +520,18 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 mAssistManager.onConfigurationChanged();
             }
             mNotificationPanel.setQsScrimEnabled(!isVertical);
+        }
+    };
+
+    private DUSystemReceiver mDUReceiver = new DUSystemReceiver() {
+        @Override
+        protected void onSecureReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (TextUtils.equals(ActionHandler.INTENT_TOGGLE_FLASHLIGHT, action)) {
+                if (mFlashlightController.isAvailable()) {
+                    mFlashlightController.setFlashlight(!mFlashlightController.isEnabled());
+                }
+            }
         }
     };
 
@@ -1680,6 +1694,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         demoFilter.addAction(ACTION_DEMO);
         context.registerReceiverAsUser(mDemoReceiver, UserHandle.ALL, demoFilter,
                 android.Manifest.permission.DUMP, null);
+
+        // flashlight action target for toggle
+        IntentFilter flashlightFilter = new IntentFilter();
+        flashlightFilter.addAction(ActionHandler.INTENT_TOGGLE_FLASHLIGHT);
+        context.registerReceiver(mDUReceiver, flashlightFilter);
 
         // listen for USER_SETUP_COMPLETE setting (per-user)
         resetUserSetupObserver();
@@ -4432,6 +4451,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
         mContext.unregisterReceiver(mBroadcastReceiver);
         mContext.unregisterReceiver(mDemoReceiver);
+        mContext.unregisterReceiver(mDUReceiver);
         mPackageMonitor.removeListener(mMinitBatteryController);
         mPackageMonitor.removeListener(mNavigationController);
         mPackageMonitor.unregister();
