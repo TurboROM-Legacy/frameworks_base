@@ -3441,6 +3441,12 @@ public final class Settings {
         public static final String STATUS_BAR_SHOW_WEATHER = "status_bar_show_weather";
 
         /**
+         * Whether the notification light will be allowed when in zen mode during downtime
+         * @hide
+         */
+        public static final String ALLOW_LIGHTS = "allow_lights";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -3494,7 +3500,8 @@ public final class Settings {
             NOTIFICATION_SOUND,
             WIFI_AUTO_CONNECT_TYPE,
             STATUS_BAR_SHOW_BATTERY_PERCENT,
-            STATUS_BAR_BATTERY_STYLE
+            STATUS_BAR_BATTERY_STYLE,
+            ALLOW_LIGHTS,
         };
 
         /**
