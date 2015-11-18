@@ -3990,6 +3990,32 @@ public final class Settings {
         public static final String STATUS_BAR_EXPANDED_SHOW_WEATHER = "status_bar_expanded_show_weather";
 
         /**
+         * Whether to show the battery bar
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_BAR = "status_bar_battery_bar";
+
+        /**
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_BAR_COLOR = "status_bar_battery_bar_color";
+
+        /**
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_BAR_THICKNESS = "status_bar_battery_bar_thickness";
+
+        /**
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_BAR_STYLE = "status_bar_battery_bar_style";
+
+        /**
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_BAR_ANIMATE = "status_bar_battery_bar_animate";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
