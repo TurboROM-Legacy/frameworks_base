@@ -93,4 +93,15 @@
     <java-symbol type="integer" name="config_recentExitDur" />
     <java-symbol type="style" name="Animation.RecentScreen" />
     <java-symbol type="style" name="Animation.RecentScreen.Left" />
+
+    <!-- Turbo dexopt logo -->
+    <java-symbol type="drawable" name="turbo_logo" />
+
+    <!-- Boot dexopt layout -->
+    <java-symbol type="drawable" name="dexopt_brand_logo" />
+    <java-symbol type="layout" name="boot_dexopt_layout" />
+    <java-symbol type="id" name="dexopt_icon" />
+    <java-symbol type="id" name="dexopt_message" />
+    <java-symbol type="id" name="dexopt_message_detail" />
+    <java-symbol type="id" name="dexopt_progress" />
 </resources>

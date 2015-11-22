@@ -15,10 +15,9 @@
      limitations under the License.
 -->
 <resources>
-    <!-- Slim's drag sort list view -->
-    <color name="dslv_icon_color">#ff009688</color>
-
     <!-- Boot dexopt layout -->
-    <color name="dexopt_background">#000</color>
-    <color name="dexopt_text">#fff</color>
+    <dimen name="dexopt_icon_margin">4dp</dimen>
+    <dimen name="dexopt_icon_size">40dp</dimen>
+    <dimen name="dexopt_logo_size">200dp</dimen>
+    <dimen name="dexopt_margin">10dp</dimen>
 </resources>
