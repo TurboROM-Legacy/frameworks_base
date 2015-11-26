@@ -512,7 +512,7 @@ public class RecentsView extends FrameLayout implements TaskStackView.TaskStackV
         return true;
     }
 
-    private void updateMemoryStatus() {
+    public void updateMemoryStatus() {
         if (mMemText.getVisibility() == View.GONE
                 || mMemBar.getVisibility() == View.GONE) return;
 
@@ -842,6 +842,8 @@ public class RecentsView extends FrameLayout implements TaskStackView.TaskStackV
         }
 
         mCb.onAllTaskViewsDismissed();
+
+        updateMemoryStatus();
 
         // Keep track of all-deletions
         MetricsLogger.count(getContext(), "overview_task_all_dismissed", 1);
