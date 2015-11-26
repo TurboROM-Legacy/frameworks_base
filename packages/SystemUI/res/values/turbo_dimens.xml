@@ -77,4 +77,7 @@
     <dimen name="pie_tab_title_height">24dp</dimen>
     <dimen name="pie_panel_padding">20dp</dimen>
 
+    <!-- The font size for the temperature text -->
+    <dimen name="status_bar_temp_text_size">14sp</dimen>
+
 </resources>
