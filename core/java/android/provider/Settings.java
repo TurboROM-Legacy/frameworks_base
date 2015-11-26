@@ -4428,6 +4428,15 @@ public final class Settings {
         public static final String PA_PIE_CHEVRON = "pa_pie_chevron";
 
         /**
+         * Status bar weather temperature
+         * 0: Hide the temperature
+         * 1: Display the temperature with scale
+         * 2: Display the temperature without scale
+         * @hide
+         */
+        public static final String STATUS_BAR_SHOW_WEATHER_TEMP = "status_bar_show_weather_temp";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
