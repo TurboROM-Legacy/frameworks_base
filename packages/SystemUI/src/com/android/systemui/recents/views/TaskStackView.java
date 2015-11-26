@@ -43,6 +43,7 @@ import com.android.systemui.recents.model.RecentsPackageMonitor;
 import com.android.systemui.recents.model.RecentsTaskLoader;
 import com.android.systemui.recents.model.Task;
 import com.android.systemui.recents.model.TaskStack;
+import com.android.systemui.recents.views.RecentsView;
 import com.android.systemui.statusbar.DismissView;
 
 import java.util.ArrayList;
@@ -71,6 +72,8 @@ public class TaskStackView extends FrameLayout implements TaskStack.TaskStackCal
         public void onTaskResize(Task t);
     }
     RecentsConfiguration mConfig;
+
+    RecentsView mView;
 
     TaskStack mStack;
     TaskStackViewLayoutAlgorithm mLayoutAlgorithm;
@@ -348,6 +351,9 @@ public class TaskStackView extends FrameLayout implements TaskStack.TaskStackCal
                     @Override
                     public void onClick(View v) {
                         mStack.removeAllTasks();
+                        if (mView != null) {
+                            mView.updateMemoryStatus();
+                        }
                     }
                 });
                 addView(mDismissAllButton, 0);
