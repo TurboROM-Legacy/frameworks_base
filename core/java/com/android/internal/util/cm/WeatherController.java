@@ -16,9 +16,12 @@
 
 package com.android.internal.util.cm;
 
+import android.graphics.drawable.Drawable;
+
 public interface WeatherController {
     void addCallback(Callback callback);
     void removeCallback(Callback callback);
+    void updateWeather();
     WeatherInfo getWeatherInfo();
 
     public interface Callback {
@@ -26,7 +29,11 @@ public interface WeatherController {
     }
     public static class WeatherInfo {
         public String city = null;
-        public String condition = null;
+        public String wind = null;
+        public int conditionCode = 0;
+        public Drawable conditionDrawable = null;
         public String temp = null;
+        public String humidity = null;
+        public String condition = null;
     }
 }
