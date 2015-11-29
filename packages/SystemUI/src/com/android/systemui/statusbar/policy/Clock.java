@@ -248,6 +248,18 @@ public class Clock extends TextView implements DemoMode {
 
     final void updateClock() {
         if (mDemoMode) return;
+
+        ContentResolver resolver = mContext.getContentResolver();
+        int defaultColor = mContext.getResources().getColor(R.color.status_bar_clock_color);
+        int clockColor = Settings.System.getIntForUser(resolver,
+                Settings.System.STATUSBAR_CLOCK_COLOR, defaultColor,
+                UserHandle.USER_CURRENT);
+        if (clockColor == Integer.MIN_VALUE) {
+            // flag to reset the color
+            clockColor = defaultColor;
+        }
+        setTextColor(clockColor);
+
         mCalendar.setTimeInMillis(System.currentTimeMillis());
         setText(getSmallTime());
     }
@@ -413,15 +425,6 @@ public class Clock extends TextView implements DemoMode {
                 Settings.System.STATUSBAR_CLOCK_FONT_SIZE, 14,
                 UserHandle.USER_CURRENT);
 
-        int defaultColor = getResources().getColor(R.color.status_bar_clock_color);
-        int clockColor = Settings.System.getIntForUser(resolver,
-                Settings.System.STATUSBAR_CLOCK_COLOR, defaultColor,
-                UserHandle.USER_CURRENT);
-        if (clockColor == Integer.MIN_VALUE) {
-            // flag to reset the color
-            clockColor = defaultColor;
-        }
-
         second = new TimerTask()
         {
             @Override
@@ -442,7 +445,6 @@ public class Clock extends TextView implements DemoMode {
 
         if (mAttached) {
 	    getFontStyle(mClockFontStyle);
-            setTextColor(clockColor);
             setTextSize(mClockFontSize);
             updateClockVisibility();
             updateClock();
