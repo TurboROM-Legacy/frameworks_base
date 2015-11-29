@@ -64,6 +64,11 @@
     <!-- Brightness QS tile -->
     <string name="quick_settings_brightness">Brightness</string>
 
+    <!-- Music QS tile -->
+    <string name="quick_settings_music_label">Music</string>
+    <string name="quick_settings_music_play">Play</string>
+    <string name="quick_settings_music_pause">Pause</string>
+
     <!-- NFC QS tile -->
     <string name="quick_settings_nfc_label">NFC</string>
 
