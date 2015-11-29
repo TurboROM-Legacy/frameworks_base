@@ -3401,6 +3401,12 @@ public final class Settings {
         public static final String SHOW_CLEAR_ALL_RECENTS = "show_clear_all_recents";
 
         /**
+         * Whether to display recents in full screen
+         * @hide
+         */
+        public static final String RECENTS_FULL_SCREEN = "recents_full_screen";
+
+        /**
          * Show search bar in recents
          * @hide
          */
