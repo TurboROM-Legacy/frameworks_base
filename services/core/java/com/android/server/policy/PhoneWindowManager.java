@@ -6931,7 +6931,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                             PackageManager.FEATURE_TELEVISION)) {
                         theme = com.android.internal.R.style.Theme_Leanback_Dialog_Alert;
                     } else {
-                        theme = 0;
+                        theme = 5;
                     }
 
                     mBootMsgDialog = new AlertDialog(mContext, theme) {
