@@ -121,4 +121,7 @@
     <java-symbol type="string" name="config_wifiHotSpotSsid" />
     <java-symbol type="string" name="config_wifiDirectName" />
     <java-symbol type="string" name="config_wifiHotSpotPass" />
+
+    <!-- Screenrecord -->
+    <java-symbol type="bool" name="config_enableScreenrecordChord" />
 </resources>

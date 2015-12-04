@@ -83,4 +83,7 @@
     <string name="config_wifiDirectName" translatable="false"></string>
     <!-- Default Wi-Fi hotspot pass -->
     <string name="config_wifiHotSpotPass" translatable="false"></string>
+
+    <!-- If this is true, key chords can be used to take a screenrecord on the device. -->
+    <bool name="config_enableScreenrecordChord">true</bool>
 </resources>
