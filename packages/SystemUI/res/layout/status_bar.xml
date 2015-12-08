@@ -94,6 +94,18 @@
                     android:visibility="gone"
                     />
 
+                <TextView
+                   android:id="@+id/left_weather_temp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="match_parent"
+                   android:singleLine="true"
+                   android:gravity="right|center_vertical"
+                   android:textAppearance="@style/TextAppearance.StatusBar.WeatherTemp"
+                   android:visibility="gone"
+                   android:paddingStart="4dp"
+                   android:paddingEnd="4dp" 
+		   />
+
                 <com.android.keyguard.CarrierText
                     android:id="@+id/status_carrier_text"
                     android:layout_width="wrap_content"
@@ -106,30 +118,19 @@
                     android:singleLine="true"
                     android:visibility="gone"/>
 
+                <com.android.systemui.statusbar.phone.IconMerger android:id="@+id/notificationIcons"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    />
                 <com.android.systemui.statusbar.StatusBarIconView android:id="@+id/moreIcon"
                     android:layout_width="@dimen/status_bar_icon_size"
                     android:layout_height="match_parent"
                     android:src="@drawable/stat_notify_more"
                     android:visibility="gone"
                     />
-
-                <TextView
-                   android:id="@+id/left_weather_temp"
-                   android:layout_width="wrap_content"
-                   android:layout_height="match_parent"
-                   android:singleLine="true"
-                   android:gravity="right|center_vertical"
-                   android:textAppearance="@style/TextAppearance.StatusBar.WeatherTemp"
-                   android:visibility="gone"
-                   android:paddingStart="4dp"
-                   android:paddingEnd="4dp" 
-		   />
-                <com.android.systemui.statusbar.phone.IconMerger android:id="@+id/notificationIcons"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"/>
             </com.android.keyguard.AlphaOptimizedLinearLayout>
 
         </com.android.systemui.statusbar.AlphaOptimizedFrameLayout>
