@@ -61,6 +61,10 @@
     <!-- Brightness QS Tile -->
     <string name="quick_settings_brightness">Brightness</string>
 
+    <!-- Expanded Desktop QS Tile -->
+    <string name="quick_settings_expanded_desktop">Expanded</string>
+    <string name="quick_settings_expanded_desktop_off">Normal</string>
+
     <!-- Music QS Tile -->
     <string name="quick_settings_music_label">Music</string>
     <string name="quick_settings_music_play">Play</string>
