@@ -1,22 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-    Copyright (c) 2015 SlimRoms
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-        http://www.apache.org/licenses/LICENSE-2.0
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
+<!-- drawable/close_circle_outline.xml -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:viewportWidth="15.994"
-    android:viewportHeight="16"
-    android:width="16dp"
-    android:height="16dp">
-    <path
-        android:fillColor="#fff"
-        android:pathData="M0.864 15.1C0.353 14.7 0.275 14.5 0.076 14.3 2.186 12.2 4.286 10.1 6.466 7.98 4.326 5.83 2.206 3.77 0.096 1.65l1.59 -1.58 6.28 6.34 6.23 -6.32 1.7 1.59 -6.37 6.29 6.27 6.33 -1.5 1.6 -6.37 -6.35C5.766 11.9 3.656 14 1.546 16l-1.47 -1.66z" />
+    android:height="24dp"
+    android:width="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path android:fillColor="#fff" android:pathData="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" />
 </vector>
