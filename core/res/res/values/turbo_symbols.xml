@@ -115,4 +115,10 @@
     <java-symbol type="attr" name="min" />
     <java-symbol type="attr" name="unitsLeft" />
     <java-symbol type="attr" name="unitsRight" />
+
+    <!-- Wi-Fi Service -->
+    <java-symbol type="bool" name="config_wifiHotspotSecurityNone" />
+    <java-symbol type="string" name="config_wifiHotSpotSsid" />
+    <java-symbol type="string" name="config_wifiDirectName" />
+    <java-symbol type="string" name="config_wifiHotSpotPass" />
 </resources>

@@ -73,4 +73,14 @@
 
     <!-- The duration (in milliseconds) of recent app screen exit animation. -->
     <integer name="config_recentExitDur">450</integer>
+
+    <!-- Wi-Fi Service -->
+    <!-- Whether to make default hotspot security NONE-->
+    <bool name="config_wifiHotspotSecurityNone">false</bool>
+    <!-- Default Wi-Fi hotspot SSID -->
+    <string name="config_wifiHotSpotSsid" translatable="false"></string>
+    <!-- Default Wi-Fi direct name -->
+    <string name="config_wifiDirectName" translatable="false"></string>
+    <!-- Default Wi-Fi hotspot pass -->
+    <string name="config_wifiHotSpotPass" translatable="false"></string>
 </resources>
