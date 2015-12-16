@@ -6858,6 +6858,13 @@ public final class Settings {
         public static final String AIRPLANE_MODE_TOGGLEABLE_RADIOS = "airplane_mode_toggleable_radios";
 
         /**
+         * A Long representing a bitmap of profiles that should be disabled when bluetooth starts.
+         * See {@link android.bluetooth.BluetoothProfile}.
+         * {@hide}
+         */
+        public static final String BLUETOOTH_DISABLED_PROFILES = "bluetooth_disabled_profiles";
+
+        /**
          * A semi-colon separated list of Bluetooth interoperability workarounds.
          * Each entry is a partial Bluetooth device address string and an integer representing
          * the feature to be disabled, separated by a comma. The integer must correspond
