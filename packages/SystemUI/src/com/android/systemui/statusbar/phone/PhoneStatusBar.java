@@ -4093,7 +4093,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     }
 
     public boolean onMenuPressed() {
-        return mState == StatusBarState.KEYGUARD && mStatusBarKeyguardViewManager.onMenuPressed();
+        return mState == StatusBarState.KEYGUARD && mStatusBarKeyguardViewManager.isSecure();
     }
 
     public void endAffordanceLaunch() {
