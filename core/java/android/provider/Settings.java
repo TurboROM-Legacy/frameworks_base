@@ -3878,6 +3878,12 @@ public final class Settings {
          * @hide
          */
         public static final String LOCK_CLOCK_FONTS = "lock_clock_fonts";
+
+        /**
+         * Enable vibration when double tapping the power button for camera
+         * @hide
+         */
+        public static final String DOUBLE_TAP_VIBRATE = "double_tap_vibrate";
       
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
