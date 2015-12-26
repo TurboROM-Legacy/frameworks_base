@@ -116,5 +116,9 @@
 
     <!-- Config IME switcher -->
     <java-symbol type="bool" name="config_show_IMESwitcher" />
+
+    <!-- Power menu Animations  -->
+    <java-symbol type="style" name="PowerMenuBottomAnimation" />
+    <java-symbol type="style" name="PowerMenuTopAnimation" />
        
 </resources>
