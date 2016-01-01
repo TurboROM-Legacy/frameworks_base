@@ -54,6 +54,15 @@
     <string name="quick_settings_location_gps_only_label">Device only</string>
     <string name="quick_settings_location_high_accuracy_label">High accuracy</string>
 
+    <!-- ADB over network tile -->
+    <string name="quick_settings_adb_network">ADB network</string>
+    <string name="quick_settings_network_adb_enabled_label">Enabled</string>
+    <string name="quick_settings_network_adb_disabled_label">Disabled</string>
+    <string name="accessibility_quick_settings_network_adb_off">ADB over network off.</string>
+    <string name="accessibility_quick_settings_network_adb_on">ADB over network on.</string>
+    <string name="accessibility_quick_settings_network_adb_changed_off">ADB over network turned off.</string>
+    <string name="accessibility_quick_settings_network_adb_changed_on">ADB over network turned on.</string>
+
     <!-- Ambient Display QS tile -->
     <string name="accessibility_quick_settings_ambient_display_off">Ambient Display off</string>
     <string name="accessibility_quick_settings_ambient_display_on">Ambient Display on</string>
