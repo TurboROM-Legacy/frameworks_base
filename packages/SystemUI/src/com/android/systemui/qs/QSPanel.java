@@ -108,9 +108,6 @@ public class QSPanel extends ViewGroup {
         updateDetailText();
 	mBrightnessView = LayoutInflater.from(mContext).inflate(
                 R.layout.quick_settings_brightness_dialog, this, false);
-        // enable the brightness icon
-        ImageView brightnessIcon = (ImageView) mBrightnessView.findViewById(R.id.brightness_icon);
-        brightnessIcon.setVisibility(View.VISIBLE);
         mDetail.setVisibility(GONE);
         mDetail.setClickable(true);
         mFooter = new QSFooter(this, context);
@@ -122,7 +119,7 @@ public class QSPanel extends ViewGroup {
         updateResources();
 
         mBrightnessController = new BrightnessController(getContext(),
-                brightnessIcon,
+                (ImageView) findViewById(R.id.brightness_icon),
                 (ToggleSlider) findViewById(R.id.brightness_slider));
 
         mDetailDoneButton.setOnClickListener(new OnClickListener() {
@@ -140,12 +137,15 @@ public class QSPanel extends ViewGroup {
      */
     private boolean showBrightnessSlider() {
         ToggleSlider brightnessSlider = (ToggleSlider) findViewById(R.id.brightness_slider);
+        ImageView brightnessIcon = (ImageView) findViewById(R.id.brightness_icon);
         if (mBrightnessSliderEnabled) {
             mBrightnessView.setVisibility(VISIBLE);
             brightnessSlider.setVisibility(VISIBLE);
+            brightnessIcon.setVisibility(View.VISIBLE);
         } else {
             mBrightnessView.setVisibility(GONE);
             brightnessSlider.setVisibility(GONE);
+            brightnessIcon.setVisibility(View.GONE);
         }
         updateResources();
         return mBrightnessSliderEnabled;
