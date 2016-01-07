@@ -231,6 +231,10 @@ public class NavigationBarView extends BaseNavigationBar {
         mHomeLandIcon = mHomeIcon;
     }
 
+    public void updateResources() {
+        getIcons(getContext().getResources());
+    }
+
     @Override
     public void updateNavbarThemedResources(Resources res) {
         getIcons(getResources());

@@ -294,7 +294,6 @@ public class StatusBarWindowView extends FrameLayout {
         mNotificationPanel = (NotificationPanelView) content.findViewById(R.id.notification_panel);
         mDragDownHelper = new DragDownHelper(getContext(), this, mStackScrollLayout, mService);
         mBrightnessMirror = content.findViewById(R.id.brightness_mirror);
-
     }
 
     public void removeContent(View content) {

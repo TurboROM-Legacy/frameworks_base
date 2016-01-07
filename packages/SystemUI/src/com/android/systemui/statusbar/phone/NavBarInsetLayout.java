@@ -26,6 +26,7 @@ import android.graphics.Rect;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.UserHandle;
+import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.WindowManager;
@@ -33,7 +34,6 @@ import android.view.WindowManagerGlobal;
 import android.widget.FrameLayout;
 import com.android.systemui.R;
 import com.android.systemui.statusbar.BaseStatusBar;
-import android.provider.Settings;
 
 import com.android.internal.utils.du.UserContentObserver;
 
@@ -216,4 +216,3 @@ public class NavBarInsetLayout extends FrameLayout {
         }
     }
 }
-
