@@ -16,13 +16,7 @@
 -->
 <resources>
 
-    <!-- Wi-Fi AP Disabled from Subscription change -->
-    <java-symbol type="string" name="subscription_change_disabled_wifi_ap" />
-
-    <!-- Wi-Fi turn off notification -->
-    <java-symbol type="string" name="notify_turn_wifi_off_title" />
-
-    <!-- Wi-Fi idle time default -->
-    <java-symbol type="integer" name="def_wifi_idle_ms" />
+    <!-- Default for Settings.Global.WIFI_IDLE_MS (15 minutes) -->
+    <integer name="def_wifi_idle_ms">900000</integer>
 
 </resources>
