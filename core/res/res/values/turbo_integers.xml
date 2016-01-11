@@ -15,16 +15,6 @@
      limitations under the License.
 -->
 <resources>
-    <!-- Package Manager -->
-    <java-symbol type="array" name="config_disabledComponents" />
-    <java-symbol type="array" name="config_forceEnabledComponents" />
-
-    <!-- Wi-Fi AP disabled from subscription change -->
-    <java-symbol type="string" name="subscription_change_disabled_wifi_ap" />
-
-    <!-- Turn Wi-Fi off notification -->
-    <java-symbol type="string" name="notify_turn_wifi_off_title" />
-
-    <!-- Wi-Fi idle time default -->
-    <java-symbol type="integer" name="def_wifi_idle_ms" />
+    <!-- Default for Settings.Global.WIFI_IDLE_MS (15 minutes) -->
+    <integer name="def_wifi_idle_ms">900000</integer>
 </resources>
