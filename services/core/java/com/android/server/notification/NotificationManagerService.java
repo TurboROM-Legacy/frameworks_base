@@ -1316,8 +1316,8 @@ public class NotificationManagerService extends SystemService {
         @Override
         public void setPackagePeekable(String pkg, int uid, boolean peekable) {
             checkCallerIsSystem();
-
             mRankingHelper.setPackagePeekable(pkg, uid, peekable);
+            savePolicyFile();
         }
 
         @Override
