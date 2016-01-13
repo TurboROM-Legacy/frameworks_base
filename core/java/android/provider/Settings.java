@@ -3801,6 +3801,12 @@ public final class Settings {
         public static final String HEADS_UP_NOTIFICATION_SNOOZE = "heads_up_notification_snooze";
 
         /**
+         * Global menu configuration
+         * @hide
+         */
+        public static final String GLOBAL_MENU_CONFIG = "global_menu_config";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *

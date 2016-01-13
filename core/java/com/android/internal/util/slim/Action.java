@@ -180,7 +180,7 @@ public class Action {
                 } catch (CameraAccessException e) {
                 }
                 return;
-            } else if (action.equals(ActionConstants.ACTION_POWER_MENU)) {
+            } else if (action.equals(ActionConstants.ACTION_GLOBAL_MENU)) {
                 try {
                     windowManagerService.toggleGlobalMenu();
                 } catch (RemoteException e) {
