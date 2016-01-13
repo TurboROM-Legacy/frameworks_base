@@ -78,6 +78,33 @@ public class ActionHelper {
                     config);
     }
 
+    // get and set the PowerMenu configs from provider and return propper arraylist objects
+    // @ActionConfig
+    public static ArrayList<ActionConfig> getPowerMenuConfigWithDescription(
+            Context context, String values, String entries) {
+        String config = Settings.System.getStringForUser(
+                    context.getContentResolver(),
+                    Settings.System.POWER_MENU_CONFIG,
+                    UserHandle.USER_CURRENT);
+        if (config == null) {
+            config = ActionConstants.POWER_MENU_CONFIG_DEFAULT;
+        }
+        return ConfigSplitHelper.getActionConfigValues(context, config, values, entries, true);
+    }
+
+    public static void setPowerMenuConfig(Context context,
+            ArrayList<ActionConfig> actionConfig, boolean reset) {
+        String config;
+        if (reset) {
+            config = ActionConstants.POWER_MENU_CONFIG_DEFAULT;
+        } else {
+            config = ConfigSplitHelper.setActionConfig(actionConfig, true);
+        }
+        Settings.System.putString(context.getContentResolver(),
+                    Settings.System.POWER_MENU_CONFIG,
+                    config);
+    }
+
     // get and set the lockcreen shortcut configs from provider and return propper arraylist objects
     // @ActionConfig
     public static ArrayList<ActionConfig> getLockscreenShortcutConfig(Context context) {
@@ -270,10 +297,30 @@ public class ActionHelper {
         } else if (clickAction.equals(ActionConstants.ACTION_TORCH)) {
             resId = systemUiResources.getIdentifier(
                         SYSTEMUI_METADATA_NAME + ":drawable/ic_sysbar_torch", null, null);
+        } else if (clickAction.equals(ActionConstants.ACTION_POWER_OFF)) {
+            resId = com.android.internal.R.drawable.ic_lock_power_off_alpha;
+        } else if (clickAction.equals(ActionConstants.ACTION_REBOOT)) {
+            resId = com.android.internal.R.drawable.ic_lock_reboot_alpha;
+        } else if (clickAction.equals(ActionConstants.ACTION_AIRPLANE)) {
+            resId = com.android.internal.R.drawable.ic_lock_airplane_mode_off_am_alpha;
+        } else if (clickAction.equals(ActionConstants.ACTION_LOCKDOWN)) {
+            resId = com.android.internal.R.drawable.ic_lock_lock_alpha;
         } else {
             resId = systemUiResources.getIdentifier(
                         SYSTEMUI_METADATA_NAME + ":drawable/ic_sysbar_null", null, null);
         }
         return resId;
+    }
+
+
+    public static Drawable getPowerMenuIconImage(Context context,
+            String clickAction, String customIcon) {
+        Drawable d = getActionIconImage(context, clickAction, customIcon);
+        if (d != null) {
+            d.mutate();
+            d = ImageHelper.getColoredDrawable(d, 
+                    context.getResources().getColor(com.android.internal.R.color.dslv_icon_dark));
+        }
+        return d;
     }
 }
