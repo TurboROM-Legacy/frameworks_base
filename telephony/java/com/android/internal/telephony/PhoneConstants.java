@@ -35,7 +35,7 @@ public class PhoneConstants {
         IDLE, RINGING, OFFHOOK;
     };
 
-   /**
+    /**
      * The state of a data connection.
      * <ul>
      * <li>CONNECTED = IP traffic should be available</li>
@@ -86,6 +86,7 @@ public class PhoneConstants {
     public static final String NETWORK_UNAVAILABLE_KEY = "networkUnvailable";
     public static final String DATA_NETWORK_ROAMING_KEY = "networkRoaming";
     public static final String PHONE_IN_ECM_STATE = "phoneinECMState";
+    public static final String PHONE_IN_EMERGENCY_CALL = "phoneInEmergencyCall";
 
     public static final String REASON_LINK_PROPERTIES_CHANGED = "linkPropertiesChanged";
 
