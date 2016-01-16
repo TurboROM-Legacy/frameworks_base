@@ -3633,10 +3633,14 @@ public final class Settings {
         public static final String SHOW_CLEAR_ALL_RECENTS = "show_clear_all_recents";
 
         /**
-         * Whether to display recents in full screen
-         * @hide
+         * Immersive recents options
+         *
+         * 0 = Default AOSP look
+         * 1 = Statusbar only
+         * 2 = Navbar only
+         * 3 = Fullscreen
          */
-        public static final String RECENTS_FULL_SCREEN = "recents_full_screen";
+        public static final String IMMERSIVE_RECENTS = "immersive_recents";
 
         /**
          * Show search bar in recents
