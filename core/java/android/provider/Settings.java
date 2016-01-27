@@ -6510,6 +6510,12 @@ public final class Settings {
         public static final String ADVANCED_REBOOT = "advanced_reboot";
 
         /**
+         * Whether to use the custom quick unlock screen control
+         * @hide
+         */
+        public static final String KEYGUARD_QUICK_UNLOCK_CONTROL = "keyguard_quick_unlock_control";
+
+        /**
          * These are the settings to be backed up.
          *
          * NOTE: Settings are backed up and restored in the order they appear
@@ -6566,7 +6572,7 @@ public final class Settings {
             SLEEP_TIMEOUT,
             DOUBLE_TAP_TO_WAKE,
             CAMERA_GESTURE_DISABLED,
-            PRIVACY_GUARD_DEFAULT,
+            KEYGUARD_QUICK_UNLOCK_CONTROL,
         };
 
         /**

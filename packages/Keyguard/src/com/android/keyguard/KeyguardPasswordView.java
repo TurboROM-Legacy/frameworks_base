@@ -18,6 +18,8 @@ package com.android.keyguard;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.provider.Settings;
+import android.os.UserHandle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -35,6 +37,7 @@ import android.view.inputmethod.InputMethodSubtype;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+import com.android.internal.widget.LockPatternUtils.RequestThrottledException;
 import com.android.internal.widget.TextViewInputDisabler;
 
 import java.util.List;
@@ -55,6 +58,8 @@ public class KeyguardPasswordView extends KeyguardAbsKeyInputView
 
     private Interpolator mLinearOutSlowInInterpolator;
     private Interpolator mFastOutLinearInInterpolator;
+
+    private boolean mQuickUnlock;
 
     public KeyguardPasswordView(Context context) {
         this(context, null);
@@ -160,6 +165,9 @@ public class KeyguardPasswordView extends KeyguardAbsKeyInputView
 
         // Set selected property on so the view can send accessibility events.
         mPasswordEntry.setSelected(true);
+
+        mQuickUnlock = Settings.Secure.getIntForUser(mContext.getContentResolver(),
+                Settings.Secure.KEYGUARD_QUICK_UNLOCK_CONTROL, 0, UserHandle.USER_CURRENT) == 1;
 
         mPasswordEntry.requestFocus();
 
@@ -311,6 +319,19 @@ public class KeyguardPasswordView extends KeyguardAbsKeyInputView
         // is from the user.
         if (!TextUtils.isEmpty(s)) {
             onUserInput();
+        }
+        if (mQuickUnlock) {
+            try {
+                int mPasswordLength = getPasswordText().length();
+                if (mPasswordLength == 4) { // Limit Quickunlock to 4 digit PW
+                    if(mLockPatternUtils.checkPassword(getPasswordText(), UserHandle.myUserId())) {
+                        mCallback.reportUnlockAttempt(true, 0);
+                        mCallback.dismiss(true);
+                    }
+                }
+             } catch (RequestThrottledException e) {
+                System.err.println("Password - RequestThrottledException: " + e.getMessage());
+             }
         }
     }
 
