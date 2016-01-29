@@ -21,13 +21,6 @@
     <string name="systemui_tuner_statusbar_title">Statusbar Items</string>
     <string name="systemui_tuner_qs_title">Quick Settings</string>
 
-    <!-- Package name providing default WebView implementation. -->
-    <string name="config_webViewPackageName" translatable="false">com.google.android.webview</string>
-
-    <!-- Package name providing alternate WebView implementation.
-         Fall back to config_webViewPackageName if not available. -->
-    <string name="config_alternateWebViewPackageName" translatable="false">com.android.webview</string>
-
     <!-- Weather string format in expanded statusbar header -->
     <string name="status_bar_expanded_header_weather_format"><xliff:g id="temp">%1$s</xliff:g> - <xliff:g id="condition">%2$s</xliff:g></string>
  
