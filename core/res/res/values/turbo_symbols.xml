@@ -25,5 +25,8 @@
 
   <!-- Hardware key rebinding -->
   <java-symbol type="integer" name="config_deviceHardwareKeys" />
+
+    <!-- First-boot logo -->
+    <java-symbol type="drawable" name="turbo" />
   
  </resources>
