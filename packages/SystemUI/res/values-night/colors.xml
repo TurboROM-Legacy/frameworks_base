@@ -12,7 +12,8 @@
 -->
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Notification Header and Quick settings panel -->
+    
+    <!-- Notification Header and Quick Settings panel -->
     <color name="system_primary_color">#000000</color>
     <color name="system_secondary_color">#212121</color>
     <color name="system_accent_color">#ff80CBC4</color>
@@ -32,20 +33,19 @@
     <color name="notification_material_background_dimmed_color">#000000</color>
     <!-- The color of the material notification background when low priority -->
     <color name="notification_material_background_low_priority_color">#000000</color>
-    <!-- The color of the material notification background for media notifications when no custom
-         color is specified -->
+    <!-- The color of the material notification background for media notifications when no custom color is specified -->
     <color name="notification_material_background_media_default_color">#000000</color>
     
     <!-- Quick Settings - Advance tile background overlap -->
     <color name="qs_detail_transition">#00000000</color>
  	
- 	<!-- Quick Settings panel - Accent -->
+    <!-- Quick Settings panel - Accent -->
     <color name="system_accent_color">#B1F809</color>
- 	<color name="system_primary_color">#000000</color>
+    <color name="system_primary_color">#000000</color>
     <color name="system_secondary_color">#000000</color>
  	
- 	<!-- Quick Settings tiles -->
- 	<color name="qs_tile_text">#B1F809</color>
- 	<color name="qs_tile_divider">#B1F809</color>
+    <!-- Quick Settings tiles -->
+    <color name="qs_tile_text">#B1F809</color>
+    <color name="qs_tile_divider">#B1F809</color>
 
 </resources>
