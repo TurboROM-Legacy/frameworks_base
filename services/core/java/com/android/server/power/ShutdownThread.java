@@ -331,11 +331,7 @@ public final class ShutdownThread extends Thread {
         }
 
         // Throw up a system dialog to indicate the device is rebooting / shutting down.
-<<<<<<< HEAD
-        ProgressDialog pd = new ProgressDialog(context);
-=======
         ProgressDialog pd = new ProgressDialog(context, com.android.internal.R.style.Theme_Material_DayNight_Dialog_Alert);
->>>>>>> b860b9a... Frameworks/Systemui DayNight update
 
         // Path 1: Reboot to recovery and install the update
         //   Condition: mRebootReason == REBOOT_RECOVERY and mRebootUpdate == True
