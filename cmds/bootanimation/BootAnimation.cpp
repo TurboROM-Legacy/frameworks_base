@@ -92,8 +92,6 @@ class MPlayerListener : public MediaPlayerListener
 {
     void notify(int msg, int /*ext1*/, int /*ext2*/, const Parcel * /*obj*/)
     {
-        ALOGV("message received msg=%d, ext1=%d, ext2=%d, obj=%x",
-                msg, ext1, ext2, obj);
         switch (msg) {
         case MEDIA_NOP: // interface test message
             break;
