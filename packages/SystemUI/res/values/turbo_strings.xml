@@ -18,7 +18,7 @@
     <string name="clear_recents">Close all recent</string>
 
     <!-- SystemUI Tuner Parts -->
-    <string name="systemui_tuner_statusbar_title">Statusbar items</string>
+    <string name="systemui_tuner_statusbar_title">Status bar items</string>
     <string name="systemui_tuner_qs_title">Quick Settings</string>
 
     <!-- Weather string format in expanded statusbar header -->
