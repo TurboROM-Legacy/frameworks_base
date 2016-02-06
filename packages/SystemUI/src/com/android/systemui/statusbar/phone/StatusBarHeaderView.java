@@ -151,7 +151,6 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
     private SettingsObserver mSettingsObserver;
     private boolean mShowWeather;
     private boolean mShowBatteryTextExpanded;
-    private boolean mShowWeather;
 
     public StatusBarHeaderView(Context context, AttributeSet attrs) {
         super(context, attrs);
