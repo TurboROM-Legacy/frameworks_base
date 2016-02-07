@@ -3912,6 +3912,12 @@ public final class Settings {
         public static final String STATUS_BAR_CUSTOM_HEADER_DEFAULT = "status_bar_custom_header_default";
 
         /**
+         * Hide lockscreen alarm
+         * @hide
+         */
+        public static final String HIDE_LOCKSCREEN_ALARM = "hide_lockscreen_alarm";
+
+        /**
          * Hide lockscreen date
          * @hide
          */
