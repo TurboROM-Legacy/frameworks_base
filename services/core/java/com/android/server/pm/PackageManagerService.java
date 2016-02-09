@@ -2064,7 +2064,7 @@ public class PackageManagerService extends IPackageManager.Stub {
             }
 
             final VersionInfo ver = mSettings.getInternalVersion();
-            mIsUpgrade = !Build.FINGERPRINT.equals(ver.fingerprint);
+            mIsUpgrade = !Build.TURBO.equals(ver.fingerprint);
             // when upgrading from pre-M, promote system app permissions from install to runtime
             mPromoteSystemApps =
                     mIsUpgrade && ver.sdkVersion <= Build.VERSION_CODES.LOLLIPOP_MR1;
@@ -2397,7 +2397,7 @@ public class PackageManagerService extends IPackageManager.Stub {
                         deleteCodeCacheDirsLI(ps.volumeUuid, ps.name);
                     }
                 }
-                ver.fingerprint = Build.FINGERPRINT;
+                ver.fingerprint = Build.TURBO;
             }
 
             checkDefaultBrowser();
@@ -16061,7 +16061,7 @@ public class PackageManagerService extends IPackageManager.Stub {
                     Slog.w(TAG, "Failed to scan " + ps.codePath + ": " + e.getMessage());
                 }
 
-                if (!Build.FINGERPRINT.equals(ver.fingerprint)) {
+                if (!Build.TURBO.equals(ver.fingerprint)) {
                     deleteCodeCacheDirsLI(ps.volumeUuid, ps.name);
                 }
             }
