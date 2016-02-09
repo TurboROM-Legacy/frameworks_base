@@ -49,6 +49,9 @@ public class Build {
     /** The name of the underlying board, like "goldfish". */
     public static final String BOARD = getString("ro.product.board");
 
+    /** The Turbo build version */
+    public static final String TURBO = getString("ro.turbo.version");
+
     /**
      * The name of the instruction set (CPU type + ABI convention) of native code.
      *
