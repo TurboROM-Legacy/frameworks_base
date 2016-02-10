@@ -283,10 +283,21 @@ public class KeyguardStatusView extends GridLayout implements
                 Settings.System.HIDE_LOCKSCREEN_CLOCK, 1, UserHandle.USER_CURRENT) == 1;
         boolean showDate = Settings.System.getIntForUser(resolver,
                 Settings.System.HIDE_LOCKSCREEN_DATE, 1, UserHandle.USER_CURRENT) == 1;
+
         boolean showLocation = Settings.System.getIntForUser(resolver,
                 Settings.System.LOCK_SCREEN_SHOW_WEATHER_LOCATION, 1, UserHandle.USER_CURRENT) == 1;
         int iconNameValue = Settings.System.getIntForUser(resolver,
                 Settings.System.LOCK_SCREEN_WEATHER_CONDITION_ICON, 0, UserHandle.USER_CURRENT);
+
+        int clockColor = Settings.System.getInt(resolver,
+                Settings.System.LOCKSCREEN_CLOCK_COLOR, 0xFFFFFFFF);
+        int dateColor = Settings.System.getInt(resolver,
+                Settings.System.LOCKSCREEN_DATE_COLOR, 0xFFFFFFFF);
+        int ownerInfoColor = Settings.System.getInt(resolver,
+                Settings.System.LOCKSCREEN_OWNER_INFO_COLOR, 0xFFFFFFFF);
+        int alarmColor = Settings.System.getInt(resolver,
+                Settings.System.LOCKSCREEN_ALARM_COLOR, 0xFFFFFFFF);
+
         int lockClockFont = Settings.System.getIntForUser(resolver,
                 Settings.System.LOCK_CLOCK_FONTS, 4, UserHandle.USER_CURRENT);
         int primaryTextColor =
@@ -388,6 +399,22 @@ public class KeyguardStatusView extends GridLayout implements
         }
         if (lockClockFont == 17) {
             mClockView.setTypeface(Typeface.create("sans-serif-condensed-light", Typeface.ITALIC));
+        }
+
+        if (mClockView != null) {
+            mClockView.setTextColor(clockColor);
+        }
+
+        if (mDateView != null) {
+            mDateView.setTextColor(dateColor);
+        }
+        
+        if (mOwnerInfo != null) {
+            mOwnerInfo.setTextColor(ownerInfoColor);
+        }
+
+        if (mAlarmStatusView != null) {
+            mAlarmStatusView.setTextColor(alarmColor);
         }
     }
 
