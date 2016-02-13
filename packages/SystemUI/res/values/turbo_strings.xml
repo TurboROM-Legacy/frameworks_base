@@ -93,6 +93,9 @@
     <string name="quick_settings_expanded_desktop">Expanded</string>
     <string name="quick_settings_expanded_desktop_off">Normal</string>
 
+    <!-- IME selector QS tile -->
+    <string name="quick_settings_ime_label">IME</string>
+
     <!-- Music QS tile -->
     <string name="quick_settings_music_label">Music</string>
     <string name="quick_settings_music_play">Play</string>
