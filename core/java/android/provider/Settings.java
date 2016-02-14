@@ -3632,12 +3632,6 @@ public final class Settings {
          */
         public static final String RECENTS_SHOW_SEARCH_BAR = "recents_show_search_bar";
 
-	/**
-         * Show the membar in recents
-         * @hide
-         */
-        public static final String SYSTEMUI_RECENTS_MEM_DISPLAY = "systemui_recents_mem_display";
-
         /**
          *  Enable statusbar double tap gesture on to put device to sleep
          * @hide
