@@ -6702,12 +6702,6 @@ public final class Settings {
         public static final String QS_SHOW_BRIGHTNESS_SLIDER = "qs_show_brightness_slider";
 
         /**
-         * List of QS tile names
-         * @hide
-         */
-        public static final String QS_TILES = "sysui_qs_tiles";
-
-        /**
          * Whether to show four tiles per row.
          * @hide
          */
