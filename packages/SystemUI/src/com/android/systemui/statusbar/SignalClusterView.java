@@ -594,7 +594,6 @@ public class SignalClusterView
                         ad.start();
                     }
                 }
-
                 mMobileType.setImageResource(mMobileTypeId);
 
                 mDataActivity.setImageResource(mDataActivityId);
@@ -629,9 +628,10 @@ public class SignalClusterView
 
                 TelephonyManager tm =
                         (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
-                if (tm != null && tm.isNetworkRoaming(mSubId)) {
+                if (tm != null && tm.isNetworkRoaming(mSubId) &&
+                        (mContext.getResources().getBoolean(R.bool.show_roaming_and_network_icons))) {
                     mRoaming.setImageDrawable(getContext().getResources().getDrawable(
-                                R.drawable.stat_sys_data_fully_connected_roam));
+                            R.drawable.stat_sys_data_fully_connected_roam));
                 } else {
                     mRoaming.setImageDrawable(null);
                 }
