@@ -3913,6 +3913,12 @@ public final class Settings {
          * @hide
          */
         public static final String DASHBOARD_COLUMNS = "dashboard_columns";
+
+        /**
+         * Whether to display dashboard dividers
+         * @hide
+         */
+        public static final String DASHBOARD_TILEVIEW_DIVIDERS = "dashboard_tileview_dividers";
         
         /**
          * Whether the proximity sensor will adjust call to speaker
