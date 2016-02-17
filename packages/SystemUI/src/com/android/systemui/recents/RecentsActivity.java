@@ -216,10 +216,8 @@ public class RecentsActivity extends Activity implements RecentsView.RecentsView
                 Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
         mFinishLaunchHomeRunnable = new FinishRecentsRunnable(homeIntent,
             ActivityOptions.makeCustomAnimation(this,
-                mConfig.launchedFromSearchHome ? R.anim.recents_to_search_launcher_enter :
-                        R.anim.recents_to_launcher_enter,
-                    mConfig.launchedFromSearchHome ? R.anim.recents_to_search_launcher_exit :
-                        R.anim.recents_to_launcher_exit));
+                 R.anim.recents_to_search_launcher_enter,
+                    R.anim.recents_to_search_launcher_exit));
 
         // Mark the task that is the launch target
         int taskStackCount = stacks.size();
@@ -439,6 +437,14 @@ public class RecentsActivity extends Activity implements RecentsView.RecentsView
         if (!mConfig.launchedHasConfigurationChanged) {
             mRecentsView.disableLayersForOneFrame();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        if (mConfig.searchBarEnabled && mConfig.launchedFromHome) {
+            overridePendingTransition(0, 0);
+        }
+        super.onResume();
     }
 
     @Override
