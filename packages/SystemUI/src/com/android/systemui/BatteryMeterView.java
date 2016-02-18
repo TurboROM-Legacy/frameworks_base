@@ -44,8 +44,7 @@ public class BatteryMeterView extends View implements DemoMode,
     public static final String ACTION_LEVEL_TEST = "com.android.systemui.BATTERY_LEVEL_TEST";
 
     private static final int FULL = 96;
-    private static final int ADD_LEVEL = 10;
-    private static final int ANIM_DURATION = 500;
+
     private static final float BOLT_LEVEL_THRESHOLD = 0.3f;  // opaque bolt below this fraction
 
     private final int[] mColors;
@@ -64,20 +63,11 @@ public class BatteryMeterView extends View implements DemoMode,
         BATTERY_METER_TEXT
     }
 
-    private final Paint mFramePaint, mBatteryPaint, mWarningTextPaint, mTextPaint, mBoltPaint;
-    private float mTextHeight, mWarningTextHeight;
-    private int mIconTint = Color.WHITE;
-    private int mAnimOffset;
-    private boolean mIsCharging;
-
     private int mHeight;
     private int mWidth;
     private String mWarningString;
     private final int mCriticalLevel;
     private final int mFrameColor;
-
-    private final RectF mFrame = new RectF();
-    private final RectF mButtonFrame = new RectF();
 
     private boolean mAnimationsEnabled;
 
@@ -102,6 +92,7 @@ public class BatteryMeterView extends View implements DemoMode,
     protected BatteryTracker mDemoTracker = new BatteryTracker();
     protected BatteryTracker mTracker = new BatteryTracker();
     private BatteryMeterDrawable mBatteryMeterDrawable;
+    private int mIconTint = Color.WHITE;
 
     private class BatteryTracker extends BroadcastReceiver {
         public static final int UNKNOWN_LEVEL = -1;
@@ -217,9 +208,6 @@ public class BatteryMeterView extends View implements DemoMode,
         mBatteryController.removeStateChangedCallback(this);
     }
 
-    private final SettingObserver mSettingObserver = new SettingObserver();
-    private final Handler mHandler;
-
     public BatteryMeterView(Context context) {
         this(context, null, 0);
     }
@@ -231,7 +219,6 @@ public class BatteryMeterView extends View implements DemoMode,
     public BatteryMeterView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        mHandler = new Handler();
         final Resources res = context.getResources();
         TypedArray atts = context.obtainStyledAttributes(attrs, R.styleable.BatteryMeterView,
                 defStyle, 0);
@@ -268,13 +255,6 @@ public class BatteryMeterView extends View implements DemoMode,
 
         setAnimationsEnabled(true);
     }
-
-    private final Runnable mInvalidate = new Runnable() {
-        @Override
-        public void run() {
-            postInvalidate();
-        }
-    };
 
     protected BatteryMeterDrawable createBatteryMeterDrawable(BatteryMeterMode mode) {
         Resources res = mContext.getResources();
@@ -452,93 +432,11 @@ public class BatteryMeterView extends View implements DemoMode,
         return (int) ArgbEvaluator.getInstance().evaluate(darkIntensity, lightColor, darkColor);
     }
 
-    private int updateChargingAnimLevel(BatteryTracker tracker) {
-        int curLevel = tracker.level;
-
-        if (tracker.status != BatteryManager.BATTERY_STATUS_CHARGING) {
-            if (mIsCharging) {
-                mIsCharging = false;
-                mAnimOffset = 0;
-                mHandler.removeCallbacks(mInvalidate);
-            }
-        } else {
-            mIsCharging = true;
-
-            curLevel += mAnimOffset;
-            if (curLevel >= FULL) {
-                curLevel = 100;
-                mAnimOffset = 0;
-            } else {
-                mAnimOffset += ADD_LEVEL;
-            }
-
-            mHandler.removeCallbacks(mInvalidate);
-            mHandler.postDelayed(mInvalidate, ANIM_DURATION);
-        }
-        return curLevel;
-    }
-
     @Override
     protected void onDraw(Canvas canvas) {
         if (mBatteryMeterDrawable != null) {
             BatteryTracker tracker = mDemoMode ? mDemoTracker : mTracker;
             mBatteryMeterDrawable.onDraw(canvas, tracker);
-        }
-    }
-
-    public void draw(Canvas c) {
-        final boolean showChargingAnim
-                 = mContext.getResources().getBoolean(R.bool.config_show_battery_charging_anim);
-        BatteryTracker tracker = mDemoMode ? mDemoTracker : mTracker;
-
-        final int level = showChargingAnim
-                ? updateChargingAnimLevel(tracker)
-                : tracker.level;
-
-        if (showChargingAnim && getLayerType() != View.LAYER_TYPE_SOFTWARE) {
-            setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        }
-
-        if (level == BatteryTracker.UNKNOWN_LEVEL) return;
-
-        float drawFrac = (float) level / 100f;
-        final int pt = getPaddingTop();
-        final int pl = getPaddingLeft();
-        final int pr = getPaddingRight();
-        final int pb = getPaddingBottom();
-        final int height = mHeight - pt - pb;
-        final int width = mWidth - pl - pr;
-
-        final int buttonHeight = (int) (height * mButtonHeightFraction);
-
-        mFrame.set(0, 0, width, height);
-        mFrame.offset(pl, pt);
-
-        // button-frame: area above the battery body
-        mButtonFrame.set(
-                mFrame.left + Math.round(width * 0.25f),
-                mFrame.top,
-                mFrame.right - Math.round(width * 0.25f),
-                mFrame.top + buttonHeight);
-
-        mButtonFrame.top += mSubpixelSmoothingLeft;
-        mButtonFrame.left += mSubpixelSmoothingLeft;
-        mButtonFrame.right -= mSubpixelSmoothingRight;
-
-        // frame: battery body area
-        mFrame.top += buttonHeight;
-        mFrame.left += mSubpixelSmoothingLeft;
-        mFrame.top += mSubpixelSmoothingLeft;
-        mFrame.right -= mSubpixelSmoothingRight;
-        mFrame.bottom -= mSubpixelSmoothingRight;
-
-        // set the battery charging color
-        mBatteryPaint.setColor(tracker.plugged ? mChargeColor : getColorForLevel(level));
-
-        if (level >= FULL) {
-            drawFrac = 1f;
-        } else if (level <= mCriticalLevel) {
-            drawFrac = 0f;
         }
     }
 
@@ -1117,18 +1015,4 @@ public class BatteryMeterView extends View implements DemoMode,
             }
         }
     }
-
-    private final class SettingObserver extends ContentObserver {
-        public SettingObserver() {
-            super(new Handler());
-        }
-
-        @Override
-        public void onChange(boolean selfChange, Uri uri) {
-            super.onChange(selfChange, uri);
-            updateShowPercent();
-            postInvalidate();
-        }
-    }
-
 }
