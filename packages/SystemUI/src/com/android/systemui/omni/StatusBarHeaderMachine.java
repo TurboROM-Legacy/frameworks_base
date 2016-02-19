@@ -75,6 +75,7 @@ public class StatusBarHeaderMachine {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (STATUS_BAR_HEADER_UPDATE_ACTION.equals(intent.getAction())) {
+
                 if (mScreenOn) {
                     if (DEBUG) Log.i(TAG, "status bar header background alarm triggered");
                     doUpdateStatusHeaderObservers(false);
@@ -186,7 +187,7 @@ public class StatusBarHeaderMachine {
         mObservers.remove(observer);
     }
 
-    private void doUpdateStatusHeaderObservers(final boolean force) {
+    public void doUpdateStatusHeaderObservers(final boolean force) {
         Iterator<IStatusBarHeaderMachineObserver> nextObserver = mObservers
                 .iterator();
         while (nextObserver.hasNext()) {
