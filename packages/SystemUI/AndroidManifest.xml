@@ -442,18 +442,49 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name=".cm.LockscreenShortcutsActivity"
-            android:icon="@drawable/tuner"
-            android:label="@string/lockscreen_targets_message"
-            android:theme="@android:style/Theme.Material.Settings"
-            android:exported="true">
        <activity android:name=".DaylightHeaderDefault"
                 android:label="Default" >
             <intent-filter>
                 <action android:name="org.omnirom.DaylightHeaderPack" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
+
+		<activity
+			android:name=".nature"
+			android:label="Nature" >
+ 			<intent-filter>
+				<action android:name="org.omnirom.DaylightHeaderPack1" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+
+		<activity
+			android:name=".poly"
+			android:label="Poly HD" >
+			<intent-filter>
+				<action android:name="org.omnirom.DaylightHeaderPack1" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+
+		<activity
+			android:name=".naturerandom"
+			android:label="Nature (random)" >
+			<intent-filter>
+				<action android:name="org.omnirom.DaylightHeaderPack1" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+        <activity
+            android:name=".cm.LockscreenShortcutsActivity"
+            android:icon="@drawable/tuner"
+            android:label="@string/lockscreen_targets_message"
+            android:theme="@android:style/Theme.Material.Settings"
+            android:exported="true">
         </activity>
     </application>
 </manifest>
