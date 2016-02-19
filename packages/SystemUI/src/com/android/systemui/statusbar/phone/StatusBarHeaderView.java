@@ -625,7 +625,7 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
     private void startSettingsLongClickActivity() {
         Intent intent = new Intent(Intent.ACTION_MAIN);
 	intent.setClassName("com.android.settings",
-            "com.android.settings.turbo.MainSettings");
+            "com.android.settings.Settings$MainSettingsActivity");
         mActivityStarter.startActivity(intent, true /* dismissShade */);
     }
 
