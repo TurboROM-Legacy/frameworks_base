@@ -16,6 +16,7 @@
 
 package com.android.systemui.qs.tiles;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.provider.Settings;
@@ -29,7 +30,8 @@ import com.android.systemui.R;
 /** Quick settings tile: Heads up **/
 public class HeadsUpTile extends QSTile<QSTile.BooleanState> {
 
-    private static final Intent SOUND_SETTINGS = new Intent("android.settings.SOUND_SETTINGS");
+    private static final Intent NOTIFICATION_SETTINGS = new Intent().setComponent(new ComponentName(
+            "com.android.settings", "com.android.settings.Settings$NotificationSettingsActivity"));
 
     private final GlobalSetting mSetting;
 
@@ -57,7 +59,7 @@ public class HeadsUpTile extends QSTile<QSTile.BooleanState> {
 
     @Override
     protected void handleLongClick() {
-        mHost.startActivityDismissingKeyguard(SOUND_SETTINGS);
+        mHost.startActivityDismissingKeyguard(NOTIFICATION_SETTINGS);
     }
 
     private void setEnabled(boolean enabled) {
