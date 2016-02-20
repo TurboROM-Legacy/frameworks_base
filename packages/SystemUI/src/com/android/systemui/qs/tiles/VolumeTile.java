@@ -16,6 +16,7 @@
 
 package com.android.systemui.qs.tiles;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -27,7 +28,8 @@ import com.android.systemui.qs.QSTile;
 
 public class VolumeTile extends QSTile<QSTile.BooleanState> {
 
-    private static final Intent SOUND_SETTINGS = new Intent("android.settings.SOUND_SETTINGS");
+    private static final Intent SOUND_SETTINGS = new Intent().setComponent(new ComponentName(
+            "com.android.settings", "com.android.settings.Settings$SoundSettingsActivity"));
 
     public VolumeTile(Host host) {
         super(host);
