@@ -456,12 +456,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             return;
         }
 
-        mNavigationBarView = mNavigationController.getNavigationBarView();
-
+        mNavigationBarView = mNavigationController.getNavigationBarView(mContext);
         mNavigationBarView.setDisabledFlags(mDisabled1);
         mNavigationBarView.setStatusBarCallbacks(this);
 //        addNavigationBarCallback(mNavigationBarView);
-        mNavigationBarView.updateResources(getNavbarThemedResources());
         mNavigationBarView.notifyInflateFromUser(); // let bar know we're not starting from boot
 //        addNavigationBar(true); // dynamically adding nav bar, reset System UI visibility!
         addNavigationBar();
@@ -795,6 +793,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mScrimSrcModeEnabled = mContext.getResources().getBoolean(
                 R.bool.config_status_bar_scrim_behind_use_src);
 
+        // let's move it here and get it fired up nice and early and far away from statusbar recreation
+        if (mNavigationController == null) {
+            mNavigationController = new NavigationController(mContext,
+                    getNavbarThemedResources(), this, mAddNavigationBar, mRemoveNavigationBar);
+        }
+
         mStatusBarWindow = new StatusBarWindowView(mContext, null);
         mStatusBarWindow.setService(this);
 
@@ -878,10 +882,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mStatusBarView = (PhoneStatusBarView) mStatusBarWindowContent.findViewById(R.id.status_bar);
         mStatusBarView.setBar(this);
 
-        if (mNavigationController == null) {
-            mNavigationController = new NavigationController(mContext, this, mAddNavigationBar,
-                    mRemoveNavigationBar);
-        }
         mPackageMonitor = new DUPackageMonitor();
         mPackageMonitor.register(mContext, mHandler);
         mPackageMonitor.addListener(mNavigationController);
@@ -916,8 +916,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             boolean showNav = mWindowManagerService.hasNavigationBar();
             if (DEBUG) Log.v(TAG, "hasNavigationBar=" + showNav);
             if (showNav) {
-                mNavigationBarView = mNavigationController.getNavigationBarView();
-
+                mNavigationBarView = mNavigationController.getNavigationBarView(mContext);
                 mNavigationBarView.setDisabledFlags(mDisabled1);
                 mNavigationBarView.setStatusBarCallbacks(this);
             }
@@ -1408,6 +1407,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         lp.setTitle("NavigationBar");
         lp.windowAnimations = 0;
         return lp;
+    }
+
+    private Resources getNavbarThemedResources() {
+        Resources res = mContext.getResources();
+
+        return res;
     }
 
     public void addIcon(String slot, int index, int viewIndex, StatusBarIcon icon) {
@@ -3452,6 +3457,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
         if (mBrightnessMirrorController != null) {
             mBrightnessMirrorController.updateResources();
+        }
+        if (mNavigationBarView != null)  {
+            mNavigationController.updateNavbarOverlay(getNavbarThemedResources());
         }
     }
 
