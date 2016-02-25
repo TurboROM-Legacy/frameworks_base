@@ -31,7 +31,7 @@ import com.android.systemui.R;
 public class HeadsUpTile extends QSTile<QSTile.BooleanState> {
 
     private static final Intent NOTIFICATION_SETTINGS = new Intent().setComponent(new ComponentName(
-            "com.android.settings", "com.android.settings.Settings$NotificationSettingsActivity"));
+            "com.android.settings", "com.android.settings.Settings$NotificationManagerActivity"));
 
     private final GlobalSetting mSetting;
 
