@@ -3925,6 +3925,12 @@ public final class Settings {
          * @hide
          */
         public static final String DASHBOARD_TILEVIEW_DIVIDERS = "dashboard_tileview_dividers";
+
+        /**
+         * Whether to show switches for wifi/cell/bt in the settings dashboard
+         * @hide
+         */
+        public static final String DASHBOARD_SWITCHES = "dashboard_switches";
         
         /**
          * Whether the proximity sensor will adjust call to speaker
