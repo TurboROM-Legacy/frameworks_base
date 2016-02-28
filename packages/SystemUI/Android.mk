@@ -6,9 +6,12 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_SRC_FILES := $(call all-java-files-under, src) \
     src/com/android/systemui/EventLogTags.logtags
 
+LOCAL_SRC_FILES += $(call all-java-files-under, ../../../../packages/apps/DUI/src)
+
 LOCAL_STATIC_JAVA_LIBRARIES := Keyguard \
     android-opt-cards \
-    org.dirtyunicorns.navigation-static
+    trail-drawing \
+    rebound
 
 LOCAL_JAVA_LIBRARIES := telephony-common org.dirtyunicorns.utils
 
@@ -21,7 +24,8 @@ LOCAL_PROGUARD_FLAG_FILES := proguard.flags
 LOCAL_RESOURCE_DIR := \
     frameworks/base/packages/Keyguard/res \
     $(LOCAL_PATH)/res \
-    $(LOCAL_PATH)/../../../../frameworks/opt/cards/res
+    $(LOCAL_PATH)/../../../../frameworks/opt/cards/res \
+    $(LOCAL_PATH)/../../../../packages/apps/DUI/res
 
 LOCAL_AAPT_FLAGS := --auto-add-overlay --extra-packages com.android.keyguard
 LOCAL_AAPT_FLAGS += --extra-packages com.android.cards
