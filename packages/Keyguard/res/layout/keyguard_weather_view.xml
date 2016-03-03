@@ -27,8 +27,8 @@
 
     <ImageView
         android:id="@+id/weather_image"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
         android:scaleType="centerInside"
         android:adjustViewBounds="true"
         android:layout_gravity="center_horizontal" />
