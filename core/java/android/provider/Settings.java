@@ -3292,6 +3292,18 @@ public final class Settings {
         public static final String RECENTS_SHOW_SEARCH_BAR = "recents_show_search_bar";
 
         /**
+         * Whether the hardware keys are disabled or enabled
+         * @hide
+         */
+        public static final String HARDWARE_KEYS_ENABLED = "hardware_keys_enabled";
+
+        /**
+         * Whether the hardware key lights are disabled or enabled
+         * @hide
+         */
+        public static final String HARDWARE_KEY_LIGHTS_ENABLED = "hardware_key_lights_enabled";
+
+        /**
          * Whether custom hardware key rebinding is enabled
          * @hide
          */
