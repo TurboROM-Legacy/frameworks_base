@@ -81,6 +81,8 @@ public class StatusBarIconController implements Tunable {
     private BatteryLevelTextView mBatteryLevelTextView;
     private BatteryMeterView mBatteryMeterView;
     private TextView mClock;
+    private ImageView mTurboLogo;
+
     // Center clock
     private LinearLayout mCenterClockLayout;
     private TextView mCclock;
@@ -127,6 +129,7 @@ public class StatusBarIconController implements Tunable {
         mNotificationIconArea = statusBar.findViewById(R.id.notification_icon_area_inner);
         mNotificationIcons = (IconMerger) statusBar.findViewById(R.id.notificationIcons);
         mMoreIcon = (ImageView) statusBar.findViewById(R.id.moreIcon);
+        mTurboLogo = (ImageView) statusBar.findViewById(R.id.turbo_logo);
         mNotificationIcons.setOverflowIndicator(mMoreIcon);
         mStatusIconsKeyguard = (LinearLayout) keyguardStatusBar.findViewById(R.id.statusIcons);
         mBatteryLevelTextView =
@@ -434,6 +437,7 @@ public class StatusBarIconController implements Tunable {
         }
         mSignalCluster.setIconTint(mIconTint, mDarkIntensity);
         mMoreIcon.setImageTintList(ColorStateList.valueOf(mIconTint));
+        mTurboLogo.setImageTintList(ColorStateList.valueOf(mIconTint));
         mBatteryLevelTextView.setTextColor(mIconTint);
         mBatteryMeterView.setDarkIntensity(mDarkIntensity);
         mClock.setTextColor(mIconTint);
