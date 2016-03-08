@@ -174,7 +174,7 @@ public class PhoneStatusBarPolicy implements Callback {
         updateVolumeZen();
 
         // headset
-        mService.setIcon(SLOT_HEADSET, R.drawable.stat_sys_headset, 0, null);
+        mService.setIcon(SLOT_HEADSET, R.drawable.stat_sys_headphones, 0, null);
         mService.setIconVisibility(SLOT_HEADSET, false);
 
         // cast
