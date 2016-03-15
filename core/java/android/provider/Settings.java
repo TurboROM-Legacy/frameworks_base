@@ -7127,12 +7127,6 @@ public final class Settings {
         public static final String LOCKSCREEN_TARGETS = "lockscreen_target_actions";
 
         /**
-         * Options to decide wether or not to show keyguard bouncer on secure lockscreen
-         * @hide
-         */
-        public static final String LOCKSCREEN_BOUNCER = "lockscreen_bouncer";
-
-        /**
          * This are the settings to be backed up.
          *
          * NOTE: Settings are backed up and restored in the order they appear
