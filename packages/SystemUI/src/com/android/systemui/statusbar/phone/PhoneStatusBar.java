@@ -478,56 +478,56 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         void observe() {
             ContentResolver resolver = mContext.getContentResolver();
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL), false, this,
-					UserHandle.USER_ALL);
+                    Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL), 
+		    false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.SCREEN_BRIGHTNESS_MODE), false, this,
-					UserHandle.USER_ALL);
+                    Settings.System.SCREEN_BRIGHTNESS_MODE), 
+		    false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.BATTERY_SAVER_MODE_COLOR), false, this, 
-					UserHandle.USER_ALL);
+                    Settings.System.BATTERY_SAVER_MODE_COLOR), 
+		    false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.LOCKSCREEN_ROTATION), false, this, 
-					UserHandle.USER_ALL);
+                    Settings.System.LOCKSCREEN_ROTATION), 
+		    false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.ACCELEROMETER_ROTATION), false, this, 
-					UserHandle.USER_ALL);
+                    Settings.System.ACCELEROMETER_ROTATION), 
+		    false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.USE_SLIM_RECENTS), false, this,
-                    			UserHandle.USER_ALL);
+                    Settings.System.USE_SLIM_RECENTS), 
+		    false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.RECENT_CARD_BG_COLOR), false, this,
-                    			UserHandle.USER_ALL);
+                    Settings.System.RECENT_CARD_BG_COLOR), 
+		    false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.RECENT_CARD_TEXT_COLOR), false, this,
-                    			UserHandle.USER_ALL);
+                    Settings.System.RECENT_CARD_TEXT_COLOR), 
+		    false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.Secure.getUriFor(
-                    Settings.Secure.QS_NUM_TILE_COLUMNS), false, this,
-                    			UserHandle.USER_ALL);
+                    Settings.Secure.QS_NUM_TILE_COLUMNS), 
+		    false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_SHOW_WEATHER_TEMP), false, this, 
-					UserHandle.USER_ALL);
+                    Settings.System.STATUS_BAR_SHOW_WEATHER_TEMP), 
+		    false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_WEATHER_TEMP_STYLE), false, this, 
-					UserHandle.USER_ALL);
+                    Settings.System.STATUS_BAR_WEATHER_TEMP_STYLE), 
+		    false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_WEATHER_COLOR), false, this, 
-					UserHandle.USER_ALL);
+                    Settings.System.STATUS_BAR_WEATHER_COLOR), 
+		    false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_WEATHER_SIZE), false, this, 
-					UserHandle.USER_ALL);
+                    Settings.System.STATUS_BAR_WEATHER_SIZE), 
+		    false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_WEATHER_FONT_STYLE), false, this, 
-					UserHandle.USER_ALL);
+                    Settings.System.STATUS_BAR_WEATHER_FONT_STYLE), 
+		    false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.LOCKSCREEN_ALPHA), false, this, 
-					UserHandle.USER_ALL);
+                    Settings.System.LOCKSCREEN_ALPHA), 
+		    false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-		    Settings.System.LOCKSCREEN_SECURITY_ALPHA), false, this, 
-					UserHandle.USER_ALL);
+		    Settings.System.LOCKSCREEN_SECURITY_ALPHA), 
+		    false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_TURBO_LOGO), false, this, 
-					UserHandle.USER_ALL);
+                    Settings.System.STATUS_BAR_TURBO_LOGO), 
+		    false, this, UserHandle.USER_ALL);
             update();
         }
 
@@ -2002,14 +2002,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     protected void updateRowStates() {
         super.updateRowStates();
         mNotificationPanel.notifyVisibleChildrenChanged();
-    }
-
-    protected boolean hasActiveVisibleNotifications() {
-        return mNotificationData.hasActiveVisibleNotifications();
-    }
-
-    protected boolean hasActiveClearableNotifications() {
-        return mNotificationData.hasActiveClearableNotifications();
     }
 
     protected void updateCarrierLabelVisibility() {

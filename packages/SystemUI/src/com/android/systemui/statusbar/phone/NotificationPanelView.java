@@ -234,24 +234,13 @@ public class NotificationPanelView extends PanelView implements
     private final Interpolator mTouchResponseInterpolator =
             new PathInterpolator(0.3f, 0f, 0.1f, 1f);
 
-    private boolean mDoubleTapToSleepEnabled;
     private int mStatusBarHeaderHeight;
-    private GestureDetector mDoubleTapGesture;
 
     public NotificationPanelView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(!DEBUG);
 
         mSettingsObserver = new SettingsObserver(mHandler);
-        mDoubleTapGesture = new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener() {
-            @Override
-            public boolean onDoubleTap(MotionEvent e) {
-                PowerManager pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
-                if(pm != null)
-                    pm.goToSleep(e.getEventTime());
-                return true;
-            }
-        });
     }
 
     public void setStatusBar(PhoneStatusBar bar) {
@@ -759,9 +748,6 @@ public class NotificationPanelView extends PanelView implements
     public boolean onTouchEvent(MotionEvent event) {
         if (mBlockTouches) {
             return false;
-        }
-        if (mDoubleTapToSleepEnabled && mStatusBarState == StatusBarState.KEYGUARD) {
-            mDoubleTapGesture.onTouchEvent(event);
         }
         initDownStates(event);
         if (mListenForHeadsUp && !mHeadsUpTouchHelper.isTrackingHeadsUp()
@@ -2531,8 +2517,6 @@ public class NotificationPanelView extends PanelView implements
         void observe() {
             ContentResolver resolver = mContext.getContentResolver();
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE), false, this);
-            resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN), false, this);
             update();
         }
@@ -2554,11 +2538,9 @@ public class NotificationPanelView extends PanelView implements
 
         public void update() {
             ContentResolver resolver = mContext.getContentResolver();
-            mDoubleTapToSleepEnabled = Settings.System.getInt(
-                    resolver, Settings.System.DOUBLE_TAP_SLEEP_GESTURE, 1) == 1;
             mOneFingerQuickSettingsInterceptMode = Settings.System.getIntForUser(
                     resolver, Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN,
-                    ONE_FINGER_QS_INTERCEPT_END, UserHandle.USER_CURRENT);
+                    ONE_FINGER_QS_INTERCEPT_OFF, UserHandle.USER_CURRENT);
         }
     }
 }

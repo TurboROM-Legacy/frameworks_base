@@ -256,14 +256,11 @@ public class StatusBarWindowView extends FrameLayout {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         boolean intercept = false;
-        if (mDoubleTapToSleepEnabled) {
-            if (mService.getBarState() == StatusBarState.SHADE
-                    && ev.getY() < mStatusBarHeaderHeight) {
-                if (DEBUG) Log.w(TAG, "logging double tap gesture");
-                mDoubleTapGesture.onTouchEvent(ev);
-                }
-            }
-
+        if (mDoubleTapToSleepEnabled
+                && ev.getY() < mStatusBarHeaderHeight) {
+            if (DEBUG) Log.w(TAG, "logging double tap gesture");
+            mDoubleTapGesture.onTouchEvent(ev);
+        }
         final int h = getMeasuredHeight();
         if (mDoubleTapToSleepLockScreen &&
                 mService.getBarState() == StatusBarState.KEYGUARD
@@ -272,7 +269,6 @@ public class StatusBarWindowView extends FrameLayout {
             if (DEBUG) Log.w(TAG, "logging lock screen double tap gesture");
             mDoubleTapGesture.onTouchEvent(ev);
         }
-
         if (mNotificationPanel.isFullyExpanded()
                 && mStackScrollLayout.getVisibility() == View.VISIBLE
                 && mService.getBarState() == StatusBarState.KEYGUARD
@@ -376,11 +372,9 @@ public class StatusBarWindowView extends FrameLayout {
         void observe() {
             ContentResolver resolver = mContext.getContentResolver();
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE), false, this,
-		    UserHandle.USER_ALL);
+                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE), false, this);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.DOUBLE_TAP_SLEEP_LOCK_SCREEN), false, this, 
-		    UserHandle.USER_ALL);
+                    Settings.System.DOUBLE_TAP_SLEEP_LOCK_SCREEN), false, this);
             update();
         }
 
