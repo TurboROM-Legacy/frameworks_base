@@ -580,8 +580,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.DIM_NAV_BUTTONS_TOUCH_ANYWHERE),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.Global.getUriFor(
-                    Settings.Global.POLICY_CONTROL), false, this,
-                    UserHandle.USER_ALL);
+                    Settings.Global.POLICY_CONTROL), 
+		    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_CUSTOM_HEADER_SHADOW),
+                    false, this, UserHandle.USER_ALL);	
             update();
         }
 
