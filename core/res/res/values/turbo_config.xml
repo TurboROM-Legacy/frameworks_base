@@ -35,9 +35,6 @@
 	<!-- The list of components which should be forced to be enabled. -->
     <string-array name="config_forceEnabledComponents" translatable="false">
     </string-array>
-
-    <!-- Is Advanced Reboot enabled? -->
-    <bool name="config_advanced_reboot">true</bool>
     
     <!-- The duration (in milliseconds) of the Slim recents app screen animation. -->
     <integer name="config_recentDefaultDur">300</integer>

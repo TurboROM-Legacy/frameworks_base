@@ -31,26 +31,6 @@
     <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permdesc_preventpower">Allows an app to override the power key.</string>
 
-
-    <!-- Reboot menu -->
-    <!-- Button to reboot the phone, within the Reboot Options dialog -->
-    <string name="reboot_reboot">Reboot</string>
-    <!-- Button to reboot the phone into recovery, within the Reboot Options dialog -->
-    <string name="reboot_recovery">Recovery</string>
-    <!-- Button to reboot the phone into bootloader, within the Reboot Options dialog -->
-    <string name="reboot_bootloader">Bootloader</string>
-    <!-- Button to reboot the phone into download, within the Reboot Options dialog -->
-    <string name="reboot_download">Download</string>
-    <!-- Button to soft reboot the device, within the Reboot Options dialog -->
-    <string name="reboot_soft">Soft reboot</string>
-    <!-- Reboot Progress Dialog. This is shown if the user chooses to reboot the phone. -->
-    <string name="reboot_progress">Rebooting\u2026</string>
-
-    <!-- Global Actions -->
-    <string name="global_action_screenshot">Screenshot</string>
-    <string name="global_action_search">Search</string>
-    <string name="global_action_voicesearch">Voice Search</string>
-
     <!-- Title of an application permission, listed so the user can choose whether they want the application to do this. -->
     <string name="permlab_setKeyguardWallpaper">set keyguard wallpaper</string>
     <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
