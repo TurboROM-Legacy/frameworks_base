@@ -304,7 +304,7 @@ public class ActionHelper {
         } else if (clickAction.equals(ActionConstants.ACTION_AIRPLANE)) {
             resId = com.android.internal.R.drawable.ic_lock_airplane_mode_off_am_alpha;
         } else if (clickAction.equals(ActionConstants.ACTION_LOCKDOWN)) {
-            resId = com.android.internal.R.drawable.ic_lock_lock_alpha;
+            resId = com.android.internal.R.drawable.ic_lock_power_alpha;
         } else {
             resId = systemUiResources.getIdentifier(
                         SYSTEMUI_METADATA_NAME + ":drawable/ic_sysbar_null", null, null);
