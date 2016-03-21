@@ -3591,6 +3591,11 @@ public final class Settings {
         public static final String SHOW_SU_INDICATOR = "show_su_indicator";
 
         /**
+         * USB data automatic unlock
+         */
+        public static final String USB_DATA_AUTO_UNLOCK = "usb_data_auto_unlock";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
