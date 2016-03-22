@@ -704,9 +704,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_TURBO_LOGO_STYLE),
                     false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.ENABLE_TASK_MANAGER),
-                    false, this, UserHandle.USER_ALL);
             update();
         }
 
@@ -810,17 +807,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 updateEmptyShadeView();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_WEATHER_TEMP_STYLE))) {
-                updateRowStates();
-                updateSpeedbump();
-                updateClearAll();
-                updateEmptyShadeView();
-			} else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.ENABLE_TASK_MANAGER))) {
-                    mShowTaskManager = Settings.System.getIntForUser(
-                mContext.getContentResolver(),
-                Settings.System.ENABLE_TASK_MANAGER,
-                0, UserHandle.USER_CURRENT) == 1;
-                recreateStatusBar();
                 updateRowStates();
                 updateSpeedbump();
                 updateClearAll();

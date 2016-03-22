@@ -1158,6 +1158,9 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BATTERY_TEXT_COLOR),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.ENABLE_TASK_MANAGER), 
+		    false, this, UserHandle.USER_ALL);
             update();
         }
 
@@ -1214,6 +1217,8 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
             int currentUserId = ActivityManager.getCurrentUser();
             mShowWeather = Settings.System.getIntForUser(
                     resolver, Settings.System.STATUS_BAR_SHOW_WEATHER, 0, currentUserId) == 1;
+            mShowTaskManager = Settings.System.getIntForUser(resolver,
+                Settings.System.ENABLE_TASK_MANAGER, 0, currentUserId) == 1;
             updateVisibilities();
             requestCaptureValues();
             updateSBHIconColor();
