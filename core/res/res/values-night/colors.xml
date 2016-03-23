@@ -36,4 +36,7 @@
  	<color name="user_icon_default_gray">#606060</color>
  	<color name="user_icon_default_white">#606060</color>
 
+    <!-- Slim's drag sort list view -->
+    <color name="dslv_icon_dark">#ff606060</color>
+
 </resources>
