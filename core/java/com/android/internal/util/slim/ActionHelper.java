@@ -282,6 +282,9 @@ public class ActionHelper {
         } else if (clickAction.equals(ActionConstants.ACTION_VIB_SILENT)) {
             resId = systemUiResources.getIdentifier(
                         SYSTEMUI_METADATA_NAME + ":drawable/ic_sysbar_ring_vib_silent", null, null);
+        } else if (clickAction.equals(ActionConstants.ACTION_EXPANDED_DESKTOP)) {
+            resId = systemUiResources.getIdentifier(
+                        SYSTEMUI_METADATA_NAME + ":drawable/ic_sysbar_expanded_desktop", null, null);
         } else if (clickAction.equals(ActionConstants.ACTION_KILL)) {
             resId = systemUiResources.getIdentifier(
                         SYSTEMUI_METADATA_NAME + ":drawable/ic_sysbar_killtask", null, null);
@@ -300,6 +303,9 @@ public class ActionHelper {
         } else if (clickAction.equals(ActionConstants.ACTION_TORCH)) {
             resId = systemUiResources.getIdentifier(
                         SYSTEMUI_METADATA_NAME + ":drawable/ic_sysbar_torch", null, null);
+        } else if (clickAction.equals(ActionConstants.ACTION_CAMERA)) {
+            resId = systemUiResources.getIdentifier(
+                        SYSTEMUI_METADATA_NAME + ":drawable/ic_sysbar_camera", null, null);
         } else if (clickAction.equals(ActionConstants.ACTION_POWER_OFF)) {
             resId = com.android.internal.R.drawable.ic_lock_power_off_power;
         } else if (clickAction.equals(ActionConstants.ACTION_REBOOT)) {
@@ -314,7 +320,6 @@ public class ActionHelper {
         }
         return resId;
     }
-
 
     public static Drawable getPowerMenuIconImage(Context context,
             String clickAction, String customIcon) {
