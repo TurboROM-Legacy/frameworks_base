@@ -21,6 +21,9 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
 import android.hardware.display.DisplayManager;
 import android.hardware.display.WifiDisplayStatus;
 import android.net.ConnectivityManager;
@@ -94,8 +97,25 @@ public class DeviceUtils {
     }
 
     public static boolean deviceSupportsTorch(Context context) {
-        // Need to be adapted to new torch API
-        return true;
+        CameraManager cameraManager = (CameraManager) context.getSystemService(
+                Context.CAMERA_SERVICE);
+        try {
+            String[] ids = cameraManager.getCameraIdList();
+            for (String id : ids) {
+                CameraCharacteristics c = cameraManager.getCameraCharacteristics(id);
+                Boolean flashAvailable = c.get(CameraCharacteristics.FLASH_INFO_AVAILABLE);
+                Integer lensFacing = c.get(CameraCharacteristics.LENS_FACING);
+                if (flashAvailable != null
+                        && flashAvailable
+                        && lensFacing != null
+                        && lensFacing == CameraCharacteristics.LENS_FACING_BACK) {
+                    return true;
+                }
+            }
+        } catch (CameraAccessException e) {
+            // Ignore
+        }
+        return false;
     }
 
     public static FilteredDeviceFeaturesArray filterUnsupportedDeviceFeatures(Context context,
