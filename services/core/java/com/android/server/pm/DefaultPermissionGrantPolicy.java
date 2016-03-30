@@ -592,6 +592,13 @@ final class DefaultPermissionGrantPolicy {
                 }
             }
 
+			// LockClock
+	    	PackageParser.Package lockClock = getDefaultProviderAuthorityPackageLPr(
+		    	"com.cyanogenmod.lockclock", userId);
+	    	if (lockClock != null) {
+				grantRuntimePermissionsLPw(lockClock, LOCATION_PERMISSIONS, true, userId);
+	   		}
+
             // Chromium Regular
             PackageParser.Package chromiumRPackage = getDefaultProviderAuthorityPackageLPr(
                     "org.chromium.chrome", userId);
