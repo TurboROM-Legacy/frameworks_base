@@ -172,4 +172,7 @@
     <java-symbol type="string" name="reboot_system" />
     <java-symbol type="string" name="reboot_progress" />
 
+    <!-- Default name of the custom carrier label -->
+    <java-symbol type="string" name="default_custom_label" />
+
 </resources>
