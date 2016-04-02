@@ -61,4 +61,26 @@ public class StatusBarColorHelper {
                 TRANSLUCENT_BLACK);
         return (153 << 24) | (color & 0x00ffffff);
     }
+
+    public static int getNetworkTrafficTextColor(Context context) {
+        return Settings.System.getInt(context.getContentResolver(),
+                Settings.System.STATUS_BAR_NETWORK_TRAFFIC_TEXT_COLOR, WHITE);
+    }
+
+    public static int getNetworkTrafficTextColorDark(Context context) {
+        return Settings.System.getInt(context.getContentResolver(),
+                Settings.System.STATUS_BAR_NETWORK_TRAFFIC_TEXT_COLOR_DARK_MODE,
+                TRANSLUCENT_BLACK);
+    }
+
+    public static int getNetworkTrafficIconColor(Context context) {
+        return Settings.System.getInt(context.getContentResolver(),
+                Settings.System.STATUS_BAR_NETWORK_TRAFFIC_ICON_COLOR, WHITE);
+    }
+
+    public static int getNetworkTrafficIconColorDark(Context context) {
+        return Settings.System.getInt(context.getContentResolver(),
+                Settings.System.STATUS_BAR_NETWORK_TRAFFIC_ICON_COLOR_DARK_MODE,
+                TRANSLUCENT_BLACK);
+    }
 }
