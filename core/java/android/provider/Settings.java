@@ -4431,6 +4431,12 @@ public final class Settings {
          */
         public static final String STATUS_BAR_TURBO_LOGO = "status_bar_turbo_logo";
 
+	/**
+         * Statusbar TurboROM logo color setting
+         * @hide
+         */
+        public static final String STATUS_BAR_TURBO_LOGO_COLOR = "status_bar_turbo_logo_color";
+
         /**
          * Whether to show the battery bar
          * @hide
