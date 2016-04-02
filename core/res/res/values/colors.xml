@@ -179,5 +179,6 @@
 
     <!-- Slim's drag sort list view -->
     <color name="dslv_icon_dark">#ff009688</color>
-
+    <color name="darkkat_blue_grey">#ff1b1f23</color>
+    <drawable name="darkkat_bg_blue_grey">@color/darkkat_blue_grey</drawable>
 </resources>
