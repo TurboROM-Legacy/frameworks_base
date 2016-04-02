@@ -58,11 +58,11 @@
     <dimen name="status_bar_temp_text_size">14sp</dimen>
 
     <!-- Network traffic single-line text size -->
-    <dimen name="network_traffic_single_text_size">12sp</dimen>
+    <dimen name="network_traffic_single_text_size">10sp</dimen>
 
     <!-- Network traffic dual-line text size -->
-    <dimen name="network_traffic_dual_text_size">10sp</dimen>
+    <dimen name="network_traffic_dual_text_size">8sp</dimen>
 
     <!-- Network traffic text end padding, (if no activity icon is shown) -->
-    <dimen name="network_traffic_text_end_padding">3dp</dimen>
+    <dimen name="network_traffic_text_end_padding">2dp</dimen>
 </resources>

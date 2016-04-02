@@ -664,12 +664,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.STATUS_BAR_NETWORK_ICONS_AIRPLANE_MODE_COLOR))) {
                 updateAirplaneModeColor();
             } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_NETWORK_TRAFFIC_TEXT_COLOR))) {
-                updateNetworkTrafficTextColor();
-            } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_NETWORK_TRAFFIC_ICON_COLOR))) {
-                updateNetworkTrafficIconColor();
-            } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_CARRIER_LABEL_SHOW))
                 || uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_CARRIER_LABEL_HIDE_LABEL))
@@ -1458,7 +1452,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 // noop
             }
             @Override
-            public void onBatteryStyleChanged(int style, int percentMode) {
+            public void onBatteryStyleChanged(int style, int percentMode, int battColor) {
                 // noop
             }
         });
@@ -1638,7 +1632,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         setCarrierLabelVisibility();
         setLockScreenCarrierLabelVisibility();
         updateNetworkIconColors();
-        updateNetworkTrafficColors();
         return mStatusBarView;
     }
 
@@ -2654,24 +2647,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     private void updateStatusIconsColor() {
         if (mIconController != null) {
             mIconController.updateStatusIconsColor();
-        }
-    }
-
-    private void updateNetworkTrafficColors() {
-        if (mIconController != null) {
-            mIconController.updateNetworkTrafficColors();
-        }
-    }
-
-    private void updateNetworkTrafficTextColor() {
-        if (mIconController != null) {
-            mIconController.updateNetworkTrafficTextColor(true);
-        }
-    }
-
-    private void updateNetworkTrafficIconColor() {
-        if (mIconController != null) {
-            mIconController.updateNetworkTrafficIconColor(true);
         }
     }
 
