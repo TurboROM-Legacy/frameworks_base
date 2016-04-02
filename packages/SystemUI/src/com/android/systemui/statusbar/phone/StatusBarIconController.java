@@ -520,7 +520,6 @@ public class StatusBarIconController implements Tunable {
         mMoreIcon.setImageTintList(ColorStateList.valueOf(mIconTint));
         mTurboLogo.setImageTintList(ColorStateList.valueOf(mIconTint));
         mBatteryLevelTextView.setTextColor(mIconTint);
-        mBatteryMeterView.setDarkIntensity(mDarkIntensity);
         mClock.setTextColor(mIconTint);
         mNetworkTraffic.setTextColor(mNetworkTrafficTextColorTint);
         mNetworkTraffic.setIconColor(mNetworkTrafficIconColorTint);
@@ -675,36 +674,6 @@ public class StatusBarIconController implements Tunable {
 
    public int getCurrentVisibleNotificationIcons() {
         return mNotificationIcons.getChildCount();
-    }
-
-    public void updateNetworkTrafficColors() {
-        updateNetworkTrafficTextColor(false);
-        updateNetworkTrafficIconColor(false);
-    }
-
-    public void updateNetworkTrafficTextColor(boolean animate) {
-        mNetworkTrafficTextColor = StatusBarColorHelper.getNetworkTrafficTextColor(mContext);
-        if (animate && mNetworkTraffic.isUpdating()) {
-            mColorToChange = NETWORK_TRAFFIC_TEXT_COLOR;
-            mColorTransitionAnimator.start();
-        } else {
-            mNetworkTraffic.setTextColor(mNetworkTrafficTextColor);
-            mNetworkTrafficTextColorOld = mNetworkTrafficTextColor;
-            mNetworkTrafficTextColorTint = mNetworkTrafficTextColor;
-        }
-    }
-
-    public void updateNetworkTrafficIconColor(boolean animate) {
-        mNetworkTrafficIconColor = StatusBarColorHelper.getNetworkTrafficIconColor(mContext);
-        if (animate && mNetworkTraffic.isUpdating()) {
-            mColorToChange = NETWORK_TRAFFIC_ICON_COLOR;
-            mColorTransitionAnimator.start();
-        } else {
-            mNetworkTraffic.setIconColor(mNetworkTrafficIconColor);
-            mNetworkTrafficIconColorOld = mNetworkTrafficIconColor;
-            mNetworkTrafficIconColorTint = mNetworkTrafficIconColor;
-        }
-
     }
 
     public void updateNetworkIconColors() {
