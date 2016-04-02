@@ -52,6 +52,7 @@ import com.android.systemui.statusbar.NotificationData;
 import com.android.systemui.statusbar.SignalClusterView;
 import com.android.systemui.statusbar.StatusBarIconView;
 import com.android.systemui.statusbar.policy.Clock;
+import com.android.systemui.statusbar.policy.NetworkTraffic;
 import com.android.systemui.tuner.TunerService;
 import com.android.systemui.tuner.TunerService.Tunable;
 
@@ -86,6 +87,7 @@ public class StatusBarIconController implements Tunable {
     private BatteryLevelTextView mBatteryLevelTextView;
     private BatteryMeterView mBatteryMeterView;
     private Clock mClock;
+    private NetworkTraffic mNetworkTraffic;
     private ImageView mTurboLogo;
 
     // Center clock
@@ -99,6 +101,9 @@ public class StatusBarIconController implements Tunable {
     private int mIconHPadding;
 
     private int mIconTint = Color.WHITE;
+    private int mStatusIconsColor;
+    private int mStatusIconsColorOld;
+    private int mStatusIconsColorTint;
     private int mNetworkTrafficTextColor;
     private int mNetworkTrafficTextColorOld;
     private int mNetworkTrafficTextColorTint;
@@ -129,6 +134,8 @@ public class StatusBarIconController implements Tunable {
     private static final int AIRPLANE_MODE_COLOR  = 2;
     private static final int NETWORK_TRAFFIC_TEXT_COLOR = 3;
     private static final int NETWORK_TRAFFIC_ICON_COLOR = 4;
+    private static final int STATUS_ICONS_COLOR		= 5;
+
     private int mColorToChange;
 
     private final Handler mHandler;
@@ -173,6 +180,7 @@ public class StatusBarIconController implements Tunable {
         mFastOutSlowIn = AnimationUtils.loadInterpolator(mContext,
                 android.R.interpolator.fast_out_slow_in);
         mDarkModeIconColorSingleTone = context.getColor(R.color.dark_mode_icon_color_single_tone);
+        mNetworkTraffic = (NetworkTraffic) statusBar.findViewById(R.id.network_traffic_layout);
         mLightModeIconColorSingleTone = context.getColor(R.color.light_mode_icon_color_single_tone);
         mHandler = new Handler();
         updateResources();
@@ -187,6 +195,9 @@ public class StatusBarIconController implements Tunable {
     }
 
     private void setUpCustomColors() {
+        mStatusIconsColor = StatusBarColorHelper.getStatusIconsColor(mContext);
+        mStatusIconsColorOld = mStatusIconsColor;
+        mStatusIconsColorTint = mStatusIconsColor;
         mNetworkTrafficTextColor = StatusBarColorHelper.getNetworkTrafficTextColor(mContext);
         mNetworkTrafficTextColorOld = mNetworkTrafficTextColor;
         mNetworkTrafficTextColorTint = mNetworkTrafficTextColor;
@@ -247,6 +258,7 @@ public class StatusBarIconController implements Tunable {
         mStatusIconsKeyguard.addView(view, viewIndex, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, mIconSize));
         applyIconTint();
+        updateStatusIconsKeyguardColor();
     }
 
     public void updateSystemIcon(String slot, int index, int viewIndex,
@@ -256,6 +268,7 @@ public class StatusBarIconController implements Tunable {
         view = (StatusBarIconView) mStatusIconsKeyguard.getChildAt(viewIndex);
         view.set(icon);
         applyIconTint();
+        updateStatusIconsKeyguardColor();
     }
 
     public void removeSystemIcon(String slot, int index, int viewIndex) {
@@ -474,6 +487,8 @@ public class StatusBarIconController implements Tunable {
         mDarkIntensity = darkIntensity;
         mIconTint = (int) ArgbEvaluator.getInstance().evaluate(darkIntensity,
                 mLightModeIconColorSingleTone, mDarkModeIconColorSingleTone);
+        mStatusIconsColorTint = (int) ArgbEvaluator.getInstance().evaluate(darkIntensity,
+                mStatusIconsColor, StatusBarColorHelper.getStatusIconsColorDark(mContext));
         mNetworkTrafficTextColorTint = (int) ArgbEvaluator.getInstance().evaluate(mDarkIntensity,
                 mNetworkTrafficTextColor, StatusBarColorHelper.getNetworkTrafficTextColorDark(mContext));
         mNetworkTrafficIconColorTint = (int) ArgbEvaluator.getInstance().evaluate(mDarkIntensity,
@@ -498,7 +513,7 @@ public class StatusBarIconController implements Tunable {
     private void applyIconTint() {
         for (int i = 0; i < mStatusIcons.getChildCount(); i++) {
             StatusBarIconView v = (StatusBarIconView) mStatusIcons.getChildAt(i);
-            v.setImageTintList(ColorStateList.valueOf(mIconTint));
+            v.setImageTintList(ColorStateList.valueOf(mStatusIconsColorTint));
         }
         mSignalCluster.setIconTint(
                 mNetworkSignalColorTint, mNoSimColorTint, mAirplaneModeColorTint, mDarkIntensity);
@@ -591,6 +606,13 @@ public class StatusBarIconController implements Tunable {
                     blended = ColorHelper.getBlendColor(
                             mNetworkSignalColorOld, mNetworkSignalColor, position);
                     mSignalCluster.applyNetworkSignalTint(blended);
+                } else if (mColorToChange == STATUS_ICONS_COLOR) {
+                    blended = ColorHelper.getBlendColor(
+                            mStatusIconsColorOld, mStatusIconsColor, position);
+                    for (int i = 0; i < mStatusIcons.getChildCount(); i++) {
+                        StatusBarIconView v = (StatusBarIconView) mStatusIcons.getChildAt(i);
+                        v.setImageTintList(ColorStateList.valueOf(blended));
+                    }
                 } else if (mColorToChange == NO_SIM_COLOR) {
                     blended = ColorHelper.getBlendColor(
                             mNoSimColorOld, mNoSimColor, position);
@@ -599,6 +621,14 @@ public class StatusBarIconController implements Tunable {
                     blended = ColorHelper.getBlendColor(
                             mNetworkTrafficTextColorOld, mNetworkTrafficTextColor, position);
                     mNetworkTraffic.setTextColor(blended);
+                } else if (mColorToChange == NETWORK_SIGNAL_COLOR) {		
+                    blended = ColorHelper.getBlendColor(		
+                            mNetworkSignalColorOld, mNetworkSignalColor, position);		
+                    mSignalCluster.applyNetworkSignalTint(blended);		
+                } else if (mColorToChange == NO_SIM_COLOR) {		
+                    blended = ColorHelper.getBlendColor(		
+                            mNoSimColorOld, mNoSimColor, position);		
+                    mSignalCluster.applyNoSimTint(blended);
                 } else if (mColorToChange == NETWORK_TRAFFIC_ICON_COLOR) {
                     blended = ColorHelper.getBlendColor(
                             mNetworkTrafficIconColorOld, mNetworkTrafficIconColor, position);
@@ -616,8 +646,17 @@ public class StatusBarIconController implements Tunable {
                  if (mColorToChange == NETWORK_SIGNAL_COLOR) {
                     mNetworkSignalColorOld = mNetworkSignalColor;
                     mNetworkSignalColorTint = mNetworkSignalColor;
+                } else if (mColorToChange == STATUS_ICONS_COLOR) {
+                    mStatusIconsColorOld = mStatusIconsColor;
+                    mStatusIconsColorTint = mStatusIconsColor;
                 } else if (mColorToChange == NO_SIM_COLOR) {
                     mNoSimColorOld = mNoSimColor;
+                    mNoSimColorTint = mNoSimColor;
+                } else if (mColorToChange == NETWORK_SIGNAL_COLOR) {		
+                    mNetworkSignalColorOld = mNetworkSignalColor;		
+                    mNetworkSignalColorTint = mNetworkSignalColor;		
+                } else if (mColorToChange == NO_SIM_COLOR) {		
+                    mNoSimColorOld = mNoSimColor;		
                     mNoSimColorTint = mNoSimColor;
                 } else if (mColorToChange == NETWORK_TRAFFIC_TEXT_COLOR) {
                     mNetworkTrafficTextColorOld = mNetworkTrafficTextColor;
@@ -700,4 +739,26 @@ public class StatusBarIconController implements Tunable {
         mColorToChange = AIRPLANE_MODE_COLOR;
         mColorTransitionAnimator.start();
     }
+
+    public void updateStatusIconsColor() {
+        mStatusIconsColor = StatusBarColorHelper.getStatusIconsColor(mContext);
+        if (mStatusIcons.getChildCount() > 0) {
+            mColorToChange = STATUS_ICONS_COLOR;
+            mColorTransitionAnimator.start();
+        } else {
+            mStatusIconsColorOld = mStatusIconsColor;
+            mStatusIconsColorTint = mStatusIconsColor;
+        }
+        updateStatusIconsKeyguardColor();
+    }
+
+    public void updateStatusIconsKeyguardColor() {
+        if (mStatusIconsKeyguard.getChildCount() > 0) {
+            for (int index = 0; index < mStatusIconsKeyguard.getChildCount(); index++) {
+                StatusBarIconView v = (StatusBarIconView) mStatusIconsKeyguard.getChildAt(index);
+                v.setImageTintList(ColorStateList.valueOf(mStatusIconsColor));
+            }
+        }
+    }
+
 }

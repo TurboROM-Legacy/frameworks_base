@@ -83,4 +83,17 @@ public class StatusBarColorHelper {
                 Settings.System.STATUS_BAR_NETWORK_TRAFFIC_ICON_COLOR_DARK_MODE,
                 TRANSLUCENT_BLACK);
     }
+
+    public static int getStatusIconsColor(Context context) {
+        return Settings.System.getInt(context.getContentResolver(),
+                Settings.System.STATUS_BAR_STATUS_ICONS_COLOR,
+                WHITE);
+    }
+
+    public static int getStatusIconsColorDark(Context context) {
+        final int color = Settings.System.getInt(context.getContentResolver(),
+                Settings.System.STATUS_BAR_STATUS_ICONS_COLOR_DARK_MODE,
+                TRANSLUCENT_BLACK);
+        return (153 << 24) | (color & 0x00ffffff);
+    }
 }

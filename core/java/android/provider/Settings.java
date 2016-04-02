@@ -4811,6 +4811,30 @@ public final class Settings {
         public static final String STATUS_BAR_NETWORK_TRAFFIC_ICON_COLOR = "status_bar_network_traffic_icon_color";
 
         /**
+         * Color of the network traffic text, (dark mode)
+         * @hide
+         */
+        public static final String STATUS_BAR_NETWORK_TRAFFIC_TEXT_COLOR_DARK_MODE = "status_bar_network_traffic_text_color_dark_mode";
+
+        /**
+         * Color of the network traffic icons, (dark mode)
+         * @hide
+         */
+        public static final String STATUS_BAR_NETWORK_TRAFFIC_ICON_COLOR_DARK_MODE = "status_bar_network_traffic_icon_color_dark_mode";
+
+        /**
+         * Color of the status icons on the status bar
+         * @hide
+         */
+        public static final String STATUS_BAR_STATUS_ICONS_COLOR = "status_bar_status_icons_status_color";
+
+        /**
+         * Color of the status icons on the status bar, (dark mode)
+         * @hide
+         */
+        public static final String STATUS_BAR_STATUS_ICONS_COLOR_DARK_MODE = "status_bar_status_icons_status_color_color_dark_mode";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
