@@ -175,4 +175,8 @@
     <!-- Default name of the custom carrier label -->
     <java-symbol type="string" name="default_custom_label" />
 
+    <!-- DarkKat theme -->
+    <java-symbol type="color" name="darkkat_blue_grey" />
+    <java-symbol type="drawable" name="darkkat_bg_blue_grey" />
+
 </resources>

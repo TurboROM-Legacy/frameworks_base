@@ -138,7 +138,14 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             >
-
+            <com.android.systemui.statusbar.policy.NetworkTraffic
+                android:id="@+id/network_traffic"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawablePadding="3dp"
+                android:singleLine="false"
+                android:gravity="right|center_vertical"
+                />
             <TextView
                 android:id="@+id/weather_temp"
                 android:layout_width="wrap_content"
@@ -159,7 +166,6 @@
                 android:layout_marginStart="@dimen/header_battery_margin_keyguard"
                 android:textColor="#ffffff"
                 android:textSize="@dimen/battery_level_text_size" />
-
             <com.android.systemui.statusbar.policy.Clock
                 android:id="@+id/clock"
                 android:textAppearance="@style/TextAppearance.StatusBar.Clock"
