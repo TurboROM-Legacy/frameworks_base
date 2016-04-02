@@ -44,6 +44,7 @@ import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.Typeface;
@@ -419,6 +420,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
     // TurboROM Logo
     private boolean mTurboLogo;
+    private int mTurboLogoColor;
     private ImageView turboLogo;
 
     private int mNavigationBarWindowState = WINDOW_STATE_SHOWING;
@@ -540,6 +542,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_TURBO_LOGO), 
 		    false, this, UserHandle.USER_ALL);
+	    resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_TURBO_LOGO_COLOR),
+		    false, this, UserHandle.USER_ALL);	
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.NAVIGATION_BAR_BUTTON_TINT),
                     false, this, UserHandle.USER_ALL);
@@ -762,7 +767,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
             mTurboLogo = Settings.System.getIntForUser(resolver,
                     Settings.System.STATUS_BAR_TURBO_LOGO, 0, mCurrentUserId) == 1;
-            showTurboLogo(mTurboLogo);
+            mTurboLogoColor = Settings.System.getIntForUser(resolver,
+                    Settings.System.STATUS_BAR_TURBO_LOGO_COLOR, 0xFFFFFFFF, mCurrentUserId);
+            showTurboLogo(mTurboLogo, mTurboLogoColor);
 
             float overlayalpha = Settings.System.getFloatForUser(mContext.getContentResolver(),
                 Settings.System.LOCKSCREEN_ALPHA, 0.45f, UserHandle.USER_CURRENT);
@@ -3957,10 +3964,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
     };
 
-    public void showTurboLogo(boolean show) {
+    public void showTurboLogo(boolean show, int color) {
         if (mStatusBarView == null) return;
         ContentResolver resolver = mContext.getContentResolver();
         turboLogo = (ImageView) mStatusBarView.findViewById(R.id.turbo_logo);
+        turboLogo.setColorFilter(color, Mode.SRC_IN);
         if (turboLogo != null) {
             turboLogo.setVisibility(show ? (mTurboLogo ? View.VISIBLE : View.GONE) : View.GONE);
         }
