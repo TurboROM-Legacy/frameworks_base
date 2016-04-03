@@ -4794,6 +4794,11 @@ public final class Settings {
          */
         public static final String STATUS_BAR_DAYLIGHT_HEADER_PACK = "status_bar_daylight_header_pack";
 
+        /* Network speed indicator
+         * @hide
+         */
+        public static final String STATUS_BAR_TRAFFIC = "status_bar_traffic";
+
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
