@@ -102,12 +102,6 @@ public class StatusBarIconController implements Tunable {
     private int mStatusIconsColor;
     private int mStatusIconsColorOld;
     private int mStatusIconsColorTint;
-    private int mNetworkTrafficTextColor;
-    private int mNetworkTrafficTextColorOld;
-    private int mNetworkTrafficTextColorTint;
-    private int mNetworkTrafficIconColor;
-    private int mNetworkTrafficIconColorOld;
-    private int mNetworkTrafficIconColorTint;
     private int mNetworkSignalColor;
     private int mNetworkSignalColorOld;
     private int mNetworkSignalColorTint;
@@ -130,8 +124,6 @@ public class StatusBarIconController implements Tunable {
     private static final int NETWORK_SIGNAL_COLOR = 0;
     private static final int NO_SIM_COLOR         = 1;
     private static final int AIRPLANE_MODE_COLOR  = 2;
-    private static final int NETWORK_TRAFFIC_TEXT_COLOR = 3;
-    private static final int NETWORK_TRAFFIC_ICON_COLOR = 4;
     private static final int STATUS_ICONS_COLOR		= 5;
 
     private int mColorToChange;
@@ -195,12 +187,6 @@ public class StatusBarIconController implements Tunable {
         mStatusIconsColor = StatusBarColorHelper.getStatusIconsColor(mContext);
         mStatusIconsColorOld = mStatusIconsColor;
         mStatusIconsColorTint = mStatusIconsColor;
-        mNetworkTrafficTextColor = StatusBarColorHelper.getNetworkTrafficTextColor(mContext);
-        mNetworkTrafficTextColorOld = mNetworkTrafficTextColor;
-        mNetworkTrafficTextColorTint = mNetworkTrafficTextColor;
-        mNetworkTrafficIconColor = StatusBarColorHelper.getNetworkTrafficIconColor(mContext);
-        mNetworkTrafficIconColorOld = mNetworkTrafficIconColor;
-        mNetworkTrafficIconColorTint = mNetworkTrafficIconColor;
         mNetworkSignalColor = StatusBarColorHelper.getNetworkSignalColor(mContext);
         mNetworkSignalColorOld = mNetworkSignalColor;
         mNetworkSignalColorTint = mNetworkSignalColor;
@@ -486,10 +472,6 @@ public class StatusBarIconController implements Tunable {
                 mLightModeIconColorSingleTone, mDarkModeIconColorSingleTone);
         mStatusIconsColorTint = (int) ArgbEvaluator.getInstance().evaluate(darkIntensity,
                 mStatusIconsColor, StatusBarColorHelper.getStatusIconsColorDark(mContext));
-        mNetworkTrafficTextColorTint = (int) ArgbEvaluator.getInstance().evaluate(mDarkIntensity,
-                mNetworkTrafficTextColor, StatusBarColorHelper.getNetworkTrafficTextColorDark(mContext));
-        mNetworkTrafficIconColorTint = (int) ArgbEvaluator.getInstance().evaluate(mDarkIntensity,
-                mNetworkTrafficIconColor, StatusBarColorHelper.getNetworkTrafficIconColorDark(mContext));
         mNetworkSignalColorTint = (int) ArgbEvaluator.getInstance().evaluate(darkIntensity,
                 mNetworkSignalColor, StatusBarColorHelper.getNetworkSignalColorDark(mContext));
         mNoSimColorTint = (int) ArgbEvaluator.getInstance().evaluate(darkIntensity,
@@ -517,8 +499,6 @@ public class StatusBarIconController implements Tunable {
         mMoreIcon.setImageTintList(ColorStateList.valueOf(mIconTint));
         mTurboLogo.setImageTintList(ColorStateList.valueOf(mIconTint));
         mClock.setTextColor(mIconTint);
-        mNetworkTraffic.setTextColor(mNetworkTrafficTextColorTint);
-        mNetworkTraffic.setIconColor(mNetworkTrafficIconColorTint);
         applyNotificationIconsTint();
     }
 
@@ -612,10 +592,6 @@ public class StatusBarIconController implements Tunable {
                     blended = ColorHelper.getBlendColor(
                             mNoSimColorOld, mNoSimColor, position);
                     mSignalCluster.applyNoSimTint(blended);
-                } else if (mColorToChange == NETWORK_TRAFFIC_TEXT_COLOR) {
-                    blended = ColorHelper.getBlendColor(
-                            mNetworkTrafficTextColorOld, mNetworkTrafficTextColor, position);
-                    mNetworkTraffic.setTextColor(blended);
                 } else if (mColorToChange == NETWORK_SIGNAL_COLOR) {		
                     blended = ColorHelper.getBlendColor(		
                             mNetworkSignalColorOld, mNetworkSignalColor, position);		
@@ -624,10 +600,6 @@ public class StatusBarIconController implements Tunable {
                     blended = ColorHelper.getBlendColor(		
                             mNoSimColorOld, mNoSimColor, position);		
                     mSignalCluster.applyNoSimTint(blended);
-                } else if (mColorToChange == NETWORK_TRAFFIC_ICON_COLOR) {
-                    blended = ColorHelper.getBlendColor(
-                            mNetworkTrafficIconColorOld, mNetworkTrafficIconColor, position);
-                    mNetworkTraffic.setIconColor(blended);
                 } else if (mColorToChange == AIRPLANE_MODE_COLOR) {
                     blended = ColorHelper.getBlendColor(
                             mAirplaneModeColorOld, mAirplaneModeColor, position);
@@ -653,12 +625,6 @@ public class StatusBarIconController implements Tunable {
                 } else if (mColorToChange == NO_SIM_COLOR) {		
                     mNoSimColorOld = mNoSimColor;		
                     mNoSimColorTint = mNoSimColor;
-                } else if (mColorToChange == NETWORK_TRAFFIC_TEXT_COLOR) {
-                    mNetworkTrafficTextColorOld = mNetworkTrafficTextColor;
-                    mNetworkTrafficTextColorTint = mNetworkTrafficTextColor;
-                } else if (mColorToChange == NETWORK_TRAFFIC_ICON_COLOR) {
-                    mNetworkTrafficIconColorOld = mNetworkTrafficIconColor;
-                    mNetworkTrafficIconColorTint = mNetworkTrafficIconColor;
                 } else if (mColorToChange == AIRPLANE_MODE_COLOR) {
                     mAirplaneModeColorOld = mAirplaneModeColor;
                     mAirplaneModeColorTint = mAirplaneModeColor;
