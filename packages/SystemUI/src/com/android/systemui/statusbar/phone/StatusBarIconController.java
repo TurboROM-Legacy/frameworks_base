@@ -516,7 +516,6 @@ public class StatusBarIconController implements Tunable {
                 mNetworkSignalColorTint, mNoSimColorTint, mAirplaneModeColorTint, mDarkIntensity);
         mMoreIcon.setImageTintList(ColorStateList.valueOf(mIconTint));
         mTurboLogo.setImageTintList(ColorStateList.valueOf(mIconTint));
-        mBatteryLevelTextView.setTextColor(mIconTint);
         mClock.setTextColor(mIconTint);
         mNetworkTraffic.setTextColor(mNetworkTrafficTextColorTint);
         mNetworkTraffic.setIconColor(mNetworkTrafficIconColorTint);
