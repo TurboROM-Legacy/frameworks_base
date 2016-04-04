@@ -490,12 +490,12 @@ public class StatusBarIconController implements Tunable {
         mTurboLogo.setImageTintList(ColorStateList.valueOf(mIconTint));
         mClock.setTextColor(mIconTint);
         mSignalCluster.setIconTint(
-                mNetworkSignalColorTint, mNoSimColorTint, mAirplaneModeColorTint, mDarkIntensity);
+                mNetworkSignalColorTint, mNoSimColorTint, mAirplaneModeColorTint);
         for (int i = 0; i < mStatusIcons.getChildCount(); i++) {
             StatusBarIconView v = (StatusBarIconView) mStatusIcons.getChildAt(i);
-            v.setImageTintList(ColorStateList.valueOf(mStatusIconColorTint));
+            v.setColorFilter(mStatusIconColorTint, Mode.MULTIPLY);
         }
-        mMoreIcon.setImageTintList(ColorStateList.valueOf(mIconTint));
+        mMoreIcon.setColorFilter(mIconTint, Mode.MULTIPLY);
         applyNotificationIconsTint();
     }
 
@@ -583,10 +583,10 @@ public class StatusBarIconController implements Tunable {
                             mAirplaneModeColorOld, mAirplaneModeColor, position);
                     for (int i = 0; i < mStatusIcons.getChildCount(); i++) {
                         StatusBarIconView v = (StatusBarIconView) mStatusIcons.getChildAt(i);
-                        v.setImageTintList(ColorStateList.valueOf(blendedStatus));
+                        v.setColorFilter(blendedStatus, Mode.MULTIPLY);
                     }
                     mSignalCluster.setIconTint(
-                            blendedSignal, blendedNoSim, blendedAirPlaneMode, mDarkIntensity);
+                            blendedSignal, blendedNoSim, blendedAirPlaneMode);
                 }
             }
         });
@@ -623,7 +623,7 @@ public class StatusBarIconController implements Tunable {
         } else {
             mSignalCluster.setIgnoreSystemUITuner(true);
             mSignalCluster.setIconTint(
-                    mNetworkSignalColor, mNoSimColor, mAirplaneModeColor, mDarkIntensity);
+                    mNetworkSignalColor, mNoSimColor, mAirplaneModeColor);
             mStatusIconColorOld = mStatusIconColor;
             mNetworkSignalColorOld = mNetworkSignalColor;
             mNoSimColorOld = mNoSimColor;
@@ -635,7 +635,7 @@ public class StatusBarIconController implements Tunable {
         }
         mSignalClusterKeyguard.setIgnoreSystemUITuner(true);
         mSignalClusterKeyguard.setIconTint(
-                mNetworkSignalColor, mNoSimColor, mAirplaneModeColor, 0f);
+                mNetworkSignalColor, mNoSimColor, mAirplaneModeColor);
         updateStatusIconKeyguardColor();
     }
 

@@ -22,8 +22,8 @@ import android.provider.Settings;
 
 public class StatusBarColorHelper {
 
-    private static final int WHITE             = 0xffffffff;
-    private static final int TRANSLUCENT_BLACK = 0x7a000000;
+    private static final int WHITE = 0xffffffff;
+    private static final int BLACK = 0xff000000;
 
     public static int getNetworkSignalColor(Context context) {
         return Settings.System.getInt(context.getContentResolver(),
@@ -31,10 +31,9 @@ public class StatusBarColorHelper {
     }
 
     public static int getNetworkSignalColorDark(Context context) {
-        final int color = Settings.System.getInt(context.getContentResolver(),
+        return Settings.System.getInt(context.getContentResolver(),
                 Settings.System.STATUS_BAR_NETWORK_ICONS_SIGNAL_COLOR_DARK_MODE,
-                TRANSLUCENT_BLACK);
-        return (153 << 24) | (color & 0x00ffffff);
+                BLACK);
     }
 
     public static int getNoSimColor(Context context) {
@@ -43,10 +42,9 @@ public class StatusBarColorHelper {
     }
 
     public static int getNoSimColorDark(Context context) {
-        final int color = Settings.System.getInt(context.getContentResolver(),
+        return Settings.System.getInt(context.getContentResolver(),
                 Settings.System.STATUS_BAR_NETWORK_ICONS_NO_SIM_COLOR_DARK_MODE,
-                TRANSLUCENT_BLACK);
-        return (153 << 24) | (color & 0x00ffffff);
+                BLACK);
     }
 
     public static int getAirplaneModeColor(Context context) {
@@ -56,10 +54,9 @@ public class StatusBarColorHelper {
     }
 
     public static int getAirplaneModeColorDark(Context context) {
-        final int color = Settings.System.getInt(context.getContentResolver(),
+        return Settings.System.getInt(context.getContentResolver(),
                 Settings.System.STATUS_BAR_NETWORK_ICONS_AIRPLANE_MODE_COLOR_DARK_MODE,
-                TRANSLUCENT_BLACK);
-        return (153 << 24) | (color & 0x00ffffff);
+                BLACK);
     }
 
 
@@ -70,9 +67,8 @@ public class StatusBarColorHelper {
     }
 
     public static int getStatusIconColorDark(Context context) {
-        final int color = Settings.System.getInt(context.getContentResolver(),
+        return Settings.System.getInt(context.getContentResolver(),
                 Settings.System.STATUS_BAR_STATUS_ICONS_COLOR_DARK_MODE,
-                TRANSLUCENT_BLACK);
-        return (153 << 24) | (color & 0x00ffffff);
+                BLACK);
     }
 }
