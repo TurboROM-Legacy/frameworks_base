@@ -24,6 +24,7 @@ import android.content.ContentUris;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.ContentObserver;
@@ -70,6 +71,9 @@ import com.android.systemui.statusbar.policy.BatteryController;
 import com.android.systemui.statusbar.policy.NetworkControllerImpl.EmergencyListener;
 import com.android.systemui.statusbar.policy.NextAlarmController;
 import com.android.systemui.statusbar.policy.UserInfoController;
+import com.android.systemui.statusbar.SignalClusterView;
+
+import com.android.internal.util.turbo.StatusBarColorHelper;
 
 import java.text.NumberFormat;
 
@@ -97,7 +101,7 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
     private TextView mDateCollapsed;
     private TextView mDateExpanded;
     private LinearLayout mSystemIcons;
-    private View mSignalCluster;
+    private SignalClusterView mSignalCluster;
     private View mSettingsButton;
     private View mQsDetailHeader;
     private TextView mQsDetailHeaderTitle;
@@ -198,7 +202,7 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
         mBatteryLevel = (BatteryLevelTextView) findViewById(R.id.battery_level_text);
         mAlarmStatus = (TextView) findViewById(R.id.alarm_status);
         mAlarmStatus.setOnClickListener(this);
-        mSignalCluster = findViewById(R.id.signal_cluster);
+        mSignalCluster = (SignalClusterView) findViewById(R.id.signal_cluster);
         mSystemIcons = (LinearLayout) findViewById(R.id.system_icons);
         mWeatherContainer = (LinearLayout) findViewById(R.id.weather_container);
         mWeatherContainer.setOnClickListener(this);
@@ -206,6 +210,7 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
         mWeatherLine1 = (TextView) findViewById(R.id.weather_line_1);
         mWeatherLine2 = (TextView) findViewById(R.id.weather_line_2);
         mSettingsObserver = new SettingsObserver(new Handler());
+	mSettingsObserver.observe();
         mBackgroundImage = (ImageView) findViewById(R.id.background_image);
         loadDimens();
         updateVisibilities();
@@ -999,6 +1004,15 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_SHOW_BATTERY_PERCENT), false, this,
                     UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_NETWORK_ICONS_SIGNAL_COLOR), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_NETWORK_ICONS_NO_SIM_COLOR), false, this, 
+		    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_NETWORK_ICONS_AIRPLANE_MODE_COLOR), false, this, 
+		    UserHandle.USER_ALL);
             update();
         }
 
@@ -1014,6 +1028,14 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
 
         @Override
         public void onChange(boolean selfChange, Uri uri) {
+            if (uri.equals(Settings.System.getUriFor(
+		    Settings.System.STATUS_BAR_NETWORK_ICONS_SIGNAL_COLOR))
+		|| uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_NETWORK_ICONS_NO_SIM_COLOR))
+                || uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_NETWORK_ICONS_AIRPLANE_MODE_COLOR))) {
+                updateIconColor();
+	    }
             update();
         }
 
@@ -1039,7 +1061,17 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
             mShowBatteryTextExpanded = showExpandedBatteryPercentage;
             updateVisibilities();
             requestCaptureValues();
+            updateIconColor();
         }
+    }
+
+    private void updateIconColor() {
+        final int iconColor = StatusBarColorHelper.getNetworkSignalColor(mContext);
+        final int noSimIconColor = StatusBarColorHelper.getNoSimColor(mContext);
+        final int airplaneModeIconColor = StatusBarColorHelper.getAirplaneModeColor(mContext);
+
+        mSignalCluster.setIconTint(
+                iconColor, noSimIconColor, airplaneModeIconColor);
     }
 
     private void doUpdateStatusBarCustomHeader(final Drawable next, final boolean force) {
