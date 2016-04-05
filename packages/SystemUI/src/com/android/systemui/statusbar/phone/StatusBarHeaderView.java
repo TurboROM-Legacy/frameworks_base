@@ -160,7 +160,7 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
 
     private ContentObserver mObserver = new ContentObserver(new Handler()) {
         public void onChange(boolean selfChange, Uri uri) {
-	    updateIconColor();
+	    updateSBHIconColor();
         }
     };
 
@@ -375,7 +375,7 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
     }
 
     public void updateEverything() {
-        updateIconColor();
+        updateSBHIconColor();
         updateHeights();
         updateVisibilities();
         updateSystemIconsLayoutParams();
@@ -1042,7 +1042,7 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
                     Settings.System.STATUS_BAR_NETWORK_ICONS_NO_SIM_COLOR))
                 || uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_NETWORK_ICONS_AIRPLANE_MODE_COLOR))) {
-                updateIconColor();
+                updateSBHIconColor();
 	    }
             update();
         }
@@ -1054,11 +1054,11 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
                     resolver, Settings.System.STATUS_BAR_SHOW_WEATHER, 1, currentUserId) == 1;
             updateVisibilities();
             requestCaptureValues();
-            updateIconColor();
+            updateSBHIconColor();
         }
     }
 
-    private void updateIconColor() {
+    public void updateSBHIconColor() {
         final int iconColor = StatusBarColorHelper.getNetworkSignalColor(mContext);
         final int noSimIconColor = StatusBarColorHelper.getNoSimColor(mContext);
         final int airplaneModeIconColor = StatusBarColorHelper.getAirplaneModeColor(mContext);
