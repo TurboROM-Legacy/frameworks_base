@@ -45,7 +45,6 @@ import com.android.internal.util.NotificationColorUtil;
 import com.android.internal.util.slim.DeviceUtils;
 import com.android.internal.util.turbo.ColorHelper;
 import com.android.internal.util.turbo.StatusBarColorHelper;
-import com.android.systemui.BatteryLevelTextView;
 import com.android.systemui.BatteryMeterView;
 import com.android.systemui.FontSizeUtils;
 import com.android.systemui.R;
@@ -88,7 +87,6 @@ public class StatusBarIconController implements Tunable {
     private IconMerger mNotificationIcons;
     private View mNotificationIconArea;
     private ImageView mMoreIcon;
-    private BatteryLevelTextView mBatteryLevelTextView;
     private BatteryMeterView mBatteryMeterView;
     private Clock mClock;
     private ImageView mTurboLogo;
@@ -160,8 +158,6 @@ public class StatusBarIconController implements Tunable {
         mTurboLogo = (ImageView) statusBar.findViewById(R.id.turbo_logo);
         mNotificationIcons.setOverflowIndicator(mMoreIcon);
         mStatusIconsKeyguard = (LinearLayout) keyguardStatusBar.findViewById(R.id.statusIcons);
-        mBatteryLevelTextView =
-                (BatteryLevelTextView) statusBar.findViewById(R.id.battery_level_text);
         mBatteryMeterView = (BatteryMeterView) statusBar.findViewById(R.id.battery);
         mClock = (Clock) statusBar.findViewById(R.id.clock);
         mCenterClockLayout = (LinearLayout)statusBar.findViewById(R.id.center_clock_layout);
