@@ -658,6 +658,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 || uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_STATUS_ICONS_COLOR))) {
                 updateStatusNetworkIconColors(true);
+	    	mHeader.updateSBHIconColor();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_NOTIFICATION_ICONS_COLOR))) {
                 updateNotificationIconColor();
@@ -789,7 +790,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             mWeatherTempState = Settings.System.getIntForUser(
                     resolver, Settings.System.STATUS_BAR_SHOW_WEATHER_TEMP, 0,
                     UserHandle.USER_CURRENT);
-
 	    updateTempView();
         }
     }
