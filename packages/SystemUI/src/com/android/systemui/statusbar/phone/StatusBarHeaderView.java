@@ -88,6 +88,7 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
     private boolean mListening;
 
     private ViewGroup mSystemIconsContainer;
+    private BatteryMeterView mBatteryMeterView;
     private ViewGroup mWeatherContainer;
     private View mSystemIconsSuperContainer;
     private View mDateGroup;
@@ -179,6 +180,7 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
         mSystemIconsContainer = (ViewGroup) findViewById(R.id.system_icons_container);
         mSystemIconsSuperContainer.setOnClickListener(this);
         mSystemIconsSuperContainer.setOnLongClickListener(this);
+ 	mBatteryMeterView = (BatteryMeterView) findViewById(R.id.battery);
         mDateGroup = findViewById(R.id.date_group);
         mDateGroup.setOnClickListener(this);
         mDateGroup.setOnLongClickListener(this);
@@ -339,7 +341,9 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
 
     public void setBatteryController(BatteryController batteryController) {
         mBatteryController = batteryController;
-        ((BatteryMeterView) findViewById(R.id.battery)).setBatteryController(batteryController);
+        if (mBatteryMeterView != null) {
+            mBatteryMeterView.setBatteryController(batteryController);
+        }
     }
 
     public void setNextAlarmController(NextAlarmController nextAlarmController) {
@@ -407,7 +411,7 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
             updateSignalClusterDetachment();
         }
         mEmergencyCallsOnly.setVisibility(mExpanded && mShowEmergencyCallsOnly ? VISIBLE : GONE);
-        mBatteryLevel.setVisibility(mExpanded ? View.VISIBLE : View.GONE);
+        mBatteryLevel.setVisibility(mExpanded ? View.GONE : View.GONE);
         applyHeaderBackgroundShadow();
     }
 
@@ -1021,6 +1025,33 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_NETWORK_ICONS_AIRPLANE_MODE_COLOR), false, this, 
 		    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_BATTERY_ICON_INDICATOR),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_BATTERY_CIRCLE_DOT_INTERVAL),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_BATTERY_CIRCLE_DOT_LENGTH),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_BATTERY_SHOW_CHARGE_ANIMATION),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_BATTERY_CUT_OUT_TEXT),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_BATTERY_COLOR),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_BATTERY_COLOR),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_BATTERY_TEXT_COLOR),
+                    false, this, UserHandle.USER_ALL);
             update();
         }
 
@@ -1043,6 +1074,29 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
                 || uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_NETWORK_ICONS_AIRPLANE_MODE_COLOR))) {
                 updateSBHIconColor();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_BATTERY_ICON_INDICATOR))) {
+		updateBatterySBHIndicator();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT))) {
+ 		updateBatterySBHTextVisibility();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_BATTERY_CIRCLE_DOT_INTERVAL))
+                || uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_BATTERY_CIRCLE_DOT_LENGTH))) {
+		updateBatterySBHCircleDots();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_BATTERY_SHOW_CHARGE_ANIMATION))) {
+		updateSBHShowChargeAnimation();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_BATTERY_CUT_OUT_TEXT))) {
+		updateSBHCutOutBatteryText();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_BATTERY_COLOR))) {
+		updateBatterySBHIconColor();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_BATTERY_TEXT_COLOR))) {
+		updateBatterySBHTextColor();
 	    }
             update();
         }
@@ -1055,7 +1109,65 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
             updateVisibilities();
             requestCaptureValues();
             updateSBHIconColor();
+            updateBatterySBHIndicator();
+            updateBatterySBHTextVisibility();
+            updateBatterySBHCircleDots();
+            updateSBHShowChargeAnimation();
+            updateSBHCutOutBatteryText();
+            updateBatterySBHIconColor();
+            updateBatterySBHTextColor();
         }
+    }
+
+
+    public void updateBatterySBHIndicator() {
+        final int indicator = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_ICON_INDICATOR, 0);
+
+        mBatteryMeterView.updateBatteryIndicator(indicator);
+    }
+
+    public void updateBatterySBHTextVisibility() {
+        final boolean show = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT, 0) == 1;
+
+        mBatteryMeterView.setTextVisibility(show);
+    }
+
+    public void updateBatterySBHCircleDots() {
+        final int interval = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_CIRCLE_DOT_INTERVAL, 0);
+        final int length = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_CIRCLE_DOT_LENGTH, 0);
+
+        mBatteryMeterView.updateCircleDots(interval, length);
+    }
+    public void updateSBHShowChargeAnimation() {
+        final boolean show = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_SHOW_CHARGE_ANIMATION, 0) == 1;
+
+        mBatteryMeterView.setShowChargeAnimation(show);
+    }
+
+    public void updateSBHCutOutBatteryText() {
+        final boolean cutOut = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_CUT_OUT_TEXT, 1) == 1;
+
+        mBatteryMeterView.setCutOutText(cutOut);
+    }
+
+    public void updateBatterySBHIconColor() {
+        final int iconColor = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_COLOR, 0xffffffff);
+
+        mBatteryMeterView.setBatteryColors(iconColor);
+    }
+
+    public void updateBatterySBHTextColor() {
+        final int textColor = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_TEXT_COLOR, 0xffffffff);
+
+        mBatteryMeterView.setTextColor(textColor);
     }
 
     public void updateSBHIconColor() {

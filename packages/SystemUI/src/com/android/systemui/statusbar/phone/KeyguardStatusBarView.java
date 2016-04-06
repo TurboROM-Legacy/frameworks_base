@@ -16,10 +16,17 @@
 
 package com.android.systemui.statusbar.phone;
 
+import android.app.ActivityManagerNative;
 import android.content.Context;
+import android.content.pm.UserInfo;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
+import android.graphics.PorterDuff.Mode;
+import android.os.UserHandle;
+import android.os.RemoteException;
+import android.provider.Settings;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -49,7 +56,7 @@ public class KeyguardStatusBarView extends RelativeLayout
 
     private boolean mBatteryCharging;
     private boolean mKeyguardUserSwitcherShowing;
-    private boolean mBatteryListening;
+    private boolean mListening;
 
     private CarrierText mCarrierLabel;
     private View mSystemIconsSuperContainer;
@@ -107,9 +114,7 @@ public class KeyguardStatusBarView extends RelativeLayout
         } else if (mMultiUserSwitch.getParent() == this && mKeyguardUserSwitcherShowing) {
             removeView(mMultiUserSwitch);
         }
-        boolean showBatteryLevel = getResources().getBoolean(R.bool.config_showBatteryPercentage);
-        mBatteryLevel.setVisibility(
-                mBatteryCharging || showBatteryLevel ? View.VISIBLE : View.GONE);
+	updateBatteryLevelVisibility();
         boolean showCarrierText = getResources().getBoolean(R.bool.config_showOperatorInKeyguard);
         mCarrierLabel.setVisibility(showCarrierText ? View.VISIBLE : View.GONE);
     }
@@ -125,11 +130,11 @@ public class KeyguardStatusBarView extends RelativeLayout
     }
 
     public void setListening(boolean listening) {
-        if (listening == mBatteryListening) {
+        if (listening == mListening) {
             return;
         }
-        mBatteryListening = listening;
-        if (mBatteryListening) {
+        mListening = listening;
+        if (mListening) {
             mBatteryController.addStateChangedCallback(this);
         } else {
             mBatteryController.removeStateChangedCallback(this);
@@ -260,6 +265,23 @@ public class KeyguardStatusBarView extends RelativeLayout
 
     public void setCarrierLabelVisibility(boolean show) {
         mCarrierLabel.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+
+    public void updateBatteryLevelVisibility() {
+        mBatteryLevel.setVisibility(showBattery() && mBatteryCharging && !showBatteryText() ? View.VISIBLE : View.GONE);
+    }
+
+    private boolean showBattery() {
+        return Settings.System.getIntForUser(getContext().getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_ICON_INDICATOR, 0,
+                UserHandle.USER_CURRENT) != 3;
+    }
+
+    private boolean showBatteryText() {
+        return Settings.System.getIntForUser(getContext().getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT, 0,
+                UserHandle.USER_CURRENT) == 1;
     }
 
     public void updateCarrierLabelColor() {

@@ -4837,6 +4837,77 @@ public final class Settings {
 	public static final String NETWORK_TRAFFIC_COLOR = "network_traffic_color";
 
         /**
+         * Icon of the battery on the status bar
+         * 0 - Battery portrait
+         * 1 - Battery landscape
+         * 2 - Circle
+         * 3 - Hidden
+         * default: 0
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_ICON_INDICATOR = "status_bar_battery_icon_indicator";
+
+        /**
+         *  Weather to show the battery text on the status bar
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_SHOW_TEXT = "status_bar_battery_show_text";
+
+        /**
+         * Dot interval of the battery circle icon on the status bar
+         * 0 - No dots
+         * 1 - 10
+         * default: 0
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_CIRCLE_DOT_INTERVAL = "status_bar_battery_circle_dot_interval";
+
+        /**
+         * Dot length of the battery circle icon on the status bar
+         * 0 - 10
+         * default: 0
+         * default: 0
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_CIRCLE_DOT_LENGTH = "status_bar_battery_circle_dot_length";
+
+        /**
+         *  Whether to show a battery charging animation on the status bar
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_SHOW_CHARGE_ANIMATION = "status_bar_battery_show_charge_animation";
+
+        /**
+         *  Whether to cut the battery percentage out of the battery icon on the status bar
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_CUT_OUT_TEXT = "status_bar_battery_cut_out_text";
+
+        /**
+         * Color of the battery icon on the status bar
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_COLOR = "status_bar_battery_color";
+
+        /**
+         * Color of the battery status icon on the status bar, (dark mode)
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_COLOR_DARK_MODE = "status_bar_battery_color_dark_mode";
+
+        /**
+         * Color of the battery status text on the status bar
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_TEXT_COLOR = "status_bar_battery_text_color";
+
+        /**
+         * Color of the battery status text on the status bar, (dark mode)
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_TEXT_COLOR_DARK_MODE = "status_bar_battery_text_color_dark_mode";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
