@@ -25,6 +25,30 @@ public class StatusBarColorHelper {
     private static final int WHITE = 0xffffffff;
     private static final int BLACK = 0xff000000;
 
+    public static int getBatteryColor(Context context) {
+        return Settings.System.getInt(context.getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_COLOR, 
+		WHITE);
+    }
+
+    public static int getBatteryColorDark(Context context) {
+        return Settings.System.getInt(context.getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_COLOR_DARK_MODE,
+                BLACK);
+    }
+
+    public static int getBatteryTextColor(Context context) {
+        return Settings.System.getInt(context.getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_TEXT_COLOR, 
+		WHITE);
+    }
+
+    public static int getBatteryTextColorDark(Context context) {
+        return Settings.System.getInt(context.getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_TEXT_COLOR_DARK_MODE,
+                BLACK);
+    }
+
     public static int getNetworkSignalColor(Context context) {
         return Settings.System.getInt(context.getContentResolver(),
                 Settings.System.STATUS_BAR_NETWORK_ICONS_SIGNAL_COLOR, WHITE);
