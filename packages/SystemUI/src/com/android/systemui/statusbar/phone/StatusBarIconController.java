@@ -76,6 +76,7 @@ public class StatusBarIconController implements Tunable {
     private Context mContext;
     private PhoneStatusBar mPhoneStatusBar;
     private KeyguardStatusBarView mKeyguardStatusBarView;
+    private StatusBarHeaderView mStatusBarHeaderView;
     private Interpolator mLinearOutSlowIn;
     private Interpolator mFastOutSlowIn;
     private DemoStatusIcons mDemoStatusIcons;
@@ -92,6 +93,8 @@ public class StatusBarIconController implements Tunable {
     private BatteryMeterView mBatteryMeterView;
     private BatteryMeterView mBatteryMeterViewKeyguard;
     private TextView mBatteryLevelKeyguard;
+    private TextView mBatteryLevelSBH;
+    private TextView mBatteryLevelStatusBar;
     private Clock mClock;
     private ImageView mTurboLogo;
 
@@ -152,8 +155,8 @@ public class StatusBarIconController implements Tunable {
         }
     };
 
-    public StatusBarIconController(Context context, View statusBar, KeyguardStatusBarView keyguardStatusBar,
-            PhoneStatusBar phoneStatusBar) {
+    public StatusBarIconController(Context context, View statusBar, KeyguardStatusBarView keyguardStatusBar, 
+            StatusBarHeaderView statusBarHeaderView, PhoneStatusBar phoneStatusBar) {
         mContext = context;
         mPhoneStatusBar = phoneStatusBar;
 	mKeyguardStatusBarView = keyguardStatusBar;
@@ -171,6 +174,8 @@ public class StatusBarIconController implements Tunable {
         mBatteryMeterView = (BatteryMeterView) statusBar.findViewById(R.id.battery);
         mBatteryMeterViewKeyguard = (BatteryMeterView) keyguardStatusBar.findViewById(R.id.battery);
         mBatteryLevelKeyguard = ((TextView) keyguardStatusBar.findViewById(R.id.battery_level));
+	mBatteryLevelSBH = ((TextView) statusBarHeaderView.findViewById(R.id.battery_level));
+	mBatteryLevelStatusBar = ((TextView) statusBar.findViewById(R.id.battery_level));
         mClock = (Clock) statusBar.findViewById(R.id.clock);
         mCenterClockLayout = (LinearLayout)statusBar.findViewById(R.id.center_clock_layout);
         mCclock = (Clock) statusBar.findViewById(R.id.center_clock);
@@ -653,13 +658,13 @@ public class StatusBarIconController implements Tunable {
     public void updateBatteryIndicator(int indicator) {
         mBatteryMeterView.updateBatteryIndicator(indicator);
         mBatteryMeterViewKeyguard.updateBatteryIndicator(indicator);
-        mKeyguardStatusBarView.updateBatteryLevelVisibility();
+        mKeyguardStatusBarView.updateKeyguardBatteryLevelVisibility();
     }
 
     public void updateBatteryTextVisibility(boolean show) {
         mBatteryMeterView.setTextVisibility(show);
         mBatteryMeterViewKeyguard.setTextVisibility(show);
-        mKeyguardStatusBarView.updateBatteryLevelVisibility();
+        mKeyguardStatusBarView.updateKeyguardBatteryLevelVisibility();
     }
 
     public void updateBatteryCircleDots(int interval, int length) {
@@ -694,6 +699,8 @@ public class StatusBarIconController implements Tunable {
         mBatteryMeterViewKeyguard.setBatteryColors(mBatteryColor);
         mBatteryMeterViewKeyguard.setTextColor(mBatteryTextColor);
         mBatteryLevelKeyguard.setTextColor(mBatteryTextColor);
+	mBatteryLevelSBH.setTextColor(mBatteryTextColor);
+	mBatteryLevelStatusBar.setTextColor(mBatteryTextColor);
     }
 
     public void updateStatusNetworkIconColors(boolean animate) {

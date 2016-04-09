@@ -92,6 +92,7 @@ import android.util.ArraySet;
 import android.util.DisplayMetrics;
 import android.util.EventLog;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -197,6 +198,7 @@ import com.android.systemui.volume.VolumeComponent;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -391,7 +393,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     boolean mLeaveOpenOnKeyguardHide;
     KeyguardIndicationController mKeyguardIndicationController;
 
-    private CarrierText mStatusBarCarrierLabel;
+    // Additional status bar battery items
+    private TextView mBatteryLevel;
+    private boolean mBatteryCharging;
 
     // Keyguard is going away soon.
     private boolean mKeyguardGoingAway;
@@ -406,8 +410,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     int mKeyguardMaxNotificationCount;
 
     // carrier label
+    private CarrierText mStatusBarCarrierLabel;
     private TextView mCarrierLabel;
     private boolean mShowCarrierInPanel = false;
+
     boolean mExpandedVisible;
 
     private boolean mDoubleTapVib;
@@ -638,7 +644,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.STATUS_BAR_BATTERY_ICON_INDICATOR),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT),
+                    Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_INSIDE),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_OUTSIDE),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BATTERY_CIRCLE_DOT_INTERVAL),
@@ -708,10 +717,14 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.STATUS_BAR_BATTERY_ICON_INDICATOR))) {
                 updateBatteryIndicator();
 		mHeader.updateBatterySBHIndicator();
+		mHeader.updateSBHBatteryLevelVisibility();
             } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT))) {
+                    Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_INSIDE)) 
+		|| uri.equals(Settings.System.getUriFor(
+		    Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_OUTSIDE))) {
                 updateBatteryTextVisibility();
 		mHeader.updateBatterySBHTextVisibility();
+		updateStatusBarBatteryLevelVisibility();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BATTERY_CIRCLE_DOT_INTERVAL))
                 || uri.equals(Settings.System.getUriFor(
@@ -820,6 +833,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             mBrightnessControl = Settings.System.getIntForUser(
 	    	    resolver, Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, 0,
 	    	    UserHandle.USER_CURRENT) == 1;
+
+	    updateStatusBarBatteryLevelVisibility();
 
             mTurboLogo = Settings.System.getIntForUser(resolver,
                     Settings.System.STATUS_BAR_TURBO_LOGO, 0, mCurrentUserId) == 1;
@@ -1484,6 +1499,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                    .getColor(com.android.internal.R.color.battery_saver_mode_color);
         }
 
+	mBatteryLevel = (TextView) mStatusBarView.findViewById(R.id.battery_level);
+
         mStatusBarCarrierLabel = (CarrierText) mStatusBarView.findViewById(R.id.status_bar_carrier_text);
 
         // set the inital view visibility
@@ -1495,7 +1512,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
 
         mIconController = new StatusBarIconController(
-                mContext, mStatusBarView, mKeyguardStatusBar, this);
+                mContext, mStatusBarView, mKeyguardStatusBar, mHeader, this);
 
         // Background thread for any controllers that need it.
         mHandlerThread = new HandlerThread(TAG, Process.THREAD_PRIORITY_BACKGROUND);
@@ -1515,8 +1532,14 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             }
             @Override
             public void onBatteryLevelChanged(int level, boolean pluggedIn, boolean charging) {
-                // noop
-            }
+        	String percentage = NumberFormat.getPercentInstance().format((double) level / 100.0);
+        	mBatteryLevel.setText(percentage);
+       		boolean changed = mBatteryCharging != charging;
+        	mBatteryCharging = charging;
+        	if (changed) {
+            	    updateStatusBarBatteryLevelVisibility();
+            	}
+	    }
         });
         mNetworkController = new NetworkControllerImpl(mContext, mHandlerThread.getLooper());
         mHotspotController = new HotspotControllerImpl(mContext);
@@ -2265,6 +2288,28 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mNotificationPanel.notifyVisibleChildrenChanged();
     }
 
+    public void updateStatusBarBatteryLevelVisibility() {
+        mBatteryLevel.setVisibility(showBattery() && showBatteryTextOutside() && !showBatteryTextInside() ? View.VISIBLE : View.GONE);
+    }
+
+    private boolean showBattery() {
+        return Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_ICON_INDICATOR, 0,
+                UserHandle.USER_CURRENT) != 3;
+    }
+
+    private boolean showBatteryTextInside() {
+        return Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_INSIDE, 0,
+                UserHandle.USER_CURRENT) == 1;
+    }
+
+    private boolean showBatteryTextOutside() {
+        return Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_OUTSIDE, 0,
+                UserHandle.USER_CURRENT) == 1;
+    }
+
     protected void updateCarrierLabelVisibility() {
         if (!mShowCarrierInPanel) return;
 
@@ -2692,7 +2737,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
     private void updateBatteryTextVisibility() {
         final boolean show = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT, 0) == 1;
+                Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_INSIDE, 0) == 1;
         if (mIconController != null) {
             mIconController.updateBatteryTextVisibility(show);
         }
@@ -4083,6 +4128,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mIconController.updateResources();
         mScreenPinningRequest.onConfigurationChanged();
         mNetworkController.onConfigurationChanged();
+        mBatteryLevel.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                mContext.getResources().getDimensionPixelSize(R.dimen.battery_level_text_size));
     }
 
     @Override
