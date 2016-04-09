@@ -114,7 +114,7 @@ public class KeyguardStatusBarView extends RelativeLayout
         } else if (mMultiUserSwitch.getParent() == this && mKeyguardUserSwitcherShowing) {
             removeView(mMultiUserSwitch);
         }
-	updateBatteryLevelVisibility();
+	updateKeyguardBatteryLevelVisibility();
         boolean showCarrierText = getResources().getBoolean(R.bool.config_showOperatorInKeyguard);
         mCarrierLabel.setVisibility(showCarrierText ? View.VISIBLE : View.GONE);
     }
@@ -268,8 +268,8 @@ public class KeyguardStatusBarView extends RelativeLayout
     }
 
 
-    public void updateBatteryLevelVisibility() {
-        mBatteryLevel.setVisibility(showBattery() && mBatteryCharging && !showBatteryText() ? View.VISIBLE : View.GONE);
+    public void updateKeyguardBatteryLevelVisibility() {
+        mBatteryLevel.setVisibility(showBattery() && showBatteryTextOutside() && !showBatteryTextInside() ? View.VISIBLE : View.GONE);
     }
 
     private boolean showBattery() {
@@ -278,9 +278,15 @@ public class KeyguardStatusBarView extends RelativeLayout
                 UserHandle.USER_CURRENT) != 3;
     }
 
-    private boolean showBatteryText() {
+    private boolean showBatteryTextInside() {
         return Settings.System.getIntForUser(getContext().getContentResolver(),
-                Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT, 0,
+                Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_INSIDE, 0,
+                UserHandle.USER_CURRENT) == 1;
+    }
+
+    private boolean showBatteryTextOutside() {
+        return Settings.System.getIntForUser(getContext().getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_OUTSIDE, 0,
                 UserHandle.USER_CURRENT) == 1;
     }
 

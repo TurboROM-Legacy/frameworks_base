@@ -430,9 +430,31 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
             updateSignalClusterDetachment();
         }
         mEmergencyCallsOnly.setVisibility(mExpanded && mShowEmergencyCallsOnly ? VISIBLE : GONE);
-        mBatteryLevel.setVisibility(mExpanded ? View.GONE : View.GONE);
+        updateSBHBatteryLevelVisibility();
         applyHeaderBackgroundShadow();
         updateSomcQuickSettingsVisibility();
+    }
+
+    public void updateSBHBatteryLevelVisibility() {
+	mBatteryLevel.setVisibility(mExpanded && showBattery() && showBatteryTextOutside() && !showBatteryTextInside() ? View.VISIBLE : View.GONE);
+    }
+
+    private boolean showBattery() {
+        return Settings.System.getIntForUser(getContext().getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_ICON_INDICATOR, 0,
+                UserHandle.USER_CURRENT) != 3;
+    }
+
+    private boolean showBatteryTextInside() {
+        return Settings.System.getIntForUser(getContext().getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_INSIDE, 0,
+                UserHandle.USER_CURRENT) == 1;
+    }
+
+    private boolean showBatteryTextOutside() {
+        return Settings.System.getIntForUser(getContext().getContentResolver(),
+                Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_OUTSIDE, 0,
+                UserHandle.USER_CURRENT) == 1;
     }
 
     private void updateSignalClusterDetachment() {
@@ -1076,7 +1098,10 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
                     Settings.System.STATUS_BAR_BATTERY_ICON_INDICATOR),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT),
+                    Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_INSIDE),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_OUTSIDE),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BATTERY_CIRCLE_DOT_INTERVAL),
@@ -1125,7 +1150,9 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
                     Settings.System.STATUS_BAR_BATTERY_ICON_INDICATOR))) {
 		updateBatterySBHIndicator();
             } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT))) {
+                    Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_INSIDE))
+		|| uri.equals(Settings.System.getUriFor(
+		    Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_OUTSIDE))) {
  		updateBatterySBHTextVisibility();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BATTERY_CIRCLE_DOT_INTERVAL))
@@ -1176,7 +1203,7 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
 
     public void updateBatterySBHTextVisibility() {
         final boolean show = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT, 0) == 1;
+                Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_INSIDE, 0) == 1;
 
         mBatteryMeterView.setTextVisibility(show);
     }
