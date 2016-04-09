@@ -4922,6 +4922,12 @@ public final class Settings {
         public static final String LOCKSCREEN_BLUR_RADIUS = "lockscreen_blur_radius";
 
         /**
+         * Enable or disable the Quick Settings Edit Icon
+         * @hide
+         */
+        public static final String ENABLE_QS_EDIT_BUTTON = "quick_settings_edit_icon";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
