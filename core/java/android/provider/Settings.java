@@ -4795,7 +4795,7 @@ public final class Settings {
         public static final String NETWORK_TRAFFIC_HIDEARROW = "network_traffic_hidearrow";
 
         /**
-	 * Network stats Color style
+         * Network stats Color style
          * @hide
          */
 	public static final String NETWORK_TRAFFIC_COLOR = "network_traffic_color";
@@ -4890,6 +4890,48 @@ public final class Settings {
          * @hide
          */
         public static final String ENABLE_QS_EDIT_BUTTON = "quick_settings_edit_icon";
+
+        /**
+         * Enable/disable overwrite default value for ambient display
+         * @hide
+         */
+        public static final String DOZE_OVERWRITE_VALUE = "doze_overwrite_value";
+
+        /**
+         * Duration in for ambient display
+         * @hide
+          */
+        public static final String DOZE_PULSE_DURATION_IN = "doze_pulse_duration_in";
+
+        /**
+         * Duration out for ambient display
+         * @hide
+         */
+        public static final String DOZE_PULSE_DURATION_OUT = "doze_pulse_duration_out";
+
+        /**
+         * Duration visible for ambient display
+         * @hide
+         */
+        public static final String DOZE_PULSE_DURATION_VISIBLE = "doze_pulse_duration_visible";
+
+        /**
+         * Pulse if there is notifications for ambient display
+         * @hide
+         */
+        public static final String DOZE_PULSE_ON_NOTIFICATIONS = "doze_pulse_on_notifications";
+
+        /**
+         * Pulse if the pickup sensor detects movement
+         * @hide
+         */
+        public static final String DOZE_PULSE_ON_PICKUP = "doze_pulse_on_pickup";
+
+        /**
+         * custom screen brightness for doze mode
+         * @hide
+         */
+        public static final String DOZE_SCREEN_BRIGHTNESS = "doze_screen_brightness";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
