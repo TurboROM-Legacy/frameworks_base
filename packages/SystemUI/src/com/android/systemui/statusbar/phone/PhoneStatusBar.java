@@ -704,6 +704,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_TURBO_LOGO_STYLE),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.ENABLE_TASK_MANAGER),
+                    false, this, UserHandle.USER_ALL);
             update();
         }
 
@@ -880,9 +883,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     
             boolean showTaskManager = Settings.System.getIntForUser(resolver,
                     Settings.System.ENABLE_TASK_MANAGER, 0, UserHandle.USER_CURRENT) == 1;
-                    
-	    if (mShowTaskManager != showTaskManager) {
-		if (!mShowTaskManager) {
+
+            if (mShowTaskManager != showTaskManager) {
+                if (!mShowTaskManager) {
                     // explicitly reset click state when disabled
                     mShowTaskList = false;
                 }
@@ -1696,7 +1699,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 mNotificationPanel.setTaskManagerVisibility(mShowTaskList);
             }
         });
-        if (mRecreating) {
+        if (mStatusBarWindowContent == null || mStatusBarWindow == null) {
             mHeader.setTaskManagerEnabled(mShowTaskManager);
             mNotificationPanel.setTaskManagerEnabled(mShowTaskManager);
             mShowTaskList = false;
