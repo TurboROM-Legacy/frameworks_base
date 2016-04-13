@@ -4006,6 +4006,14 @@ public final class Settings {
         public static final String HIDE_LOCKSCREEN_CLOCK = "hide_lockscreen_clock";
 
         /**
+         * Style of Status bar logo
+         * 0 - Left (default)
+         * 1 - Right
+         * @hide
+         */
+        public static final String STATUS_BAR_TURBO_LOGO_STYLE = "status_bar_turbo_logo_style";
+
+         /**
          * Change the color of the lockscreen owner's info text
          *
          * @hide

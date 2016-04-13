@@ -429,7 +429,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     // TurboROM Logo
     private boolean mTurboLogo;
     private int mTurboLogoColor;
-    private ImageView turboLogo;
+    private ImageView turboLogoLeft;
+    private ImageView turboLogoRight;
+    private int mTurboLogoStyle;
 
     private int mNavigationBarWindowState = WINDOW_STATE_SHOWING;
 
@@ -669,6 +671,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.LOCKSCREEN_BLUR_RADIUS),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_TURBO_LOGO_STYLE),
+                    false, this, UserHandle.USER_ALL);
             update();
         }
 
@@ -765,6 +770,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.ACCELEROMETER_ROTATION))) {
                 mStatusBarWindowManager.updateKeyguardScreenRotation();
             } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_TURBO_LOGO_STYLE))) {
+                updateRowStates();
+                updateSpeedbump();
+                updateClearAll();
+                updateEmptyShadeView();
+            } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_WEATHER_TEMP_STYLE))) {
                 updateRowStates();
                 updateSpeedbump();
@@ -834,12 +845,20 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 	    	    UserHandle.USER_CURRENT) == 1;
 
 	    updateStatusBarBatteryLevelVisibility();
-
+ 
+            mTurboLogoStyle = Settings.System.getIntForUser(
+                    resolver, Settings.System.STATUS_BAR_TURBO_LOGO_STYLE, 0,
+                    UserHandle.USER_CURRENT);
             mTurboLogo = Settings.System.getIntForUser(resolver,
                     Settings.System.STATUS_BAR_TURBO_LOGO, 0, mCurrentUserId) == 1;
             mTurboLogoColor = Settings.System.getIntForUser(resolver,
                     Settings.System.STATUS_BAR_TURBO_LOGO_COLOR, 0xFFFFFFFF, mCurrentUserId);
-            showTurboLogo(mTurboLogo, mTurboLogoColor);
+
+            turboLogoLeft = (ImageView) mStatusBarView.findViewById(R.id.turbo_logo_left);
+            turboLogoRight = (ImageView) mStatusBarView.findViewById(R.id.turbo_logo_right);
+
+            showTurboLogo(mTurboLogo, mTurboLogoColor, mTurboLogoStyle);
+
 
             float overlayalpha = Settings.System.getFloatForUser(mContext.getContentResolver(),
                 Settings.System.LOCKSCREEN_ALPHA, 0.45f, UserHandle.USER_CURRENT);
@@ -873,7 +892,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
             mBlurRadius = Settings.System.getInt(resolver,
                     Settings.System.LOCKSCREEN_BLUR_RADIUS, 14);
-        }
+	    }
     }
 
     private void updateWeatherTextState(String temp, int color, int size, int font) {
@@ -1630,6 +1649,18 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         });
         updateWeatherTextState(mWeatherController.getWeatherInfo().temp, mWeatherTempColor,
                 mWeatherTempSize, mWeatherTempFontStyle);
+
+	mTurboLogoStyle = Settings.System.getIntForUser(mContext.getContentResolver(),
+	     Settings.System.STATUS_BAR_TURBO_LOGO_STYLE, 0, UserHandle.USER_CURRENT);
+
+	turboLogoLeft = (ImageView) mStatusBarView.findViewById(R.id.turbo_logo_left);
+	turboLogoRight = (ImageView) mStatusBarView.findViewById(R.id.turbo_logo_right);
+
+        mTurboLogo = Settings.System.getIntForUser(mContext.getContentResolver(),
+	    Settings.System.STATUS_BAR_TURBO_LOGO, 0, mCurrentUserId) == 1;
+        mTurboLogoColor = Settings.System.getIntForUser(mContext.getContentResolver(),
+	    Settings.System.STATUS_BAR_TURBO_LOGO_COLOR, 0xFFFFFFFF, mCurrentUserId);
+        showTurboLogo(mTurboLogo, mTurboLogoColor, mTurboLogoStyle);
 
         mKeyguardUserSwitcher = new KeyguardUserSwitcher(mContext,
                 (ViewStub) mStatusBarWindow.findViewById(R.id.keyguard_user_switcher),
@@ -4070,13 +4101,27 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
     };
 
-    public void showTurboLogo(boolean show, int color) {
+    public void showTurboLogo(boolean show, int color, int style) {
         if (mStatusBarView == null) return;
-        ContentResolver resolver = mContext.getContentResolver();
-        turboLogo = (ImageView) mStatusBarView.findViewById(R.id.turbo_logo);
-        turboLogo.setColorFilter(color, Mode.SRC_IN);
-        if (turboLogo != null) {
-            turboLogo.setVisibility(show ? (mTurboLogo ? View.VISIBLE : View.GONE) : View.GONE);
+        if (!show) {
+            turboLogoLeft.setVisibility(View.GONE);
+            turboLogoRight.setVisibility(View.GONE);
+            return;
+        }
+        if (turboLogoLeft != null) {
+	    turboLogoLeft.setColorFilter(color, Mode.SRC_IN);
+	}
+        if (turboLogoRight != null) {
+	    turboLogoRight.setColorFilter(color, Mode.SRC_IN);
+	}
+        if (style == 0) {
+            turboLogoRight.setVisibility(View.GONE);
+            turboLogoLeft.setVisibility(View.VISIBLE);
+            turboLogoLeft = (ImageView) mStatusBarView.findViewById(R.id.turbo_logo_left);
+        } else {
+            turboLogoLeft.setVisibility(View.GONE);
+            turboLogoRight.setVisibility(View.VISIBLE);
+            turboLogoRight = (ImageView) mStatusBarView.findViewById(R.id.turbo_logo_right);
         }
     }
 

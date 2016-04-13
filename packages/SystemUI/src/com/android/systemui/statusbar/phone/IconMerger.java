@@ -55,7 +55,7 @@ public class IconMerger extends LinearLayout {
         // we need to constrain this to an integral multiple of our children
         int width = getMeasuredWidth();
         final ViewGroup parent = (ViewGroup)getParent();
-        View logo = parent.findViewById(R.id.turbo_logo);
+        View logo = parent.findViewById(R.id.turbo_logo_left);
 
         if (mCenterClock) {
             final int totalWidth = mContext.getResources().getDisplayMetrics().widthPixels;
