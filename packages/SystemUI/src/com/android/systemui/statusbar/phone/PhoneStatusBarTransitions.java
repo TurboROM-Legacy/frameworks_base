@@ -32,8 +32,8 @@ public final class PhoneStatusBarTransitions extends BarTransitions {
     private final PhoneStatusBarView mView;
     private final float mIconAlphaWhenOpaque;
 
-    private View mLeftSide, mStatusIcons, mSignalCluster, mBattery, mClock, mCenterClock, mNetworkTraffic, mTurboLogo, mWeatherTextView,
-	mLeftWeatherTextView, mMinitBattery;
+    private View mLeftSide, mStatusIcons, mSignalCluster, mBattery, mClock, mCenterClock, mNetworkTraffic, mTurboLogoLeft, mTurboLogoRight, 
+	mWeatherTextView, mLeftWeatherTextView, mMinitBattery;
 
 
     private Animator mCurrentAnimation;
@@ -52,7 +52,8 @@ public final class PhoneStatusBarTransitions extends BarTransitions {
         mBattery = mView.findViewById(R.id.battery);
         mClock = mView.findViewById(R.id.clock);
         mCenterClock = mView.findViewById(R.id.center_clock);
-        mTurboLogo = mView.findViewById(R.id.turbo_logo);
+        mTurboLogoLeft = mView.findViewById(R.id.turbo_logo_left);
+        mTurboLogoRight = mView.findViewById(R.id.turbo_logo_right);
         mWeatherTextView = mView.findViewById(R.id.weather_temp);
         mLeftWeatherTextView = mView.findViewById(R.id.left_weather_temp);
         mMinitBattery = mView.findViewById(R.id.minitBattery);
@@ -106,7 +107,8 @@ public final class PhoneStatusBarTransitions extends BarTransitions {
                     animateTransitionTo(mBattery, newAlphaBC),
                     animateTransitionTo(mClock, newAlphaBC),
                     animateTransitionTo(mCenterClock, newAlphaBC),
-                    animateTransitionTo(mTurboLogo, newAlphaBC),
+                    animateTransitionTo(mTurboLogoLeft, newAlphaBC),
+                    animateTransitionTo(mTurboLogoRight, newAlphaBC),
                     animateTransitionTo(mMinitBattery, newAlphaBC)
                     );
             if (isLightsOut(mode)) {
@@ -124,7 +126,8 @@ public final class PhoneStatusBarTransitions extends BarTransitions {
             mBattery.setAlpha(newAlphaBC);
             mClock.setAlpha(newAlphaBC);
             mCenterClock.setAlpha(newAlphaBC);
-            mTurboLogo.setAlpha(newAlphaBC);
+            mTurboLogoLeft.setAlpha(newAlphaBC);
+            mTurboLogoRight.setAlpha(newAlphaBC);
             mMinitBattery.setAlpha(newAlphaBC);
         }
     }

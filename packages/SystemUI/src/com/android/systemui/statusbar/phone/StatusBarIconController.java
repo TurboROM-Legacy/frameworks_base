@@ -96,7 +96,8 @@ public class StatusBarIconController implements Tunable {
     private TextView mBatteryLevelSBH;
     private TextView mBatteryLevelStatusBar;
     private Clock mClock;
-    private ImageView mTurboLogo;
+    private ImageView mTurboLogoLeft;
+    private ImageView mTurboLogoRight;
 
     // Center clock
     private LinearLayout mCenterClockLayout;
@@ -168,7 +169,8 @@ public class StatusBarIconController implements Tunable {
         mNotificationIconArea = statusBar.findViewById(R.id.notification_icon_area_inner);
         mNotificationIcons = (IconMerger) statusBar.findViewById(R.id.notificationIcons);
         mMoreIcon = (ImageView) statusBar.findViewById(R.id.moreIcon);
-        mTurboLogo = (ImageView) statusBar.findViewById(R.id.turbo_logo);
+        mTurboLogoLeft = (ImageView) statusBar.findViewById(R.id.turbo_logo_left);
+        mTurboLogoLeft = (ImageView) statusBar.findViewById(R.id.turbo_logo_right);
         mNotificationIcons.setOverflowIndicator(mMoreIcon);
         mStatusIconsKeyguard = (LinearLayout) keyguardStatusBar.findViewById(R.id.statusIcons);
         mBatteryMeterView = (BatteryMeterView) statusBar.findViewById(R.id.battery);
@@ -518,7 +520,12 @@ public class StatusBarIconController implements Tunable {
     private void applyIconTint() {
         mBatteryMeterView.setBatteryColors(mBatteryColorTint);
         mBatteryMeterView.setTextColor(mBatteryTextColorTint);
-        mTurboLogo.setImageTintList(ColorStateList.valueOf(mIconTint));
+	if (mTurboLogoLeft != null) {
+        mTurboLogoLeft.setImageTintList(ColorStateList.valueOf(mIconTint));
+	}
+	if (mTurboLogoRight != null) {
+        mTurboLogoRight.setImageTintList(ColorStateList.valueOf(mIconTint));
+	}
         mClock.setTextColor(mIconTint);
         mSignalCluster.setIconTint(
                 mNetworkSignalColorTint, mNoSimColorTint, mAirplaneModeColorTint);
