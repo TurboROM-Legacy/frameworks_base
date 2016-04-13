@@ -350,7 +350,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     UserSwitcherController mUserSwitcherController;
     NextAlarmController mNextAlarmController;
     KeyguardMonitor mKeyguardMonitor;
-    BrightnessMirrorController mBrightnessMirrorController;
     AccessibilityController mAccessibilityController;
     FingerprintUnlockController mFingerprintUnlockController;
     MinitBatteryController mMinitBatteryController;
@@ -1648,8 +1647,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     mSecurityController);
             mQSPanel.setHost(qsh);
             mQSPanel.setTiles(qsh.getTiles());
-            mBrightnessMirrorController = new BrightnessMirrorController(mContext, mStatusBarWindow);
-            mQSPanel.setBrightnessMirror(mBrightnessMirrorController);
             mHeader.setQSPanel(mQSPanel);
             qsh.setCallback(new QSTileHost.Callback() {
                 @Override
@@ -4184,9 +4181,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
         if (mNotificationPanel != null) {
             mNotificationPanel.updateResources();
-        }
-        if (mBrightnessMirrorController != null) {
-            mBrightnessMirrorController.updateResources();
         }
     }
 
