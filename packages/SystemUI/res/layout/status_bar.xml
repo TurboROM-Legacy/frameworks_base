@@ -94,6 +94,17 @@
                     android:visibility="gone"
                     />
 
+               <com.android.keyguard.CarrierText
+                    android:id="@+id/status_bar_carrier_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textAppearance="@style/TextAppearance.StatusBar.CarrierLabel"
+                    android:visibility="gone"
+                    android:singleLine="true"
+                    android:textColor="#ffffff" 
+                    />
+
                 <TextView
                    android:id="@+id/left_weather_temp"
                    android:layout_width="wrap_content"
@@ -105,17 +116,6 @@
                    android:paddingStart="4dp"
                    android:paddingEnd="4dp" 
 		   />
-
-                <com.android.keyguard.CarrierText
-                    android:id="@+id/status_bar_carrier_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textAppearance="@style/TextAppearance.StatusBar.CarrierLabel"
-                    android:visibility="gone"
-                    android:singleLine="true"
-                    android:textColor="#ffffff" 
-                    />
 
                 <com.android.systemui.statusbar.phone.IconMerger android:id="@+id/notificationIcons"
                     android:layout_width="match_parent"
