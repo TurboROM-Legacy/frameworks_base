@@ -167,12 +167,6 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
     private SettingsObserver mSettingsObserver;
     private boolean mShowWeather;
 
-    private ContentObserver mObserver = new ContentObserver(new Handler()) {
-        public void onChange(boolean selfChange, Uri uri) {
-	    updateSBHIconColor();
-        }
-    };
-
     private ImageView mBackgroundImage;
     private Drawable mCurrentBackground;
     private float mLastHeight;
@@ -225,7 +219,6 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
         mWeatherLine1 = (TextView) findViewById(R.id.weather_line_1);
         mWeatherLine2 = (TextView) findViewById(R.id.weather_line_2);
         mSettingsObserver = new SettingsObserver(new Handler());
-	mSettingsObserver.observe();
         mBackgroundImage = (ImageView) findViewById(R.id.background_image);
         loadDimens();
         updateVisibilities();
