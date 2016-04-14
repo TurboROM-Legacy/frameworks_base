@@ -4616,7 +4616,7 @@ public final class Settings {
         public static final String STATUS_BAR_CUSTOM_HEADER_SHADOW = "status_bar_custom_header_shadow";
 
         /**
-         *  Weather to use a custom label for the carrier name on the status bar
+         *  Whether to use a custom label for the carrier name on the status bar
          * @hide
          */
         public static final String STATUS_BAR_CARRIER_LABEL_USE_CUSTOM = "status_bar_carrier_label_use_custom";
@@ -4628,13 +4628,13 @@ public final class Settings {
         public static final String STATUS_BAR_CARRIER_LABEL_CUSTOM_LABEL = "status_bar_carrier_label_custom_label";
 
         /**
-         *  Weather to show the (custom) carrier label on the status bar
+         *  Whether to show the (custom) carrier label on the status bar
          * @hide
          */
          public static final String STATUS_BAR_CARRIER_LABEL_SHOW = "status_bar_carrier_label_show";
 
         /**
-         *  Weather to show the (custom) carrier label on the status bar of the lock screen
+         *  Whether to show the (custom) carrier label on the status bar of the lock screen
          * @hide
          */
         public static final String STATUS_BAR_CARRIER_LABEL_SHOW_ON_LOCK_SCREEN = "status_bar_carrier_label_show_on_lock_screen";
@@ -4812,13 +4812,13 @@ public final class Settings {
         public static final String STATUS_BAR_BATTERY_ICON_INDICATOR = "status_bar_battery_icon_indicator";
 
         /**
-         *  Weather to show the battery text in the battery icon on the status bar
+         *  Whether to show the battery text in the battery icon on the status bar
          * @hide
          */
         public static final String STATUS_BAR_BATTERY_SHOW_TEXT_INSIDE = "status_bar_battery_show_text_inside";
 
         /**
-         *  Weather to show the battery text next to the battery icon on the status bar
+         *  Whether to show the battery text next to the battery icon on the status bar
          * @hide
          */
         public static final String STATUS_BAR_BATTERY_SHOW_TEXT_OUTSIDE = "status_bar_battery_show_text_outside";
