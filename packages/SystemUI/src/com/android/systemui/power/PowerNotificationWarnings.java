@@ -177,6 +177,7 @@ public class PowerNotificationWarnings implements PowerUI.WarningsUI {
                 // Bump the notification when the bucket dropped.
                 .setWhen(mBucketDroppedNegativeTimeMs)
                 .setShowWhen(false)
+                .setOngoing(true)
                 .setContentTitle(mContext.getString(R.string.battery_low_title))
                 .setContentText(mContext.getString(textRes, percentage))
                 .setOnlyAlertOnce(true)
