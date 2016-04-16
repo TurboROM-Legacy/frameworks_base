@@ -44,6 +44,7 @@ import com.android.systemui.qs.tiles.HeadsUpTile;
 import com.android.systemui.qs.tiles.HotspotTile;
 import com.android.systemui.qs.tiles.ImeTile;
 import com.android.systemui.qs.tiles.IntentTile;
+import com.android.systemui.qs.tiles.KernelAdiutorTile;
 import com.android.systemui.qs.tiles.LocationTile;
 import com.android.systemui.qs.tiles.LayersManagerTile;
 import com.android.systemui.qs.tiles.MusicTile;
@@ -296,6 +297,7 @@ public class QSTileHost implements QSTile.Host, Tunable {
         else if (tileSpec.equals("ime")) return new ImeTile(this);
         else if (tileSpec.equals("volume")) return new VolumeTile(this);
         else if (tileSpec.equals("layers")) return new LayersManagerTile(this);
+        else if (tileSpec.equals("kernel")) return new KernelAdiutorTile(this);
         else if (tileSpec.equals("heads_up")) return new HeadsUpTile(this);
         else if (tileSpec.equals("sound")) return new SoundTile(this);
         else if (tileSpec.startsWith(IntentTile.PREFIX)) return IntentTile.create(this,tileSpec);

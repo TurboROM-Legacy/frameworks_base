@@ -221,6 +221,7 @@ public class QsTuner extends Fragment implements Callback {
         else if (spec.equals("heads_up")) return R.string.quick_settings_heads_up_label;
         else if (spec.equals("sound")) return R.string.quick_settings_sound_label;
         else if (spec.equals("layers")) return R.string.quick_settings_layers_manager_label;
+        else if (spec.equals("kernel")) return R.string.quick_settings_kernel_adiutor_label;
         return 0;
     }
 
@@ -479,6 +480,7 @@ public class QsTuner extends Fragment implements Callback {
             else if (mSpec.equals("heads_up")) return R.drawable.ic_qs_heads_up_on;
             else if (mSpec.equals("sound")) return R.drawable.ic_qs_ringer_audible;
             else if (mSpec.equals("layers")) return R.drawable.ic_qs_layers_manager;
+            else if (mSpec.equals("kernel")) return R.drawable.ic_qs_kernel;
             return R.drawable.android;
         }
 
