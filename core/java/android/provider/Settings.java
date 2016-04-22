@@ -4087,6 +4087,12 @@ public final class Settings {
         public static final String LOCK_SCREEN_CLOCK_FONT = "lock_screen_clock_font";
 
         /**
+         * Whether to enable/disable showing charging current on lock screen
+         * @hide
+         */
+        public static final String LOCK_SCREEN_SHOW_CURRENT = "lock_screen_show_current";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
