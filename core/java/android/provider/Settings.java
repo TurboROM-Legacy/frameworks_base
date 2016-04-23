@@ -3879,6 +3879,12 @@ public final class Settings {
         public static final String KEYGUARD_TOGGLE_TORCH = "keyguard_toggle_torch";
 
         /**
+	 * whether to enable /disable showing charging current on lockscreen
+	 * @hide
+	 */
+	public static final String LOCK_SCREEN_SHOW_CURRENT = "lock_screen_show_current";
+    
+	/**
          * Boolean value whether to link ringtone and notification volume
          * @hide
          */
