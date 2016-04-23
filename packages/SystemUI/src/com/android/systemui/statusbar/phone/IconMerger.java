@@ -56,12 +56,16 @@ public class IconMerger extends LinearLayout {
         int width = getMeasuredWidth();
         final ViewGroup parent = (ViewGroup)getParent();
         View logo = parent.findViewById(R.id.turbo_logo_left);
+	View label = parent.findViewById(R.id.status_bar_carrier_text);
 
         if (mCenterClock) {
             final int totalWidth = mContext.getResources().getDisplayMetrics().widthPixels;
             int usableWidth = (totalWidth - mClockAndDateWidth - 2 * mIconWidth) / 2;
             if (logo.getVisibility() != View.GONE) {
                 usableWidth -= logo.getWidth();
+            }
+            if (label.getVisibility() != View.GONE) {
+                usableWidth -= label.getWidth();
             }
             if (width > usableWidth) {
                 width = usableWidth;
