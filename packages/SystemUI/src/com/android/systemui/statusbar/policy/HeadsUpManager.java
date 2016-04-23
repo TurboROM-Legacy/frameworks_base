@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.os.Handler;
+import android.os.UserHandle;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.util.ArrayMap;
@@ -53,7 +54,7 @@ public class HeadsUpManager implements ViewTreeObserver.OnComputeInternalInsetsL
     private static final String SETTING_HEADS_UP_SNOOZE_LENGTH_MS = "heads_up_snooze_length_ms";
     private static final int TAG_CLICKED_NOTIFICATION = R.id.is_clicked_heads_up_tag;
 
-    private final int mHeadsUpNotificationDecay;
+    private int mHeadsUpNotificationDecay;
     private final int mMinimumDisplayTime;
 
     private final int mTouchAcceptanceDelay;
@@ -111,7 +112,6 @@ public class HeadsUpManager implements ViewTreeObserver.OnComputeInternalInsetsL
         mDefaultSnoozeLengthMs = resources.getInteger(R.integer.heads_up_default_snooze_length_ms);
         mSnoozeLengthMs = mDefaultSnoozeLengthMs;
         mMinimumDisplayTime = resources.getInteger(R.integer.heads_up_notification_minimum_time);
-        mHeadsUpNotificationDecay = resources.getInteger(R.integer.heads_up_notification_decay);
         mClock = new Clock();
 
         mSnoozeLengthMs = Settings.Global.getInt(context.getContentResolver(),
@@ -119,6 +119,10 @@ public class HeadsUpManager implements ViewTreeObserver.OnComputeInternalInsetsL
         mSettingsObserver = new ContentObserver(mHandler) {
             @Override
             public void onChange(boolean selfChange) {
+                mHeadsUpNotificationDecay = Settings.System.getIntForUser(
+                        context.getContentResolver(), Settings.System.HEADS_UP_TIMEOUT,
+                        context.getResources().getInteger(R.integer.heads_up_notification_decay),
+                        UserHandle.USER_CURRENT);
                 final int packageSnoozeLengthMs = Settings.Global.getInt(
                         context.getContentResolver(), SETTING_HEADS_UP_SNOOZE_LENGTH_MS, -1);
                 if (packageSnoozeLengthMs > -1 && packageSnoozeLengthMs != mSnoozeLengthMs) {
@@ -127,6 +131,8 @@ public class HeadsUpManager implements ViewTreeObserver.OnComputeInternalInsetsL
                 }
             }
         };
+        context.getContentResolver().registerContentObserver(Settings.System.getUriFor(
+                Settings.System.HEADS_UP_TIMEOUT), false, mSettingsObserver, UserHandle.USER_ALL);
         context.getContentResolver().registerContentObserver(
                 Settings.Global.getUriFor(SETTING_HEADS_UP_SNOOZE_LENGTH_MS), false,
                 mSettingsObserver);
