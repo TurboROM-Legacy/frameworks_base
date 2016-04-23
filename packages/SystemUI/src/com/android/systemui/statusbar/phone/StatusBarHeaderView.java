@@ -1074,7 +1074,8 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
         void observe() {
             ContentResolver resolver = mContext.getContentResolver();
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_SHOW_WEATHER), false, this, UserHandle.USER_ALL);
+                    Settings.System.STATUS_BAR_SHOW_WEATHER), false, this, 
+		    UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_NETWORK_ICONS_SIGNAL_COLOR), false, this,
                     UserHandle.USER_ALL);
@@ -1169,7 +1170,7 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
             ContentResolver resolver = mContext.getContentResolver();
             int currentUserId = ActivityManager.getCurrentUser();
             mShowWeather = Settings.System.getIntForUser(
-                    resolver, Settings.System.STATUS_BAR_SHOW_WEATHER, 1, currentUserId) == 1;
+                    resolver, Settings.System.STATUS_BAR_SHOW_WEATHER, 0, currentUserId) == 1;
             updateVisibilities();
             requestCaptureValues();
             updateSBHIconColor();
