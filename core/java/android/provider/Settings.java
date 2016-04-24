@@ -5039,6 +5039,12 @@ public final class Settings {
         public static final String BATTERY_FULLY_CHARGED_NOTIFICATION = "battery_fully_charged_notification";
 
         /**
+         * Disable Transition animations of the Android system
+         * @hide
+         */
+        public static final String DISABLE_TRANSITION_ANIMATIONS = "disable_transition_animations";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
