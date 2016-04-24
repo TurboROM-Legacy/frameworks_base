@@ -20,6 +20,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.graphics.drawable.Drawable;
+import android.graphics.PorterDuff.Mode;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.UserHandle;
@@ -50,6 +51,7 @@ public class KeyguardShortcuts extends LinearLayout {
     private SettingsObserver mSettingsObserver;
     private PackageManager mPackageManager;
     private Context mContext;
+    private int mIconColor;
 
     public KeyguardShortcuts(Context context) {
         this(context, null);
@@ -93,6 +95,9 @@ public class KeyguardShortcuts extends LinearLayout {
 
         ActionConfig actionConfig;
 
+        mIconColor = Settings.System.getInt(mContext.getContentResolver(),
+		Settings.System.LS_SHORTCUT_ICON_COLOR, 0xFFFFFFFF);
+
         for (int j = 0; j < actionConfigs.size(); j++) {
             actionConfig = actionConfigs.get(j);
 
@@ -106,6 +111,9 @@ public class KeyguardShortcuts extends LinearLayout {
 
             Drawable d = ActionHelper.getActionIconImage(
                     mContext, actionConfig.getClickAction(), actionConfig.getIcon());
+	    if (d != null) {  
+		d.setColorFilter(mIconColor, Mode.MULTIPLY);
+	    }
             i.setImageDrawable(d);
             i.setBackground(mContext.getDrawable(R.drawable.ripple_drawable));
             i.setContentDescription(AppHelper.getFriendlyNameForUri(
@@ -187,6 +195,9 @@ public class KeyguardShortcuts extends LinearLayout {
                     false, this, UserHandle.USER_ALL);
             mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
                     Settings.System.LOCKSCREEN_SHORTCUTS_LONGPRESS),
+                    false, this, UserHandle.USER_ALL);
+            mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LS_SHORTCUT_ICON_COLOR),
                     false, this, UserHandle.USER_ALL);
             update();
         }

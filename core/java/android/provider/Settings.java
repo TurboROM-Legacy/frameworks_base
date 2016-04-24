@@ -4114,6 +4114,13 @@ public final class Settings {
                 "lockscreen_shortcuts_longpress";
 
         /**
+         * Color of lock screen shortcuts' icons
+         * @hide
+         */
+        public static final String LS_SHORTCUT_ICON_COLOR =
+                "ls_shortcut_icon_color";
+ 
+        /**
          * Whether to use slim recents
          * @hide
          */
