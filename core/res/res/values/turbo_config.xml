@@ -41,9 +41,6 @@
 
     <!-- The duration (in milliseconds) of the Slim recents app screen exit animation. -->
     <integer name="config_recentExitDur">450</integer>
-    
-    <!-- Show battery fully charged notification -->
-    <bool name="config_showBatteryFullyChargedNotification">false</bool>
 
     <!-- Sets whether IME switcher on statusbar should be shown or not. -->
     <bool name="config_show_IMESwitcher">true</bool>
