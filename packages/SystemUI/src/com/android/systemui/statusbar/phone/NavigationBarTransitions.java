@@ -27,8 +27,6 @@ import android.view.animation.AccelerateInterpolator;
 import com.android.internal.statusbar.IStatusBarService;
 import com.android.systemui.R;
 
-import java.util.List;
-
 public final class NavigationBarTransitions extends BarTransitions {
 
     private final NavigationBarView mView;
