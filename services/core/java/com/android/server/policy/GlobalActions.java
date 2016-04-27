@@ -34,6 +34,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -43,6 +45,9 @@ import android.database.ContentObserver;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
+import android.net.Uri;
+import android.os.IBinder;
+import android.content.ServiceConnection;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -55,6 +60,8 @@ import android.os.UserHandle;
 import android.os.UserManager;
 import android.os.Vibrator;
 import android.provider.Settings;
+import android.os.Messenger;
+import android.provider.Settings.Global;
 import android.service.dreams.DreamService;
 import android.service.dreams.IDreamManager;
 import android.telephony.PhoneStateListener;
@@ -265,6 +272,8 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
             } else if (actionKey.equals(ActionConstants.ACTION_AIRPLANE)) {
                 constructAirPlaneModeToggle(icon);
                 mItems.add(mAirplaneModeOn);
+            } else if (actionKey.equals(ActionConstants.ACTION_SCREENRECORD)) {
+                mItems.add(getScreenRecordAction());
             } else if ((actionKey.equals(ActionConstants.ACTION_SOUND)) && (mShowSilentToggle)) {
                 mItems.add(mSilentModeAction);
             } else if (actionKey.equals(ActionConstants.ACTION_USERS)) {
@@ -425,6 +434,26 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         };
     }
 
+    private Action getScreenRecordAction() {
+        return new SinglePressAction(com.android.internal.R.drawable.ic_lock_screenrecord_power, R.string.global_action_screenrecord) {
+
+             @Override
+             public void onPress() {
+                 toggleScreenRecord();
+             }
+
+             @Override
+             public boolean showDuringKeyguard() {
+                 return true;
+             }
+
+              @Override
+             public boolean showBeforeProvisioning() {
+                 return true;
+             }
+        };
+    }
+
     private Action getLockdownAction(Drawable icon) {
         return new SinglePressAction(icon, R.string.global_action_lockdown) {
 
@@ -463,6 +492,70 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         return currentUser == null || currentUser.isPrimary();
     }
 
+    /**
+     * functions needed for taking screen record.
+     */
+    final Object mScreenrecordLock = new Object();
+    ServiceConnection mScreenrecordConnection = null;
+
+    final Runnable mScreenrecordTimeout = new Runnable() {
+        @Override public void run() {
+            synchronized (mScreenrecordLock) {
+                if (mScreenrecordConnection != null) {
+                    mContext.unbindService(mScreenrecordConnection);
+                    mScreenrecordConnection = null;
+                }
+            }
+         }
+    };
+
+    private void toggleScreenRecord() {
+        synchronized (mScreenrecordLock) {
+            if (mScreenrecordConnection != null) {
+                return;
+            }
+            ComponentName cn = new ComponentName("com.android.systemui",
+                    "com.android.systemui.turbo.screenrecord.TakeScreenrecordService");
+            Intent intent = new Intent();
+            intent.setComponent(cn);
+            ServiceConnection conn = new ServiceConnection() {
+                @Override
+                public void onServiceConnected(ComponentName name, IBinder service) {
+                    synchronized (mScreenrecordLock) {
+                        Messenger messenger = new Messenger(service);
+                        Message msg = Message.obtain(null, 1);
+                        final ServiceConnection myConn = this;
+                        Handler h = new Handler(mHandler.getLooper()) {
+                            @Override
+                            public void handleMessage(Message msg) {
+                                synchronized (mScreenrecordLock) {
+                                    if (mScreenrecordConnection == myConn) {
+                                        mContext.unbindService(mScreenrecordConnection);
+                                        mScreenrecordConnection = null;
+                                        mHandler.removeCallbacks(mScreenrecordTimeout);
+                                    }
+                                }
+                            }
+                        };
+                         msg.replyTo = new Messenger(h);
+                        msg.arg1 = msg.arg2 = 0;
+                        try {
+                            messenger.send(msg);
+                        } catch (RemoteException e) {
+                        }
+                    }
+                }
+                @Override
+                public void onServiceDisconnected(ComponentName name) {}
+            };
+            if (mContext.bindServiceAsUser(
+                    intent, conn, Context.BIND_AUTO_CREATE, UserHandle.CURRENT)) {
+                mScreenrecordConnection = conn;
+                mHandler.postDelayed(mScreenrecordTimeout, 31 * 60 * 1000);
+            }
+        }
+    }
+ 
     private void addUsersToMenu(ArrayList<Action> items) {
         UserManager um = (UserManager) mContext.getSystemService(Context.USER_SERVICE);
         if (um.isUserSwitcherEnabled()) {

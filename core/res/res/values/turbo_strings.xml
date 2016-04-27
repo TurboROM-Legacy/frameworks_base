@@ -181,4 +181,7 @@
     <string name="app_ops_wifi_change">change Wi-Fi state</string>
     <string name="app_ops_su">get root access</string>
 
+    <!-- Screen record label in the power menu -->
+    <string name="global_action_screenrecord">Screen record</string>
+    
 </resources>
