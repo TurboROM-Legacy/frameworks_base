@@ -312,6 +312,8 @@ public class ActionHelper {
             resId = com.android.internal.R.drawable.ic_lock_power_off_power;
         } else if (clickAction.equals(ActionConstants.ACTION_REBOOT)) {
             resId = com.android.internal.R.drawable.ic_lock_reboot_power;
+        } else if (clickAction.equals(ActionConstants.ACTION_SCREENRECORD)) {
+            resId = com.android.internal.R.drawable.ic_lock_screenrecord_power;
         // end of Global menu specific actions
         } else {
             resId = systemUiResources.getIdentifier(

@@ -49,6 +49,7 @@ public class ActionConstants {
     public static final String ACTION_POWER_OFF            = "**poweroff**";
     public static final String ACTION_REBOOT               = "**reboot**";
     public static final String ACTION_RECENTS              = "**recents**";
+    public static final String ACTION_SCREENRECORD         = "**screenrecord**";
     public static final String ACTION_SCREENSHOT           = "**screenshot**";
     public static final String ACTION_SEARCH               = "**search**";
     public static final String ACTION_SETTINGS_PANEL       = "**settings_panel**";
