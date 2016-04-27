@@ -4613,12 +4613,6 @@ public final class Settings {
         public static final String MENU_VISIBILITY = "menu_visibility";
 
         /**
-         * Whether to show the IME arrows in the status bar
-         * @hide
-         */
-        public static final String STATUS_BAR_IME_ARROWS = "status_bar_ime_arrows";
-
-        /**
          * Alternative recent apps integration using OmniSwitch
          * @hide
          */
