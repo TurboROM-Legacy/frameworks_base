@@ -40,8 +40,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.internal.util.turbo.*;
-import com.android.internal.util.turbo.TurboPackageMonitor.PackageState;
+import com.android.internal.utils.du.*;
+import com.android.internal.utils.du.DUPackageMonitor.PackageState;
 import com.android.systemui.R;
 import com.android.systemui.statusbar.phone.KeyguardStatusBarView;
 import com.android.systemui.statusbar.phone.PhoneStatusBar;
@@ -49,7 +49,7 @@ import com.android.systemui.statusbar.phone.PhoneStatusBarView;
 import com.android.systemui.statusbar.phone.StatusBarHeaderView;
 
 public class MinitBatteryController implements
-        TurboPackageMonitor.PackageChangedListener,
+        DUPackageMonitor.PackageChangedListener,
         MinitBattery.OnMinitBatteryErrorListener {
     private static final String TAG = MinitBatteryController.class
             .getSimpleName();
@@ -111,7 +111,7 @@ public class MinitBatteryController implements
         }
     }
 
-    private TurboSystemReceiver mReceiver = new TurboSystemReceiver() {
+    private DUSystemReceiver mReceiver = new DUSystemReceiver() {
         @Override
         protected boolean onExemptBroadcast(Context context, String packageName) {
             return TextUtils.equals(packageName, SETTINGS_FREE)
