@@ -1108,14 +1108,16 @@ public class KeyguardViewMediator extends SystemUI {
         mHandler.sendEmptyMessage(DISMISS);
     }
 
-    /**
-     * Send message to keyguard telling it to reset its state.
-     * @see #handleReset
-     */
-    private void resetStateLocked() {
-        if (DEBUG) Log.e(TAG, "resetStateLocked");
-        Message msg = mHandler.obtainMessage(RESET);
-        mHandler.sendMessage(msg);
+    public void showKeyguard() {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                // Get the keyguard into the correct state by calling mStatusBar.showKeyguard()
+                mStatusBar.showKeyguard();
+                // Now have the notification panel slid back into view
+                mStatusBar.slideNotificationPanelIn();
+            }
+        });
     }
 
     /**
