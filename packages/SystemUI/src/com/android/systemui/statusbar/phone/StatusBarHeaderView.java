@@ -1131,38 +1131,38 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
         @Override
         public void onChange(boolean selfChange, Uri uri) {
             if (uri.equals(Settings.System.getUriFor(
-		    Settings.System.STATUS_BAR_NETWORK_ICONS_SIGNAL_COLOR))
-		|| uri.equals(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_NETWORK_ICONS_NO_SIM_COLOR))
-                || uri.equals(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_NETWORK_ICONS_AIRPLANE_MODE_COLOR))) {
+				Settings.System.STATUS_BAR_NETWORK_ICONS_SIGNAL_COLOR))
+			|| uri.equals(Settings.System.getUriFor(
+				Settings.System.STATUS_BAR_NETWORK_ICONS_NO_SIM_COLOR))
+			|| uri.equals(Settings.System.getUriFor(
+				Settings.System.STATUS_BAR_NETWORK_ICONS_AIRPLANE_MODE_COLOR))) {
                 updateSBHIconColor();
             } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_BATTERY_ICON_INDICATOR))) {
-		updateBatterySBHIndicator();
+                Settings.System.STATUS_BAR_BATTERY_ICON_INDICATOR))) {
+				updateBatterySBHIndicator();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_INSIDE))
-		|| uri.equals(Settings.System.getUriFor(
-		    Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_OUTSIDE))) {
- 		updateBatterySBHTextVisibility();
+			|| uri.equals(Settings.System.getUriFor(
+				Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_OUTSIDE))) {
+				updateBatterySBHTextVisibility();
             } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_BATTERY_CIRCLE_DOT_INTERVAL))
-                || uri.equals(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_BATTERY_CIRCLE_DOT_LENGTH))) {
-		updateBatterySBHCircleDots();
+				Settings.System.STATUS_BAR_BATTERY_CIRCLE_DOT_INTERVAL))
+			|| uri.equals(Settings.System.getUriFor(
+				Settings.System.STATUS_BAR_BATTERY_CIRCLE_DOT_LENGTH))) {
+				updateBatterySBHCircleDots();
             } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_BATTERY_SHOW_CHARGE_ANIMATION))) {
-		updateSBHShowChargeAnimation();
+				Settings.System.STATUS_BAR_BATTERY_SHOW_CHARGE_ANIMATION))) {
+				updateSBHShowChargeAnimation();
             } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_BATTERY_CUT_OUT_TEXT))) {
-		updateSBHCutOutBatteryText();
+				Settings.System.STATUS_BAR_BATTERY_CUT_OUT_TEXT))) {
+				updateSBHCutOutBatteryText();
             } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_BATTERY_COLOR))) {
-		updateBatterySBHIconColor();
+				Settings.System.STATUS_BAR_BATTERY_COLOR))) {
+				updateBatterySBHIconColor();
             } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_BATTERY_TEXT_COLOR))) {
-		updateBatterySBHTextColor();
-	    }
+				Settings.System.STATUS_BAR_BATTERY_TEXT_COLOR))) {
+				updateBatterySBHTextColor();
+			}
             update();
         }
 
@@ -1183,7 +1183,6 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
             updateBatterySBHTextColor();
         }
     }
-
 
     public void updateBatterySBHIndicator() {
         final int indicator = Settings.System.getInt(mContext.getContentResolver(),

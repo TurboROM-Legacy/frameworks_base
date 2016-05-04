@@ -708,8 +708,8 @@ public class StatusBarIconController implements Tunable {
         mBatteryMeterViewKeyguard.setBatteryColors(mBatteryColor);
         mBatteryMeterViewKeyguard.setTextColor(mBatteryTextColor);
         mBatteryLevelKeyguard.setTextColor(mBatteryTextColor);
-	mBatteryLevelSBH.setTextColor(mBatteryTextColor);
-	mBatteryLevelStatusBar.setTextColor(mBatteryTextColor);
+		mBatteryLevelSBH.setTextColor(mBatteryTextColor);
+		mBatteryLevelStatusBar.setTextColor(mBatteryTextColor);
     }
 
     public void updateStatusNetworkIconColors(boolean animate) {
@@ -735,7 +735,7 @@ public class StatusBarIconController implements Tunable {
         }
         mSignalClusterKeyguard.setIgnoreSystemUITuner(true);
         mSignalClusterKeyguard.setIconTint(
-                mNetworkSignalColor, mNoSimColor, mAirplaneModeColor);
+		mNetworkSignalColor, mNoSimColor, mAirplaneModeColor);
         updateStatusIconKeyguardColor();
     }
 

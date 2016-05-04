@@ -569,58 +569,58 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             ContentResolver resolver = mContext.getContentResolver();
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL), 
-		    false, this, UserHandle.USER_ALL);
+					false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.SCREEN_BRIGHTNESS_MODE), 
-		    false, this, UserHandle.USER_ALL);
+					false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.BATTERY_SAVER_MODE_COLOR), 
-		    false, this, UserHandle.USER_ALL);
+					false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.LOCKSCREEN_ROTATION), 
-		    false, this, UserHandle.USER_ALL);
+					false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.ACCELEROMETER_ROTATION), 
-		    false, this, UserHandle.USER_ALL);
+					false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.USE_SLIM_RECENTS), 
-		    false, this, UserHandle.USER_ALL);
+					false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.RECENT_CARD_BG_COLOR), 
-		    false, this, UserHandle.USER_ALL);
+					false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.RECENT_CARD_TEXT_COLOR), 
-		    false, this, UserHandle.USER_ALL);
+					false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.QS_NUM_TILE_COLUMNS), 
-		    false, this, UserHandle.USER_ALL);
+					false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_SHOW_WEATHER_TEMP), 
-		    false, this, UserHandle.USER_ALL);
+					false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_WEATHER_TEMP_STYLE), 
-		    false, this, UserHandle.USER_ALL);
+					false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_WEATHER_COLOR), 
-		    false, this, UserHandle.USER_ALL);
+					false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_WEATHER_SIZE), 
-		    false, this, UserHandle.USER_ALL);
+					false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_WEATHER_FONT_STYLE), 
-		    false, this, UserHandle.USER_ALL);
+					false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.LOCKSCREEN_ALPHA), 
-		    false, this, UserHandle.USER_ALL);
+					false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-		    Settings.System.LOCKSCREEN_SECURITY_ALPHA), 
-		    false, this, UserHandle.USER_ALL);
+					Settings.System.LOCKSCREEN_SECURITY_ALPHA), 
+					false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_TURBO_LOGO), 
-		    false, this, UserHandle.USER_ALL);
-	    resolver.registerContentObserver(Settings.System.getUriFor(
+					false, this, UserHandle.USER_ALL);
+			resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_TURBO_LOGO_COLOR),
-		    false, this, UserHandle.USER_ALL);	
+					false, this, UserHandle.USER_ALL);	
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_CUSTOM_HEADER_SHADOW),
                     false, this, UserHandle.USER_ALL);
@@ -704,9 +704,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.BATTERY_SAVER_MODE_COLOR))) {
                     mBatterySaverWarningColor = Settings.System.getIntForUser(
                             mContext.getContentResolver(),
-                            Settings.System.BATTERY_SAVER_MODE_COLOR, -2,
+                            Settings.System.BATTERY_SAVER_MODE_COLOR, 1,
                             UserHandle.USER_CURRENT);
-                    if (mBatterySaverWarningColor == -2) {
+                    if (mBatterySaverWarningColor != 0) {
                         mBatterySaverWarningColor = mContext.getResources()
                                 .getColor(com.android.internal.R.color.battery_saver_mode_color);
                     }
@@ -725,7 +725,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 || uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_STATUS_ICONS_COLOR))) {
                 updateStatusNetworkIconColors(true);
-	    	mHeader.updateSBHIconColor();
+				mHeader.updateSBHIconColor();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_NOTIFICATION_ICONS_COLOR))) {
                 updateNotificationIconColor();
@@ -734,41 +734,41 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 || uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_CARRIER_LABEL_HIDE_LABEL))
                 || uri.equals(Settings.System.getUriFor(
-		    Settings.System.STATUS_BAR_CARRIER_LABEL_NUMBER_OF_NOTIFICATION_ICONS))) {
+					Settings.System.STATUS_BAR_CARRIER_LABEL_NUMBER_OF_NOTIFICATION_ICONS))) {
                 setCarrierLabelVisibility();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BATTERY_ICON_INDICATOR))) {
                 updateBatteryIndicator();
-		mHeader.updateBatterySBHIndicator();
-		mHeader.updateSBHBatteryLevelVisibility();
+				mHeader.updateBatterySBHIndicator();
+				mHeader.updateSBHBatteryLevelVisibility();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_INSIDE)) 
-		|| uri.equals(Settings.System.getUriFor(
-		    Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_OUTSIDE))) {
+				|| uri.equals(Settings.System.getUriFor(
+					Settings.System.STATUS_BAR_BATTERY_SHOW_TEXT_OUTSIDE))) {
                 updateBatteryTextVisibility();
-		mHeader.updateBatterySBHTextVisibility();
-		updateStatusBarBatteryLevelVisibility();
+				mHeader.updateBatterySBHTextVisibility();
+				updateStatusBarBatteryLevelVisibility();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BATTERY_CIRCLE_DOT_INTERVAL))
                 || uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BATTERY_CIRCLE_DOT_LENGTH))) {
                 updateBatteryCircleDots();
-		mHeader.updateBatterySBHCircleDots();
+				mHeader.updateBatterySBHCircleDots();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BATTERY_SHOW_CHARGE_ANIMATION))) {
                 updateShowChargeAnimation();
-		mHeader.updateSBHShowChargeAnimation();
+				mHeader.updateSBHShowChargeAnimation();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BATTERY_CUT_OUT_TEXT))) {
                 updateCutOutBatteryText();
-		mHeader.updateSBHCutOutBatteryText();
+				mHeader.updateSBHCutOutBatteryText();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BATTERY_COLOR))
                 || uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BATTERY_TEXT_COLOR))) {
                 updateBatteryColors(true);
-		mHeader.updateBatterySBHIconColor();
-		mHeader.updateBatterySBHTextColor();
+				mHeader.updateBatterySBHIconColor();
+				mHeader.updateBatterySBHTextColor();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_CARRIER_LABEL_SHOW_ON_LOCK_SCREEN))) {
                  setLockScreenCarrierLabelVisibility();
@@ -782,7 +782,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.RECENT_CARD_BG_COLOR))
                     || uri.equals(Settings.System.getUriFor(
                     Settings.System.RECENT_CARD_TEXT_COLOR))) {
-                rebuildRecentsScreen();
+				rebuildRecentsScreen();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.LOCKSCREEN_ROTATION))
                     || uri.equals(Settings.System.getUriFor(
@@ -817,7 +817,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 	    	    resolver, Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, 0,
 	    	    UserHandle.USER_CURRENT) == 1;
 
-	    updateStatusBarBatteryLevelVisibility();
+			updateStatusBarBatteryLevelVisibility();
  
             mTurboLogoStyle = Settings.System.getIntForUser(
                     resolver, Settings.System.STATUS_BAR_TURBO_LOGO_STYLE, 0,
@@ -861,7 +861,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             mWeatherTempState = Settings.System.getIntForUser(
                     resolver, Settings.System.STATUS_BAR_SHOW_WEATHER_TEMP, 0,
                     UserHandle.USER_CURRENT);
-	    updateTempView();
+			updateTempView();
 
             mBlurRadius = Settings.System.getInt(resolver,
                     Settings.System.LOCKSCREEN_BLUR_RADIUS, 14);
@@ -1407,9 +1407,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         // figure out which pixel-format to use for the status bar.
         mPixelFormat = PixelFormat.OPAQUE;
 
-        if (mContext.getResources().getBoolean(R.bool.enable_operator_name)) {
-        }
-
         mStackScroller = (NotificationStackScrollLayout) mStatusBarWindowContent.findViewById(
                 R.id.notification_stack_scroller);
         mStackScroller.setLongPressListener(getNotificationLongClicker());
@@ -1710,8 +1707,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mStatusBarHeaderMachine = new StatusBarHeaderMachine(mContext);
         mStatusBarHeaderMachine.addObserver(mHeader);
         mStatusBarHeaderMachine.updateEnablement();
-        setCarrierLabelVisibility();
-        setLockScreenCarrierLabelVisibility();
+
         updateSettings();
         return mStatusBarView;
     }
@@ -2596,13 +2592,18 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     }
 
     private void updateSettings() {
-        updateStatusNetworkIconColors(false);
- 	updateBatteryIndicator();
- 	updateBatteryTextVisibility();
-	updateBatteryCircleDots();
-	updateShowChargeAnimation();
-	updateCutOutBatteryText();
-	updateBatteryColors(false);
+		if (DeviceUtils.deviceSupportsMobileData(mContext)) {
+            updateCarrierLabelVisibility();
+            setLockScreenCarrierLabelVisibility();
+            updateCarrierLabelColor();
+        }
+		updateStatusNetworkIconColors(false);
+		updateBatteryIndicator();
+		updateBatteryTextVisibility();
+		updateBatteryCircleDots();
+		updateShowChargeAnimation();
+		updateCutOutBatteryText();
+		updateBatteryColors(false);
     }
 
     private void updateCarrierLabel() {
