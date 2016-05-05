@@ -273,7 +273,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 constructAirPlaneModeToggle(icon);
                 mItems.add(mAirplaneModeOn);
             } else if (actionKey.equals(ActionConstants.ACTION_SCREENRECORD)) {
-                mItems.add(getScreenRecordAction());
+                mItems.add(getScreenRecordAction(icon));
             } else if ((actionKey.equals(ActionConstants.ACTION_SOUND)) && (mShowSilentToggle)) {
                 mItems.add(mSilentModeAction);
             } else if (actionKey.equals(ActionConstants.ACTION_USERS)) {
@@ -434,8 +434,8 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         };
     }
 
-    private Action getScreenRecordAction() {
-        return new SinglePressAction(com.android.internal.R.drawable.ic_lock_screenrecord_power, R.string.global_action_screenrecord) {
+    private Action getScreenRecordAction(Drawable icon) {
+        return new SinglePressAction(icon, R.string.global_action_screenrecord) {
 
              @Override
              public void onPress() {
