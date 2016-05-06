@@ -3596,6 +3596,12 @@ public final class Settings {
         public static final String USB_DATA_AUTO_UNLOCK = "usb_data_auto_unlock";
 
         /**
+         * Whether to wake up when plugged or unplugged
+         * @hide
+         */
+        public static final String WAKE_UP_WHEN_PLUGGED_UNPLUGGED = "wake_up_when_plugged_unplugged";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
