@@ -406,7 +406,6 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
     }
 
     public void updateEverything() {
-        updateSBHIconColor();
         updateHeights();
         updateVisibilities();
         updateSystemIconsLayoutParams();
