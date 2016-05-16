@@ -50,4 +50,12 @@
     <!-- Does the notification LED support multiple colors?
          Used to decide if the user can change the colors -->
     <bool name="config_multiColorNotificationLed">false</bool>
+
+    <!-- Value for proximity check on screen wake
+         NOTE ! - Enable for devices that have a fast response proximity sensor (ideally < 300ms)
+    -->
+    <bool name="config_proximityCheckOnWake">false</bool>
+
+    <!-- Proximity check timeout on screen on -->
+    <integer name="config_proximityCheckTimeout">250</integer>
 </resources>

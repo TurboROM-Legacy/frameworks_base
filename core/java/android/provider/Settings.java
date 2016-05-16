@@ -3566,6 +3566,12 @@ public final class Settings {
         public static final String ALLOW_LIGHTS = "allow_lights";
 
         /**
+         * Check the proximity sensor during wake up
+         * @hide
+         */
+        public static final String PROXIMITY_CHECK_ON_WAKE = "proximity_check_on_wake";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
