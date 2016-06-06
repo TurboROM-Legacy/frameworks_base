@@ -30,6 +30,8 @@ import com.android.systemui.statusbar.policy.ZenModeController;
 /** Quick settings tile: Sound **/
 public class SoundTile extends QSTile<QSTile.State> {
 
+    private static final Intent SOUND_SETTINGS = new Intent("android.settings.SOUND_SETTINGS");
+
     private final ZenModeController mZenController;
     private final AudioManager mAudioManager;
 
@@ -73,6 +75,11 @@ public class SoundTile extends QSTile<QSTile.State> {
         updateState();
     }
 
+    @Override
+    protected void handleLongClick() {
+        mHost.startActivityDismissingKeyguard(SOUND_SETTINGS);
+    }
+
     private void updateState() {
         int oldState = mAudioManager.getRingerModeInternal();
         int newState = oldState;
@@ -99,16 +106,18 @@ public class SoundTile extends QSTile<QSTile.State> {
     @Override
     protected void handleUpdateState(State state, Object arg) {
         state.visible = true;
-        state.label = mContext.getString(R.string.quick_settings_sound_label);
         switch (mAudioManager.getRingerModeInternal()) {
             case AudioManager.RINGER_MODE_NORMAL:
                 state.icon = ResourceIcon.get(R.drawable.ic_qs_ringer_audible);
+                state.label = mContext.getString(R.string.quick_settings_sound_ring);
                 break;
             case AudioManager.RINGER_MODE_VIBRATE:
                 state.icon = ResourceIcon.get(R.drawable.ic_qs_ringer_vibrate);
+                state.label = mContext.getString(R.string.quick_settings_sound_vibrate);
                 break;
             case AudioManager.RINGER_MODE_SILENT:
                 state.icon = ResourceIcon.get(R.drawable.ic_qs_ringer_silent);
+                state.label = mContext.getString(R.string.quick_settings_sound_dnd);
                 break;
             default:
                 break;
