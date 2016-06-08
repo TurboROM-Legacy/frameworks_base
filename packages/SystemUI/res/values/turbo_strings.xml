@@ -153,4 +153,13 @@
 
     <!-- Smart pull-down warning -->
     <string name="smart_pulldown_disabled">Smart pull-down is disabled</string>
+
+    <!-- Vibrate/silent icon switch -->
+    <string name="status_bar_vib_sil">Vibrate</string>
+
+    <!-- headset icon switch -->
+    <string name="status_bar_headset">Wired headset</string>
+
+    <!-- VPN icon switch -->
+    <string name="status_bar_vpn">VPN</string>
 </resources>
