@@ -25,9 +25,7 @@
     <!-- Battery meter drawable styles -->
     <style name="BatteryMeterViewDrawable.Portrait"/>
     <style name="BatteryMeterViewDrawable.Landscape"/>
-    <style name="BatteryMeterViewDrawable.Circle">
-        <item name="blendMode">overlay</item>
-    </style>
+    <style name="BatteryMeterViewDrawable.Circle"/>
 
     <!-- Slim recent apps screen -->
     <style name="card.header_simple_title">
