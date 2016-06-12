@@ -4063,6 +4063,24 @@ public final class Settings {
         public static final String NAVBAR_LEFT_IN_LANDSCAPE = "navigation_bar_left";
 
         /**
+         * Show lock screen alarm
+         * @hide
+         */
+        public static final String SHOW_LOCK_SCREEN_ALARM = "show_lockscreen_alarm";
+
+        /**
+         * Show lock screen clock
+         * @hide
+         */
+        public static final String SHOW_LOCK_SCREEN_CLOCK = "show_lock_screen_clock";
+
+        /**
+         * Show lock screen date
+         * @hide
+         */
+        public static final String SHOW_LOCK_SCREEN_DATE = "show_lock_screen_date";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
