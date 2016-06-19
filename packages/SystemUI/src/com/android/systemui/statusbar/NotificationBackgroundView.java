@@ -18,12 +18,21 @@ package com.android.systemui.statusbar;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.ContentResolver;
+import android.database.ContentObserver;
 import android.graphics.Canvas;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
+import android.net.Uri;
+import android.os.Handler;
+import android.os.UserHandle;
+import android.provider.Settings;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+
+import com.android.systemui.statusbar.phone.NotificationPanelView;
 
 /**
  * A view that can be used for both the dimmed and normal background of an notification.
@@ -33,9 +42,14 @@ public class NotificationBackgroundView extends View {
     private Drawable mBackground;
     private int mClipTopAmount;
     private int mActualHeight;
+    private static int mTranslucencyPercentage;
+    private static boolean mTranslucentNotifications;
+
+    private SettingsObserver mSettingsObserver;
 
     public NotificationBackgroundView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mSettingsObserver = new SettingsObserver(new Handler());
     }
 
     @Override
@@ -46,8 +60,34 @@ public class NotificationBackgroundView extends View {
     private void draw(Canvas canvas, Drawable drawable) {
         if (drawable != null && mActualHeight > mClipTopAmount) {
             drawable.setBounds(0, mClipTopAmount, getWidth(), mActualHeight);
+
+            if (mTranslucentNotifications) {
+                if (drawable.getAlpha() != mTranslucencyPercentage)
+                    drawable.setAlpha(mTranslucencyPercentage);
+                if (NotificationPanelView.mKeyguardShowing) {
+                    drawable.setAlpha(179);
+                }
+                if (NotificationPanelView.mHeadsUpShowing ||
+                        NotificationPanelView.mHeadsUpAnimatingAway) {
+                    drawable.setAlpha(255);
+                }
+            } else {
+                drawable.setAlpha(255);
+            }
             drawable.draw(canvas);
         }
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        mSettingsObserver.observe();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        mSettingsObserver.unobserve();
     }
 
     @Override
@@ -135,6 +175,47 @@ public class NotificationBackgroundView extends View {
         if (mBackground instanceof RippleDrawable) {
             RippleDrawable ripple = (RippleDrawable) mBackground;
             ripple.setColor(ColorStateList.valueOf(color));
+        }
+    }
+
+    class SettingsObserver extends ContentObserver {
+        SettingsObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            ContentResolver resolver = mContext.getContentResolver();
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.TRANSLUCENT_NOTIFICATIONS_PREFERENCE_KEY), false, this);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.TRANSLUCENT_NOTIFICATIONS_PRECENTAGE_PREFERENCE_KEY),
+                    false, this);
+            update();
+        }
+
+        void unobserve() {
+            ContentResolver resolver = mContext.getContentResolver();
+            resolver.unregisterContentObserver(this);
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            update();
+        }
+
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            update();
+        }
+
+        public void update() {
+            ContentResolver resolver = mContext.getContentResolver();
+            mTranslucentNotifications = Settings.System.getIntForUser(resolver,
+                    Settings.System.TRANSLUCENT_NOTIFICATIONS_PREFERENCE_KEY, 0, UserHandle.USER_CURRENT) == 1;
+            mTranslucencyPercentage = Settings.System.getInt(mContext.getContentResolver(),
+                    Settings.System.TRANSLUCENT_NOTIFICATIONS_PRECENTAGE_PREFERENCE_KEY, 70);
+
+            mTranslucencyPercentage = 255 - ((mTranslucencyPercentage * 255) / 100);
         }
     }
 }

@@ -4245,6 +4245,35 @@ public final class Settings {
          * @hide
          */
         public static final String NETWORK_TRAFFIC_COLOR_OVERRIDE = "network_traffic_color_override";
+        
+        /**
+         * Blur settings
+         * @hide
+         */
+        public static final String STATUS_BAR_EXPANDED_ENABLED_PREFERENCE_KEY =
+                "blurred_status_bar_expanded_enabled_pref";
+
+        public static final String BLUR_RADIUS_PREFERENCE_KEY =
+                "blurred_expanded_panel_radius_pref";
+
+        public static final String BLUR_SCALE_PREFERENCE_KEY = "blurred_expanded_panel_scale_pref";
+
+        public static final String TRANSLUCENT_QUICK_SETTINGS_PREFERENCE_KEY =
+                "translucent_quick_settings_pref";
+
+        public static final String TRANSLUCENT_QUICK_SETTINGS_PRECENTAGE_PREFERENCE_KEY =
+                "translucent_quick_settings_percentage_pref";
+
+        public static final String TRANSLUCENT_HEADER_PREFERENCE_KEY = "translucent_header_pref";
+
+        public static final String TRANSLUCENT_HEADER_PRECENTAGE_PREFERENCE_KEY =
+                "translucent_header_percentage_pref";
+
+        public static final String TRANSLUCENT_NOTIFICATIONS_PREFERENCE_KEY =
+                "translucent_notifications_pref";
+
+        public static final String TRANSLUCENT_NOTIFICATIONS_PRECENTAGE_PREFERENCE_KEY =
+                "translucent_notifications_percentage_pref";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
