@@ -4081,6 +4081,12 @@ public final class Settings {
         public static final String SHOW_LOCK_SCREEN_DATE = "show_lock_screen_date";
 
         /**
+         * Change fonts for the system lock screen clock widget
+         * @hide
+         */
+        public static final String LOCK_SCREEN_CLOCK_FONT = "lock_screen_clock_font";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
