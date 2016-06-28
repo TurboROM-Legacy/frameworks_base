@@ -226,6 +226,7 @@ public interface WindowManager extends ViewManager {
             @ViewDebug.IntToString(from = TYPE_PRIVATE_PRESENTATION, to = "TYPE_PRIVATE_PRESENTATION"),
             @ViewDebug.IntToString(from = TYPE_VOICE_INTERACTION, to = "TYPE_VOICE_INTERACTION"),
             @ViewDebug.IntToString(from = TYPE_VOICE_INTERACTION_STARTING, to = "TYPE_VOICE_INTERACTION_STARTING"),
+            @ViewDebug.IntToString(from = TYPE_RECENTS_OVERLAY, to = "TYPE_RECENTS_OVERLAY"),
         })
         public int type;
 
