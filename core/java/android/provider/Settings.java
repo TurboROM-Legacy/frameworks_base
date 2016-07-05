@@ -6790,6 +6790,13 @@ public final class Settings {
         public static final String PULSE_CUSTOM_FUDGE_FACTOR = "pulse_custom_fudge_factor";
 
         /**
+         * Pulse renderer implementation
+         *
+         * @hide
+         */
+        public static final String PULSE_RENDER_STYLE_URI = "pulse_render_style";
+
+        /**
          * These are the settings to be backed up.
          *
          * NOTE: Settings are backed up and restored in the order they appear
