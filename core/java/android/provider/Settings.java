@@ -6797,6 +6797,18 @@ public final class Settings {
         public static final String PULSE_RENDER_STYLE_URI = "pulse_render_style";
 
         /**
+         * Pulse fudge factor
+         * @hide
+         */
+        public static final String PULSE_SOLID_FUDGE_FACTOR = "pulse_solid_fudge_factor";
+
+        /**
+         * Pulse lavalamp animation speed
+         * @hide
+         */
+        public static final String PULSE_LAVALAMP_SOLID_SPEED = "lava_lamp_solid_speed";
+
+        /**
          * These are the settings to be backed up.
          *
          * NOTE: Settings are backed up and restored in the order they appear
