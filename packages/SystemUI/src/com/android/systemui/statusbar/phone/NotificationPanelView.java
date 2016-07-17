@@ -2503,7 +2503,7 @@ public class NotificationPanelView extends PanelView implements
         void observe() {
             ContentResolver resolver = mContext.getContentResolver();
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE), false, this, UserHandle.USER_ALL);
+                    Settings.System.DOUBLE_TAP_TO_SLEEP_STATUS_BAR), false, this, UserHandle.USER_ALL);
             update();
         }
 
@@ -2525,7 +2525,7 @@ public class NotificationPanelView extends PanelView implements
         public void update() {
             ContentResolver resolver = mContext.getContentResolver();
             mDoubleTapToSleepEnabled = Settings.System.getIntForUser(resolver,
-                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE, 0, UserHandle.USER_CURRENT) == 1;
+                    Settings.System.DOUBLE_TAP_TO_SLEEP_STATUS_BAR, 0, UserHandle.USER_CURRENT) == 1;
         }
     }
 }
