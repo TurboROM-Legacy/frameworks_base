@@ -58,4 +58,7 @@
     <!-- Quick Settings tiles -->
     <color name="qs_tile_text">#e1e1e1</color>
     <color name="qs_tile_divider">#606060</color>
+
+    <!-- SystemUI action icons -->
+    <color name="action_icon_color">#FFFFFFFF</color>
 </resources>
