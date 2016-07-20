@@ -181,15 +181,14 @@ void OpenGLRenderer::discardFramebuffer(float left, float top, float right, floa
 }
 
 void OpenGLRenderer::clear(float left, float top, float right, float bottom, bool opaque) {
-    if (!opaque) {
-        mRenderState.scissor().setEnabled(true);
-        mRenderState.scissor().set(left, getViewportHeight() - bottom, right - left, bottom - top);
-        glClear(GL_COLOR_BUFFER_BIT);
-        mDirty = true;
+    mRenderState.scissor().setEnabled(true);
+    mRenderState.scissor().set(left, getViewportHeight() - bottom, right - left, bottom - top);
+    glClear(GL_COLOR_BUFFER_BIT);
+    mDirty = true;
+    if (opaque) {
+        mRenderState.scissor().reset();
         return;
     }
-
-    mRenderState.scissor().reset();
 }
 
 void OpenGLRenderer::startTilingCurrentClip(bool opaque, bool expand) {
@@ -1699,6 +1698,7 @@ void OpenGLRenderer::drawPatch(const SkBitmap* bitmap, const Patch* mesh,
 
     Texture* texture = entry ? entry->texture : mCaches.textureCache.get(bitmap);
     if (!texture) return;
+    const AutoTexture autoCleanup(texture);
 
     // 9 patches are built for stretching - always filter
     int textureFillFlags = TextureFillFlags::ForceFilter;
