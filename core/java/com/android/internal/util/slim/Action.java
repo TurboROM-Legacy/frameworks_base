@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.app.ActivityManagerNative;
 import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.camera2.CameraManager;
@@ -45,6 +46,7 @@ import android.view.IWindowManager;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.WindowManagerGlobal;
+import android.view.WindowManagerPolicyControl;
 
 import com.android.internal.statusbar.IStatusBarService;
 
@@ -55,6 +57,12 @@ public class Action {
     private static final int MSG_INJECT_KEY_DOWN = 1066;
     private static final int MSG_INJECT_KEY_UP = 1067;
 
+    private static final int STATE_ENABLE_FOR_ALL = 1;
+    private static final int STATE_USER_CONFIGURABLE = 2;
+    private static int mExpandedDesktopState;
+
+    private static Context mContext;
+
     private static boolean sTorchEnabled = false;
 
     public static void processAction(Context context, String action, boolean isLongpress) {
@@ -63,6 +71,9 @@ public class Action {
 
     public static void processActionWithOptions(Context context,
             String action, boolean isLongpress, boolean collapseShade) {
+
+            mContext = context;
+            mExpandedDesktopState = getExpandedDesktopState(mContext.getContentResolver());
 
             if (action == null || action.equals(ActionConstants.ACTION_NULL)) {
                 return;
@@ -103,6 +114,17 @@ public class Action {
                 return;
             } else if (action.equals(ActionConstants.ACTION_SEARCH)) {
                 triggerVirtualKeypress(KeyEvent.KEYCODE_SEARCH, isLongpress);
+                return;
+            } else if (action.equals(ActionConstants.ACTION_EXPANDED_DESKTOP)) {
+                int state = mExpandedDesktopState;
+                switch (state) {
+                    case STATE_ENABLE_FOR_ALL:
+                        userConfigurableSettings();
+                        break;
+                    case STATE_USER_CONFIGURABLE:
+                        enableForAll();
+                        break;
+                }
                 return;
             } else if (action.equals(ActionConstants.ACTION_KILL)) {
                 if (isKeyguardShowing) return;
@@ -433,4 +455,39 @@ public class Action {
         im.injectInputEvent(upEvent, InputManager.INJECT_INPUT_EVENT_MODE_ASYNC);
     }
 
+    private static int getExpandedDesktopState(ContentResolver cr) {
+        String value = Settings.Global.getString(cr, Settings.Global.POLICY_CONTROL);
+        if ("immersive.full=*".equals(value)) {
+            return STATE_ENABLE_FOR_ALL;
+        }
+        return STATE_USER_CONFIGURABLE;
+    }
+
+    protected static void toggleState() {
+        int state = mExpandedDesktopState;
+        switch (state) {
+            case STATE_ENABLE_FOR_ALL:
+                userConfigurableSettings();
+                break;
+            case STATE_USER_CONFIGURABLE:
+                enableForAll();
+                break;
+        }
+    }
+
+    private static void userConfigurableSettings() {
+        mExpandedDesktopState = STATE_USER_CONFIGURABLE;
+        writeValue("");
+        WindowManagerPolicyControl.reloadFromSetting(mContext);
+    }
+
+    private static  void enableForAll() {
+        mExpandedDesktopState = STATE_ENABLE_FOR_ALL;
+        writeValue("immersive.full=*");
+    }
+
+    private static void writeValue(String value) {
+        Settings.Global.putString(mContext.getContentResolver(),
+             Settings.Global.POLICY_CONTROL, value);
+    }
 }
