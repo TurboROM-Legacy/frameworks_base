@@ -203,7 +203,7 @@ public class ActionHelper {
                         SYSTEMUI_METADATA_NAME + ":drawable/ic_sysbar_lastapp", null, null);
         } else if (clickAction.equals(ActionConstants.ACTION_NOTIFICATIONS)) {
             resId = systemUiResources.getIdentifier(
-                        SYSTEMUI_METADATA_NAME + ":drawable/ic_sysbar_notifications", null, null);
+                        SYSTEMUI_METADATA_NAME + ":drawable/ic_sysbar_notification_panel", null, null);
         } else if (clickAction.equals(ActionConstants.ACTION_SETTINGS_PANEL)) {
             resId = systemUiResources.getIdentifier(
                         SYSTEMUI_METADATA_NAME + ":drawable/ic_sysbar_qs", null, null);
@@ -215,7 +215,7 @@ public class ActionHelper {
                         SYSTEMUI_METADATA_NAME + ":drawable/ic_sysbar_torch", null, null);
         } else {
             resId = systemUiResources.getIdentifier(
-                        SYSTEMUI_METADATA_NAME + ":drawable/ic_sysbar_null", null, null);
+                        SYSTEMUI_METADATA_NAME + ":drawable/ic_sysbar_no_action", null, null);
         }
         return resId;
     }
