@@ -23,6 +23,7 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.UserHandle;
+import android.provider.Settings;
 import android.util.Log;
 import android.util.SparseArray;
 import com.android.systemui.recents.Constants;
@@ -104,9 +105,28 @@ public class RecentsTaskLoadPlan {
         if (mRawTasks == null) {
             preloadRawTasks(isTopTaskHome);
         }
+
+        boolean onlyShowRunningTasks = Settings.System.getIntForUser(
+                mContext.getContentResolver(), Settings.System.RECENT_SHOW_RUNNING_TASKS, 0,
+                UserHandle.USER_CURRENT) == 1;
+
         int taskCount = mRawTasks.size();
         for (int i = 0; i < taskCount; i++) {
             ActivityManager.RecentTaskInfo t = mRawTasks.get(i);
+
+            final List<ActivityManager.RunningTaskInfo> runningTasks =
+                mSystemServicesProxy.getRunningTasks(Integer.MAX_VALUE);
+
+            boolean isRunning = false;
+            if (onlyShowRunningTasks) {
+                for (ActivityManager.RunningTaskInfo task : runningTasks) {
+                    if (t.baseIntent.getComponent().getPackageName().equals(
+                            task.baseActivity.getPackageName())) {
+                        isRunning = true;
+                    }
+                }
+                if (!isRunning) continue;
+            }
 
             // Compose the task key
             Task.TaskKey taskKey = new Task.TaskKey(t.persistentId, t.stackId, t.baseIntent,

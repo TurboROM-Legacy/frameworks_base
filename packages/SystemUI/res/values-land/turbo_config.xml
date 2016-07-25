@@ -15,17 +15,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!--Recents FAB -->
-    <!-- The min animation duration for animating the task bar in. -->
-    <integer name="recents_animate_task_bar_enter_duration">225</integer>
-
-    <!-- The animation delay for animating the first task in. This should roughly be the animation
-     duration of the transition in to recents. -->
-    <integer name="recents_animate_task_bar_enter_delay">275</integer>
-
-    <!-- The min animation duration for animating the task bar out. -->
-    <integer name="recents_animate_task_bar_exit_duration">125</integer>
-
     <!-- Default value how many apps show the app screenshot on slim recents view entry -->
-    <integer name="expanded_items_default">2</integer>
+    <integer name="expanded_items_default">1</integer>
 </resources>

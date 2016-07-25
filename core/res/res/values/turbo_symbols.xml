@@ -84,4 +84,13 @@
     <java-symbol type="string" name="global_action_reboot" />
     <java-symbol type="string" name="reboot_system" />
     <java-symbol type="string" name="reboot_progress" />
+
+    <!-- Slim recent apps screen -->
+    <java-symbol type="anim" name="recent_screen_enter" />
+    <java-symbol type="anim" name="recent_screen_enter_left" />
+    <java-symbol type="anim" name="recent_screen_fade_out" />
+    <java-symbol type="integer" name="config_recentDefaultDur" />
+    <java-symbol type="integer" name="config_recentExitDur" />
+    <java-symbol type="style" name="Animation.RecentScreen" />
+    <java-symbol type="style" name="Animation.RecentScreen.Left" />
 </resources>
