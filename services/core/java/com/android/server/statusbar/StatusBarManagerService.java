@@ -531,6 +531,15 @@ public class StatusBarManagerService extends IStatusBarService.Stub {
     }
 
     @Override
+    public void toggleSmartPulldown() {
+        if (mBar != null) {
+            try {
+                mBar.toggleSmartPulldown();
+            } catch (RemoteException ex) {}
+        }
+    }
+
+    @Override
     public void setCurrentUser(int newUserId) {
         if (SPEW) Slog.d(TAG, "Setting current user to user " + newUserId);
         mCurrentUserId = newUserId;

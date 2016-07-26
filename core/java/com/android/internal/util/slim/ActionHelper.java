@@ -207,6 +207,9 @@ public class ActionHelper {
         } else if (clickAction.equals(ActionConstants.ACTION_SETTINGS_PANEL)) {
             resId = systemUiResources.getIdentifier(
                         SYSTEMUI_METADATA_NAME + ":drawable/ic_sysbar_qs", null, null);
+        } else if (clickAction.equals(ActionConstants.ACTION_SMART_PULLDOWN)) {
+            resId = systemUiResources.getIdentifier(
+                        SYSTEMUI_METADATA_NAME + ":drawable/ic_sysbar_qs", null, null);
         } else if (clickAction.equals(ActionConstants.ACTION_SCREENSHOT)) {
             resId = systemUiResources.getIdentifier(
                         SYSTEMUI_METADATA_NAME + ":drawable/ic_sysbar_screenshot", null, null);
