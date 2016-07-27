@@ -6210,7 +6210,7 @@ public final class Settings {
         public static final String DEVICE_HOSTNAME = "device_hostname";
 
         /**
-         * This are the settings to be backed up.
+         * These are the settings to be backed up.
          *
          * NOTE: Settings are backed up and restored in the order they appear
          *       in this array. If you have one setting depending on another,
