@@ -6809,6 +6809,12 @@ public final class Settings {
         public static final String PULSE_LAVALAMP_SOLID_SPEED = "lava_lamp_solid_speed";
 
         /**
+         * Navbar buttons transparency
+         * @hide
+         */
+        public static final String NAVBAR_BUTTONS_ALPHA = "navbar_buttons_alpha";
+
+        /**
          * These are the settings to be backed up.
          *
          * NOTE: Settings are backed up and restored in the order they appear
