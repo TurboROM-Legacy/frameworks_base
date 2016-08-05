@@ -42,6 +42,7 @@ import com.android.internal.util.NotificationColorUtil;
 import com.android.systemui.BatteryLevelTextView;
 import com.android.systemui.BatteryMeterView;
 import com.android.systemui.FontSizeUtils;
+import com.android.systemui.purenexus.carrierlabel.CarrierLabel;
 import com.android.systemui.R;
 import com.android.systemui.statusbar.NotificationData;
 import com.android.systemui.statusbar.SignalClusterView;
@@ -80,13 +81,14 @@ public class StatusBarIconController implements Tunable {
     private ImageView mMoreIcon;
     private BatteryLevelTextView mBatteryLevelTextView;
     private BatteryMeterView mBatteryMeterView;
+    private CarrierLabel mCarrierLabel;
+    private CarrierLabel mCarrierLabelKeyguard;
     private Clock mClock;
     private Clock mCenterClock;
     private Clock mLeftClock;
     private LinearLayout mCenterClockLayout;
     private boolean mShowClock;
     private int mClockLocation;
-    private TextView mCarrierLabel;
 
     private int mIconSize;
     private int mIconHPadding;
@@ -132,11 +134,12 @@ public class StatusBarIconController implements Tunable {
         mBatteryLevelTextView =
                 (BatteryLevelTextView) statusBar.findViewById(R.id.battery_level_text);
         mBatteryMeterView = (BatteryMeterView) statusBar.findViewById(R.id.battery);
+        mCarrierLabel = (CarrierLabel) statusBar.findViewById(R.id.status_bar_carrier_text);
+        mCarrierLabelKeyguard = (CarrierLabel) keyguardStatusBar.findViewById(R.id.keyguard_carrier_text);
         mClock = (Clock) statusBar.findViewById(R.id.clock);
         mCenterClockLayout = (LinearLayout)statusBar.findViewById(R.id.center_clock_layout);
         mCenterClock = (Clock) statusBar.findViewById(R.id.center_clock);
         mLeftClock = (Clock) statusBar.findViewById(R.id.left_clock);
-        mCarrierLabel = (TextView) statusBar.findViewById(R.id.status_bar_carrier_text);
         mLinearOutSlowIn = AnimationUtils.loadInterpolator(mContext,
                 android.R.interpolator.linear_out_slow_in);
         mFastOutSlowIn = AnimationUtils.loadInterpolator(mContext,
@@ -146,6 +149,8 @@ public class StatusBarIconController implements Tunable {
         mHandler = new Handler();
         updateResources();
 
+        mCarrierLabel.setIconController(this);
+        mCarrierLabelKeyguard.setIconController2(this);
         mClock.setIconController(this);
         mCenterClock.setIconController(this);
         mLeftClock.setIconController(this);
@@ -446,9 +451,27 @@ public class StatusBarIconController implements Tunable {
         mMoreIcon.setImageTintList(ColorStateList.valueOf(mIconTint));
         mBatteryLevelTextView.setTextColor(mIconTint);
         mBatteryMeterView.setDarkIntensity(mDarkIntensity);
+        applyCarrierLabelTint();
         applyClockColorTint();
-        mCarrierLabel.setTextColor(mIconTint);
         applyNotificationIconsTint();
+    }
+
+    public void applyCarrierLabelTint() {
+        ContentResolver resolver = mContext.getContentResolver();
+        boolean overrideCarrierLabelColor = Settings.System.getIntForUser(resolver,
+                Settings.System.STATUS_BAR_CARRIER_COLOR_OVERRIDE, 0,
+                UserHandle.USER_CURRENT) == 1;
+        int defaultColor = mContext.getResources().getColor(R.color.status_bar_carrier_color);
+        int carrierLabelColor = Settings.System.getIntForUser(resolver,
+                Settings.System.STATUS_BAR_CARRIER_COLOR, defaultColor,
+                UserHandle.USER_CURRENT);
+        if (overrideCarrierLabelColor) {
+            mCarrierLabel.setTextColor(carrierLabelColor);
+            mCarrierLabelKeyguard.setTextColor(carrierLabelColor);
+        } else {
+            mCarrierLabel.setTextColor(mIconTint);
+            mCarrierLabelKeyguard.setTextColor(mIconTint);
+        }
     }
 
     public void applyClockColorTint() {

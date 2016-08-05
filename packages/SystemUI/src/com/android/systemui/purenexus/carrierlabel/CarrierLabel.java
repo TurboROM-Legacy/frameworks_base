@@ -41,12 +41,39 @@ import java.util.Calendar;
 import java.util.TimeZone;
 
 import com.android.systemui.R;
+import com.android.systemui.statusbar.phone.StatusBarIconController;
 
 public class CarrierLabel extends TextView {
 
     private Context mContext;
     private boolean mAttached;
     private static boolean isCN;
+
+    private SettingsObserver mSettingsObserver;
+    private StatusBarIconController mIconController;
+    private StatusBarIconController mIconController2;
+
+    protected class SettingsObserver extends ContentObserver {
+        SettingsObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            ContentResolver resolver = mContext.getContentResolver();
+            resolver.registerContentObserver(Settings.System
+                    .getUriFor(Settings.System.STATUS_BAR_CARRIER_COLOR_OVERRIDE), false,
+                    this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System
+                    .getUriFor(Settings.System.STATUS_BAR_CARRIER_COLOR), false,
+                    this, UserHandle.USER_ALL);
+            updateSettings();
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            updateSettings();
+        }
+    }
 
     public CarrierLabel(Context context) {
         this(context, null);
@@ -62,6 +89,14 @@ public class CarrierLabel extends TextView {
         updateNetworkName(true, null, false, null);
     }
 
+    public void setIconController(StatusBarIconController iconController) {
+        mIconController = iconController;
+    }
+
+    public void setIconController2(StatusBarIconController iconController2) {
+        mIconController2 = iconController2;
+    }
+
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -73,6 +108,12 @@ public class CarrierLabel extends TextView {
             filter.addAction(Intent.ACTION_CUSTOM_CARRIER_LABEL_CHANGED);
             mContext.registerReceiver(mIntentReceiver, filter, null, getHandler());
         }
+
+        if (mSettingsObserver == null) {
+            mSettingsObserver = new SettingsObserver(new Handler());
+        }
+        mSettingsObserver.observe();
+        updateSettings();
     }
 
     @Override
@@ -80,6 +121,7 @@ public class CarrierLabel extends TextView {
         super.onDetachedFromWindow();
         if (mAttached) {
             mContext.unregisterReceiver(mIntentReceiver);
+            getContext().getContentResolver().unregisterContentObserver(mSettingsObserver);
             mAttached = false;
         }
     }
@@ -96,8 +138,15 @@ public class CarrierLabel extends TextView {
                         intent.getStringExtra(TelephonyIntents.EXTRA_PLMN));
                 isCN = CarrierUtils.isChineseLanguage();
             }
+            updateCarrierLabelColor();
         }
     };
+
+    final void updateCarrierLabelColor() {
+        if (mIconController != null) {
+            mIconController.applyCarrierLabelTint();
+        }
+    }
 
     void updateNetworkName(boolean showSpn, String spn, boolean showPlmn, String plmn) {
         final String str;
@@ -137,5 +186,11 @@ public class CarrierLabel extends TextView {
             operatorName = telephonyManager.getSimOperatorName();
         }
         return operatorName;
+    }
+
+    protected void updateSettings() {
+        if (mAttached) {
+            updateCarrierLabelColor();
+        }
     }
 }

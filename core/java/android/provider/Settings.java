@@ -3931,6 +3931,20 @@ public final class Settings {
         public static final String STATUS_BAR_SHOW_CARRIER = "status_bar_show_carrier";
 
         /**
+         * Override for status bar carrier color
+         * 0. Do not override
+         * 1. Show the set color at all times
+         * @hide
+         */
+        public static final String STATUS_BAR_CARRIER_COLOR_OVERRIDE = "status_bar_carrier_color_override";
+
+        /**
+         * Status bar carrier color
+         * @hide
+         */
+        public static final String STATUS_BAR_CARRIER_COLOR = "status_bar_carrier_color";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
