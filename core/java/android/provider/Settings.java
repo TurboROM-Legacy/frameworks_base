@@ -6760,6 +6760,12 @@ public final class Settings {
         public static final String FLING_LONGSWIPE_THRESHOLD_DOWN_LAND = "fling_longswipe_threshold_down_land";
 
         /**
+         * Width of Fling trails stroke, in density pixels
+         * @hide
+         */
+        public static final String FLING_TRAILS_WIDTH = "fling_trails_width";
+
+        /**
          * Custom Pulse width
          * @hide
          */
