@@ -1472,7 +1472,7 @@
        selection context mode in text views. -->
   <public type="id" name="selectTextMode" id="0x0102002d" />
 
-  <!--SlimSeekBarPreference IDs -->
+  <!-- SeekBarPreference IDs -->
   <public type="id" name="monitor_box" id="0x0102003d" />
   <public type="id" name="seek_bar" id="0x0102003e" />
 
@@ -2681,4 +2681,9 @@
     <public type="id" name="accessibilityActionContextClick" id="0x0102003c" />
 
     <public type="string" name="fingerprint_icon_content_description" />
+
+    <public type="attr" name="interval" />
+    <public type="attr" name="min" />
+    <public type="attr" name="unitsLeft" />
+    <public type="attr" name="unitsRight" />
 </resources>
