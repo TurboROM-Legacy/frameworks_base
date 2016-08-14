@@ -4275,6 +4275,9 @@ public final class Settings {
         public static final String TRANSLUCENT_NOTIFICATIONS_PRECENTAGE_PREFERENCE_KEY =
                 "translucent_notifications_percentage_pref";
 
+        public static final String RECENT_APPS_ENABLED_PREFERENCE_KEY = 
+                "blurred_recent_app_enabled_pref";
+
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
