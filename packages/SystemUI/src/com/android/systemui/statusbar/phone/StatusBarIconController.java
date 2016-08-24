@@ -510,10 +510,8 @@ public class StatusBarIconController implements Tunable {
                 UserHandle.USER_CURRENT);
         if (overrideTrafficColor) {
             mNetworkTraffic.setColor(trafficColor);
-            mNetworkTraffic.setTextColor(trafficColor);
         } else {
             mNetworkTraffic.setColor2(mDarkIntensity);
-            mNetworkTraffic.setTextColor(mIconTint);
         }
     }
 

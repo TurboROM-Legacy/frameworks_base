@@ -324,6 +324,8 @@ public class NetworkTraffic extends TextView {
                 Settings.System.NETWORK_TRAFFIC_HIDEARROW, 0,
                 UserHandle.USER_CURRENT) == 1;
 
+        mState = Settings.System.getInt(resolver, Settings.System.NETWORK_TRAFFIC_STATE, 0);
+
         boolean overrideTrafficColor = Settings.System.getIntForUser(resolver,
                 Settings.System.NETWORK_TRAFFIC_COLOR_OVERRIDE, 0,
                 UserHandle.USER_CURRENT) == 1;
@@ -337,7 +339,7 @@ public class NetworkTraffic extends TextView {
             mNetworkTrafficColor = mIconTint;
         }
 
-        mState = Settings.System.getInt(resolver, Settings.System.NETWORK_TRAFFIC_STATE, 0);
+        setTextColor(mNetworkTrafficColor);
 
         if (mAttached) {
             updateNetworkTrafficColor();
