@@ -56,7 +56,6 @@ public class KeyguardStatusBarView extends RelativeLayout {
     private View mSystemIconsSuperContainer;
     private MultiUserSwitch mMultiUserSwitch;
     private ImageView mMultiUserAvatar;
-    private BatteryMeterView mBatteryMeter;
     private BatteryLevelTextView mBatteryLevel;
 
     private TextView mCarrierLabel;
@@ -93,7 +92,6 @@ public class KeyguardStatusBarView extends RelativeLayout {
         mSystemIconsSuperContainer = findViewById(R.id.system_icons_super_container);
         mMultiUserSwitch = (MultiUserSwitch) findViewById(R.id.multi_user_switch);
         mMultiUserAvatar = (ImageView) findViewById(R.id.multi_user_avatar);
-        mBatteryMeter = (BatteryMeterView) findViewById(R.id.battery);
         mCarrierLabel = (TextView) findViewById(R.id.keyguard_carrier_text);
         if (CarrierUtils.isWifiOnly(getContext())) {
             mCarrierLabel.setText("");
@@ -162,8 +160,7 @@ public class KeyguardStatusBarView extends RelativeLayout {
 
     public void setBatteryController(BatteryController batteryController) {
         mBatteryController = batteryController;
-        mBatteryMeter.setBatteryController(batteryController);
-        mBatteryMeter.setChargingAnimationsEnabled(true);
+        ((BatteryMeterView) findViewById(R.id.battery)).setBatteryController(batteryController);
         mBatteryLevel.setBatteryController(batteryController);
     }
 
